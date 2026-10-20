@@ -224,9 +224,12 @@ Q-SPINN/
 │   ├── exp_B_hybrid_fi2010/          # EXPERIMENT B: Single-Asset FI-2010 Benchmark
 │   │   ├── train.py                  # Full 3-stage training script (A, B, C) + Ablation
 │   │   ├── qspinn_fi2010_k10_s0.pt   # Calibrated production weights (k=10, seed 0)
+│   │   ├── qspinn_fi2010_k10_s1.pt   # Calibrated production weights (k=10, seed 1)
+│   │   ├── qspinn_fi2010_k10_s2.pt   # Calibrated production weights (k=10, seed 2)
+│   │   ├── qspinn_fi2010_k10_s3.pt   # Calibrated production weights (k=10, seed 3)
+│   │   ├── qspinn_fi2010_k10_s4.pt   # Calibrated production weights (k=10, seed 4)
 │   │   ├── qspinn_fi2010_k20_s0.pt   # Calibrated production weights (k=20, seed 0)
 │   │   ├── qspinn_fi2010_k50_s0.pt   # Calibrated production weights (k=50, seed 0)
-│   │   ├── qspinn_fi2010_k10_s1.pt   # Calibrated production weights (k=10, seed 1)
 │   │   ├── qspinn_fi2010.pt          # Canonical deployment weights for live inference
 │   │   ├── RESULTS_k10_s0.md         # Detailed markdown report for k=10
 │   │   ├── RESULTS_k20_s0.md         # Detailed markdown report for k=20
