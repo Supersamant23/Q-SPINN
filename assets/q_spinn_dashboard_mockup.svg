@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  
+  <rect width="1600" height="900" fill="#F5F5F5"/>
+  <rect width="180" height="900" fill="#263238"/>
+  <text x="20" y="40" fill="#FFFFFF" font-size="16" font-weight="bold" font-family="Arial,sans-serif">Q-SPINN Monitor</text>
+  <line x1="20" y1="55" x2="160" y2="55" stroke="#37474F" stroke-width="2"/>
+  <circle cx="25" cy="86" r="4" fill="#80CBC4"/>
+  <text x="40" y="90" fill="#80CBC4" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Overview</text>
+  <circle cx="25" cy="126" r="4" fill="#B0BEC5"/>
+  <text x="40" y="130" fill="#B0BEC5" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Containers</text>
+  <circle cx="25" cy="166" r="4" fill="#B0BEC5"/>
+  <text x="40" y="170" fill="#B0BEC5" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Metrics</text>
+  <circle cx="25" cy="206" r="4" fill="#B0BEC5"/>
+  <text x="40" y="210" fill="#B0BEC5" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Predictions</text>
+  <circle cx="25" cy="246" r="4" fill="#B0BEC5"/>
+  <text x="40" y="250" fill="#B0BEC5" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Ablation</text>
+  <rect x="180" y="0" width="1420" height="50" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="200" y="30" fill="#424242" font-size="16" font-weight="bold" font-family="Arial,sans-serif">Q-SPINN Health Monitor — v1.0 (Conceptual/Developmental)</text>
+  <text x="1580" y="30" text-anchor="end" fill="#757575" font-size="14" font-weight="bold" font-family="Monospace,sans-serif">11:34:00 IST</text>
+  <rect x="198" y="68" width="453" height="263" rx="8" fill="#00000015"/>
+  <rect x="195" y="65" width="453" height="263" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <path d="M 195 73 A 8 8 0 0 1 203 65 L 640 65 A 8 8 0 0 1 648 73 L 648 100 L 195 100 Z" fill="#ECEFF1"/>
+  <line x1="195" y1="100" x2="648" y2="100" stroke="#CFD8DC" stroke-width="1"/>
+  <text x="210" y="88" fill="#37474F" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Container Status Grid</text>
+  <rect x="205" y="110" width="211" height="52" rx="4" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="210" y="125" fill="#424242" font-size="11" font-weight="bold" font-family="Arial,sans-serif">ingestor</text>
+  <rect x="371" y="116" width="40" height="12" rx="2" fill="#43A047"/>
+  <text x="391" y="125" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold" font-family="Arial,sans-serif">RUNNING</text>
+  <rect x="210" y="132" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="210" y="132" width="20" height="4" rx="2" fill="#1E88E5"/>
+  <rect x="315" y="132" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="315" y="132" width="35" height="4" rx="2" fill="#FB8C00"/>
+  <rect x="426" y="110" width="211" height="52" rx="4" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="431" y="125" fill="#424242" font-size="11" font-weight="bold" font-family="Arial,sans-serif">snn-worker</text>
+  <rect x="592" y="116" width="40" height="12" rx="2" fill="#43A047"/>
+  <text x="612" y="125" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold" font-family="Arial,sans-serif">RUNNING</text>
+  <rect x="431" y="132" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="431" y="132" width="20" height="4" rx="2" fill="#1E88E5"/>
+  <rect x="536" y="132" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="536" y="132" width="35" height="4" rx="2" fill="#FB8C00"/>
+  <rect x="205" y="167" width="211" height="52" rx="4" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="210" y="182" fill="#424242" font-size="11" font-weight="bold" font-family="Arial,sans-serif">pinn-broker</text>
+  <rect x="371" y="173" width="40" height="12" rx="2" fill="#43A047"/>
+  <text x="391" y="182" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold" font-family="Arial,sans-serif">RUNNING</text>
+  <rect x="210" y="189" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="210" y="189" width="20" height="4" rx="2" fill="#1E88E5"/>
+  <rect x="315" y="189" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="315" y="189" width="35" height="4" rx="2" fill="#FB8C00"/>
+  <rect x="426" y="167" width="211" height="52" rx="4" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="431" y="182" fill="#424242" font-size="11" font-weight="bold" font-family="Arial,sans-serif">evaluator</text>
+  <rect x="592" y="173" width="40" height="12" rx="2" fill="#43A047"/>
+  <text x="612" y="182" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold" font-family="Arial,sans-serif">RUNNING</text>
+  <rect x="431" y="189" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="431" y="189" width="20" height="4" rx="2" fill="#1E88E5"/>
+  <rect x="536" y="189" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="536" y="189" width="35" height="4" rx="2" fill="#FB8C00"/>
+  <rect x="205" y="224" width="211" height="52" rx="4" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="210" y="239" fill="#424242" font-size="11" font-weight="bold" font-family="Arial,sans-serif">api-gateway</text>
+  <rect x="371" y="230" width="40" height="12" rx="2" fill="#43A047"/>
+  <text x="391" y="239" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold" font-family="Arial,sans-serif">RUNNING</text>
+  <rect x="210" y="246" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="210" y="246" width="20" height="4" rx="2" fill="#1E88E5"/>
+  <rect x="315" y="246" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="315" y="246" width="35" height="4" rx="2" fill="#FB8C00"/>
+  <rect x="426" y="224" width="211" height="52" rx="4" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="431" y="239" fill="#424242" font-size="11" font-weight="bold" font-family="Arial,sans-serif">dashboard</text>
+  <rect x="592" y="230" width="40" height="12" rx="2" fill="#43A047"/>
+  <text x="612" y="239" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold" font-family="Arial,sans-serif">RUNNING</text>
+  <rect x="431" y="246" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="431" y="246" width="20" height="4" rx="2" fill="#1E88E5"/>
+  <rect x="536" y="246" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="536" y="246" width="35" height="4" rx="2" fill="#FB8C00"/>
+  <rect x="205" y="281" width="211" height="52" rx="4" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="210" y="296" fill="#424242" font-size="11" font-weight="bold" font-family="Arial,sans-serif">message-queue</text>
+  <rect x="371" y="287" width="40" height="12" rx="2" fill="#43A047"/>
+  <text x="391" y="296" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold" font-family="Arial,sans-serif">RUNNING</text>
+  <rect x="210" y="303" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="210" y="303" width="20" height="4" rx="2" fill="#1E88E5"/>
+  <rect x="315" y="303" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="315" y="303" width="35" height="4" rx="2" fill="#FB8C00"/>
+  <rect x="426" y="281" width="211" height="52" rx="4" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="431" y="296" fill="#424242" font-size="11" font-weight="bold" font-family="Arial,sans-serif">mlflow-server</text>
+  <rect x="592" y="287" width="40" height="12" rx="2" fill="#43A047"/>
+  <text x="612" y="296" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold" font-family="Arial,sans-serif">RUNNING</text>
+  <rect x="431" y="303" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="431" y="303" width="20" height="4" rx="2" fill="#1E88E5"/>
+  <rect x="536" y="303" width="95" height="4" rx="2" fill="#CFD8DC"/>
+  <rect x="536" y="303" width="35" height="4" rx="2" fill="#FB8C00"/>
+  <rect x="666" y="68" width="453" height="263" rx="8" fill="#00000015"/>
+  <rect x="663" y="65" width="453" height="263" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <path d="M 663 73 A 8 8 0 0 1 671 65 L 1108 65 A 8 8 0 0 1 1116 73 L 1116 100 L 663 100 Z" fill="#ECEFF1"/>
+  <line x1="663" y1="100" x2="1116" y2="100" stroke="#CFD8DC" stroke-width="1"/>
+  <text x="678" y="88" fill="#37474F" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Spike Rate Timeline</text>
+  <polyline points="693,115 693,298 1096,298" stroke="#B0BEC5" stroke-width="2" fill="none"/>
+  <rect x="753" y="115" width="40" height="183" fill="#FFF9C4" opacity="0.5"/>
+  <text x="773" y="125" text-anchor="middle" fill="#F57F17" font-size="10" font-family="Arial,sans-serif">Regime Shift</text>
+  <path d="M 693 288 Q 753 135, 813 135 Q 943 135, 1096 258" fill="none" stroke="#1E88E5" stroke-width="2"/>
+  <path d="M 693 293 Q 763 165, 833 165 Q 943 165, 1096 268" fill="none" stroke="#F57C00" stroke-width="2"/>
+  <path d="M 693 283 Q 773 125, 843 125 Q 973 125, 1096 248" fill="none" stroke="#43A047" stroke-width="2"/>
+  <rect x="1134" y="68" width="453" height="263" rx="8" fill="#00000015"/>
+  <rect x="1131" y="65" width="453" height="263" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <path d="M 1131 73 A 8 8 0 0 1 1139 65 L 1576 65 A 8 8 0 0 1 1584 73 L 1584 100 L 1131 100 Z" fill="#ECEFF1"/>
+  <line x1="1131" y1="100" x2="1584" y2="100" stroke="#CFD8DC" stroke-width="1"/>
+  <text x="1146" y="88" fill="#37474F" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Loss Curves</text>
+  <polyline points="1161,115 1161,298 1564,298" stroke="#B0BEC5" stroke-width="2" fill="none"/>
+  <path d="M 1161 125 Q 1201 258, 1564 248" fill="none" stroke="#1E88E5" stroke-width="2"/>
+  <path d="M 1161 145 Q 1221 278, 1564 268" fill="none" stroke="#FB8C00" stroke-width="2"/>
+  <path d="M 1161 120 Q 1211 248, 1564 238" fill="none" stroke="#43A047" stroke-width="2" stroke-dasharray="4,4"/>
+  <rect x="198" y="346" width="687" height="263" rx="8" fill="#00000015"/>
+  <rect x="195" y="343" width="687" height="263" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <path d="M 195 351 A 8 8 0 0 1 203 343 L 874 343 A 8 8 0 0 1 882 351 L 882 378 L 195 378 Z" fill="#ECEFF1"/>
+  <line x1="195" y1="378" x2="882" y2="378" stroke="#CFD8DC" stroke-width="1"/>
+  <text x="210" y="366" fill="#37474F" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Prediction Accuracy</text>
+  <polyline points="235,393 235,576 842,576" stroke="#B0BEC5" stroke-width="2" fill="none"/>
+  <line x1="842" y1="393" x2="842" y2="576" stroke="#B0BEC5" stroke-width="2"/>
+  <path d="M 235 453 L 275 443 L 315 423 L 355 428 L 842 413" fill="none" stroke="#8E24AA" stroke-width="2.5"/>
+  <path d="M 235 463 L 275 458 L 315 413 L 355 418 L 842 403" fill="none" stroke="#00897B" stroke-width="2.5"/>
+  <rect x="900" y="346" width="687" height="263" rx="8" fill="#00000015"/>
+  <rect x="897" y="343" width="687" height="263" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <path d="M 897 351 A 8 8 0 0 1 905 343 L 1576 343 A 8 8 0 0 1 1584 351 L 1584 378 L 897 378 Z" fill="#ECEFF1"/>
+  <line x1="897" y1="378" x2="1584" y2="378" stroke="#CFD8DC" stroke-width="1"/>
+  <text x="912" y="366" fill="#37474F" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Queue Depth</text>
+  <polyline points="927,393 927,576 1564,576" stroke="#B0BEC5" stroke-width="2" fill="none"/>
+  <path d="M 927 576 L 927 556 L 967 546 L 1007 496 L 1047 526 L 1087 476 L 1127 536 L 1564 531 L 1564 576 Z" fill="#81D4FA" opacity="0.6" stroke="#0288D1" stroke-width="2"/>
+  <line x1="927" y1="506" x2="1564" y2="506" stroke="#E53935" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="937" y="501" fill="#E53935" font-size="10" font-weight="bold" font-family="Arial,sans-serif">Overload Threshold</text>
+  <rect x="198" y="624" width="687" height="263" rx="8" fill="#00000015"/>
+  <rect x="195" y="621" width="687" height="263" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <path d="M 195 629 A 8 8 0 0 1 203 621 L 874 621 A 8 8 0 0 1 882 629 L 882 656 L 195 656 Z" fill="#ECEFF1"/>
+  <line x1="195" y1="656" x2="882" y2="656" stroke="#CFD8DC" stroke-width="1"/>
+  <text x="210" y="644" fill="#37474F" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Latency Heatmap</text>
+  <text x="230" y="707" text-anchor="end" fill="#616161" font-size="11" font-family="Arial,sans-serif">AAPL</text>
+  <rect x="235" y="671" width="60" height="62" rx="2" fill="#EF5350"/>
+  <rect x="297" y="671" width="60" height="62" rx="2" fill="#FFCDD2"/>
+  <rect x="359" y="671" width="60" height="62" rx="2" fill="#E57373"/>
+  <rect x="421" y="671" width="60" height="62" rx="2" fill="#EF9A9A"/>
+  <rect x="483" y="671" width="60" height="62" rx="2" fill="#EF9A9A"/>
+  <rect x="545" y="671" width="60" height="62" rx="2" fill="#EF5350"/>
+  <rect x="607" y="671" width="60" height="62" rx="2" fill="#E57373"/>
+  <rect x="669" y="671" width="60" height="62" rx="2" fill="#EF9A9A"/>
+  <rect x="731" y="671" width="60" height="62" rx="2" fill="#FFEBEE"/>
+  <rect x="793" y="671" width="60" height="62" rx="2" fill="#E57373"/>
+  <text x="230" y="771" text-anchor="end" fill="#616161" font-size="11" font-family="Arial,sans-serif">MSFT</text>
+  <rect x="235" y="735" width="60" height="62" rx="2" fill="#EF5350"/>
+  <rect x="297" y="735" width="60" height="62" rx="2" fill="#EF5350"/>
+  <rect x="359" y="735" width="60" height="62" rx="2" fill="#FFEBEE"/>
+  <rect x="421" y="735" width="60" height="62" rx="2" fill="#F44336"/>
+  <rect x="483" y="735" width="60" height="62" rx="2" fill="#E57373"/>
+  <rect x="545" y="735" width="60" height="62" rx="2" fill="#F44336"/>
+  <rect x="607" y="735" width="60" height="62" rx="2" fill="#EF5350"/>
+  <rect x="669" y="735" width="60" height="62" rx="2" fill="#FFEBEE"/>
+  <rect x="731" y="735" width="60" height="62" rx="2" fill="#EF5350"/>
+  <rect x="793" y="735" width="60" height="62" rx="2" fill="#E57373"/>
+  <text x="230" y="835" text-anchor="end" fill="#616161" font-size="11" font-family="Arial,sans-serif">NVDA</text>
+  <rect x="235" y="799" width="60" height="62" rx="2" fill="#FFCDD2"/>
+  <rect x="297" y="799" width="60" height="62" rx="2" fill="#EF5350"/>
+  <rect x="359" y="799" width="60" height="62" rx="2" fill="#EF5350"/>
+  <rect x="421" y="799" width="60" height="62" rx="2" fill="#FFCDD2"/>
+  <rect x="483" y="799" width="60" height="62" rx="2" fill="#EF5350"/>
+  <rect x="545" y="799" width="60" height="62" rx="2" fill="#B71C1C"/>
+  <rect x="607" y="799" width="60" height="62" rx="2" fill="#E57373"/>
+  <rect x="669" y="799" width="60" height="62" rx="2" fill="#FFCDD2"/>
+  <rect x="731" y="799" width="60" height="62" rx="2" fill="#E57373"/>
+  <rect x="793" y="799" width="60" height="62" rx="2" fill="#FFCDD2"/>
+  <rect x="900" y="624" width="687" height="263" rx="8" fill="#00000015"/>
+  <rect x="897" y="621" width="687" height="263" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <path d="M 897 629 A 8 8 0 0 1 905 621 L 1576 621 A 8 8 0 0 1 1584 629 L 1584 656 L 897 656 Z" fill="#ECEFF1"/>
+  <line x1="897" y1="656" x2="1584" y2="656" stroke="#CFD8DC" stroke-width="1"/>
+  <text x="912" y="644" fill="#37474F" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Docker Network Topology</text>
+  <line x1="1180" y1="712" x2="1240" y2="692" stroke="#CFD8DC" stroke-width="2"/>
+  <line x1="1240" y1="692" x2="1300" y2="712" stroke="#CFD8DC" stroke-width="2"/>
+  <line x1="1300" y1="712" x2="1320" y2="772" stroke="#CFD8DC" stroke-width="2"/>
+  <line x1="1320" y1="772" x2="1280" y2="822" stroke="#CFD8DC" stroke-width="2"/>
+  <line x1="1280" y1="822" x2="1200" y2="822" stroke="#CFD8DC" stroke-width="2"/>
+  <line x1="1180" y1="712" x2="1240" y2="762" stroke="#CFD8DC" stroke-width="2"/>
+  <line x1="1240" y1="692" x2="1240" y2="762" stroke="#CFD8DC" stroke-width="2"/>
+  <line x1="1320" y1="772" x2="1240" y2="762" stroke="#CFD8DC" stroke-width="2"/>
+  <circle cx="1180" cy="712" r="15" fill="#00897B"/>
+  <circle cx="1240" cy="692" r="15" fill="#F57C00"/>
+  <circle cx="1300" cy="712" r="15" fill="#3F51B5"/>
+  <circle cx="1320" cy="772" r="15" fill="#43A047"/>
+  <circle cx="1280" cy="822" r="15" fill="#757575"/>
+  <circle cx="1200" cy="822" r="15" fill="#757575"/>
+  <circle cx="1160" cy="772" r="15" fill="#757575"/>
+  <circle cx="1240" cy="762" r="15" fill="#757575"/>
+</svg>

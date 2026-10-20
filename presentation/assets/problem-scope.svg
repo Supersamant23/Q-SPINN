@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Crosshair / Target scope diagram -->
+  <!-- Outer ring — dashed (out of scope) -->
+  <circle cx="60" cy="60" r="50" stroke="#C44D3F" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
+  <!-- Middle ring -->
+  <circle cx="60" cy="60" r="35" stroke="#8A8A8A" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.5"/>
+  <!-- Inner ring — solid (in scope) -->
+  <circle cx="60" cy="60" r="18" stroke="#3FA65E" stroke-width="2" fill="none"/>
+  <!-- Bullseye dot -->
+  <circle cx="60" cy="60" r="4" fill="#3FA65E" opacity="0.7"/>
+  <!-- Crosshair lines -->
+  <line x1="60" y1="6" x2="60" y2="38" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+  <line x1="60" y1="82" x2="60" y2="114" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+  <line x1="6" y1="60" x2="38" y2="60" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+  <line x1="82" y1="60" x2="114" y2="60" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+</svg>

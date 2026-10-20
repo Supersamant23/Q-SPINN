@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Tech stack: layered rectangles from bottom (hardware) to top (Q-SPINN) -->
+  
+  <!-- Layer 1 (bottom): Hardware -->
+  <rect x="100" y="155" width="300" height="35" rx="3" stroke="#8A8A8A" stroke-width="1.5" fill="#F7F5F0"/>
+  <text x="250" y="177" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#8A8A8A" font-weight="600">NVIDIA A100 / RTX 4090</text>
+  
+  <!-- Layer 2: PyTorch -->
+  <rect x="85" y="115" width="300" height="35" rx="3" stroke="#C44D3F" stroke-width="1.5" fill="#FDF0EE"/>
+  <text x="235" y="137" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#C44D3F" font-weight="600">PyTorch</text>
+  
+  <!-- Layer 3: snnTorch + DeepXDE -->
+  <rect x="70" y="75" width="300" height="35" rx="3" stroke="#C49A3F" stroke-width="1.5" fill="#FDF8EE"/>
+  <text x="220" y="97" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#C49A3F" font-weight="600">snnTorch  ·  DeepXDE  ·  ℂ-ops</text>
+  
+  <!-- Layer 4 (top): Q-SPINN -->
+  <rect x="55" y="35" width="300" height="35" rx="3" stroke="#3F7EC4" stroke-width="2" fill="#EEF4FD"/>
+  <text x="205" y="57" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#3F7EC4" font-weight="700">Q-SPINN</text>
+  
+  <!-- Small arrows connecting layers -->
+  <path d="M250,155 L250,150 L235,150" stroke="#8A8A8A" stroke-width="1" opacity="0.4"/>
+  <path d="M235,115 L235,110 L220,110" stroke="#C44D3F" stroke-width="1" opacity="0.4"/>
+  <path d="M220,75 L220,70 L205,70" stroke="#C49A3F" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Side labels -->
+  <text x="420" y="172" font-family="Inter, sans-serif" font-size="9" fill="#8A8A8A">Hardware</text>
+  <text x="400" y="132" font-family="Inter, sans-serif" font-size="9" fill="#C44D3F">Framework</text>
+  <text x="385" y="92" font-family="Inter, sans-serif" font-size="9" fill="#C49A3F">Libraries</text>
+  <text x="370" y="52" font-family="Inter, sans-serif" font-size="9" fill="#3F7EC4" font-weight="600">Application</text>
+</svg>

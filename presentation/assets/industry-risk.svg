@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Shield with network/correlation web inside -->
+  <!-- Shield outline -->
+  <path d="M24,4 L40,12 L40,24 Q40,38 24,44 Q8,38 8,24 L8,12 Z" stroke="#C49A3F" stroke-width="1.5" fill="#FDF8EE"/>
+  
+  <!-- Network nodes inside shield -->
+  <circle cx="24" cy="18" r="2.5" fill="#C49A3F"/>
+  <circle cx="16" cy="28" r="2.5" fill="#C49A3F"/>
+  <circle cx="32" cy="28" r="2.5" fill="#C49A3F"/>
+  <circle cx="24" cy="36" r="2" fill="#C49A3F" opacity="0.6"/>
+  
+  <!-- Network edges -->
+  <line x1="24" y1="18" x2="16" y2="28" stroke="#C49A3F" stroke-width="1" opacity="0.6"/>
+  <line x1="24" y1="18" x2="32" y2="28" stroke="#C49A3F" stroke-width="1" opacity="0.6"/>
+  <line x1="16" y1="28" x2="32" y2="28" stroke="#C49A3F" stroke-width="1" opacity="0.6"/>
+  <line x1="16" y1="28" x2="24" y2="36" stroke="#C49A3F" stroke-width="1" opacity="0.4"/>
+  <line x1="32" y1="28" x2="24" y2="36" stroke="#C49A3F" stroke-width="1" opacity="0.4"/>
+</svg>

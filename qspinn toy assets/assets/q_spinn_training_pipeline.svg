@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="950" viewBox="0 0 900 950">
+  
+  <defs>
+  <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,10 L10,5 z" fill="#757575"/></marker>
+  <marker id="arr-r" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,10 L10,5 z" fill="#D32F2F"/></marker>
+  <marker id="arr-p" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,10 L10,5 z" fill="#673AB7"/></marker>
+  <marker id="arr-s" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,8 L8,4 z" fill="#9E9E9E"/></marker>
+  <marker id="arr-arg" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L6,3 z" fill="#333"/></marker>
+</defs>
+  <rect width="900" height="950" fill="#FFFFFF"/>
+  <text x="450" y="50" text-anchor="middle" fill="#212121" font-size="24" font-weight="bold" font-family="Arial,sans-serif">Q-SPINN — Training Pipeline v1.0</text>
+  <rect x="670" y="800" width="210" height="130" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="1.5"/>
+  <text x="775" y="820" text-anchor="middle" fill="#424242" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Legend</text>
+  <rect x="685" y="830" width="14" height="14" rx="3" fill="#00897B"/>
+  <text x="708" y="841" fill="#424242" font-size="11.5" font-family="Arial,sans-serif">Data Sources / Preprocessing</text>
+  <rect x="685" y="850" width="14" height="14" rx="3" fill="#F57C00"/>
+  <text x="708" y="861" fill="#424242" font-size="11.5" font-family="Arial,sans-serif">SNN Gatekeeper</text>
+  <rect x="685" y="870" width="14" height="14" rx="3" fill="#3F51B5"/>
+  <text x="708" y="881" fill="#424242" font-size="11.5" font-family="Arial,sans-serif">ℂ-Covariance Layer</text>
+  <rect x="685" y="890" width="14" height="14" rx="3" fill="#43A047"/>
+  <text x="708" y="901" fill="#424242" font-size="11.5" font-family="Arial,sans-serif">PINN Engine / Output</text>
+  <rect x="685" y="910" width="14" height="14" rx="3" fill="#757575"/>
+  <text x="708" y="921" fill="#424242" font-size="11.5" font-family="Arial,sans-serif">Infrastructure</text>
+  <rect x="49" y="84" width="230" height="160" rx="12" fill="#00000015"/>
+  <rect x="45" y="80" width="230" height="160" rx="12" fill="#E0F2F1" stroke="#00897B" stroke-width="2"/>
+  <path d="M 57 80 L 263 80 A 12 12 0 0 1 275 92 L 275 106 L 45 106 L 45 92 A 12 12 0 0 1 57 80 Z" fill="#00897B"/>
+  <text x="160" y="97" text-anchor="middle" fill="white" font-size="11" font-weight="600" font-family="Arial,sans-serif">ingestor</text>
+  <text x="160" y="128" text-anchor="middle" fill="#004D40" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Stage 1: Data Sources</text>
+  <text x="160" y="146" text-anchor="middle" fill="#004D40" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">FI-2010 · Binance</text>
+  <text x="160" y="162" text-anchor="middle" fill="#004D40" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">LOBSTER (stretch)</text>
+  <line x1="60" y1="215" x2="260" y2="215" stroke="#00897B" stroke-width="1" opacity="0.4"/>
+  <text x="160" y="226" text-anchor="middle" fill="#00796B" font-size="10.5" font-style="italic" font-weight="bold" font-family="Arial,sans-serif">pandas · websockets</text>
+  <rect x="339" y="84" width="230" height="160" rx="12" fill="#00000015"/>
+  <rect x="335" y="80" width="230" height="160" rx="12" fill="#E0F2F1" stroke="#00897B" stroke-width="2"/>
+  <path d="M 347 80 L 553 80 A 12 12 0 0 1 565 92 L 565 106 L 335 106 L 335 92 A 12 12 0 0 1 347 80 Z" fill="#00897B"/>
+  <text x="450" y="97" text-anchor="middle" fill="white" font-size="11" font-weight="600" font-family="Arial,sans-serif">preprocessor</text>
+  <text x="450" y="128" text-anchor="middle" fill="#004D40" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Stage 2: Preprocessor</text>
+  <text x="450" y="146" text-anchor="middle" fill="#004D40" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">Normaliser · Window</text>
+  <text x="450" y="162" text-anchor="middle" fill="#004D40" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">Builder · Delta Encoder</text>
+  <line x1="350" y1="215" x2="550" y2="215" stroke="#00897B" stroke-width="1" opacity="0.4"/>
+  <text x="450" y="226" text-anchor="middle" fill="#00796B" font-size="10.5" font-style="italic" font-weight="bold" font-family="Arial,sans-serif">numpy · scikit-learn</text>
+  <rect x="629" y="84" width="230" height="160" rx="12" fill="#00000015"/>
+  <rect x="625" y="80" width="230" height="160" rx="12" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <path d="M 637 80 L 843 80 A 12 12 0 0 1 855 92 L 855 106 L 625 106 L 625 92 A 12 12 0 0 1 637 80 Z" fill="#F57C00"/>
+  <text x="740" y="97" text-anchor="middle" fill="white" font-size="11" font-weight="600" font-family="Arial,sans-serif">snn-worker</text>
+  <text x="740" y="128" text-anchor="middle" fill="#E65100" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Stage 3: SNN Gatekeeper</text>
+  <text x="740" y="146" text-anchor="middle" fill="#E65100" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">LIF Neuron · Threshold</text>
+  <text x="740" y="162" text-anchor="middle" fill="#E65100" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">Baseline Reset</text>
+  <rect x="710" y="175" width="60" height="30" fill="white" rx="3" stroke="#F57C00" stroke-width="1" opacity="0.8"/>
+<line x1="714" y1="190" x2="766" y2="190" stroke="#999" stroke-width="1" stroke-dasharray="2,2"/>
+<path d="M 715 200 L 735 200 L 740 180 L 745 203 L 765 203" stroke="#E65100" stroke-width="1.5" fill="none"/>
+  <line x1="640" y1="215" x2="840" y2="215" stroke="#F57C00" stroke-width="1" opacity="0.4"/>
+  <text x="740" y="226" text-anchor="middle" fill="#EF6C00" font-size="10.5" font-style="italic" font-weight="bold" font-family="Arial,sans-serif">snntorch · PyTorch</text>
+  <path d="M 654 388 L 654 441 A 90 16 0 0 0 834 441 L 834 388 Z" fill="#00000015"/>
+  <ellipse cx="744" cy="388" rx="90" ry="16" fill="#00000015"/>
+  <path d="M 650 384 L 650 437 A 90 16 0 0 0 830 437 L 830 384 Z" fill="#F0F4C3" stroke="#AFB42B" stroke-width="2"/>
+  <ellipse cx="740" cy="384" rx="90" ry="16" fill="#F0F4C3" stroke="#AFB42B" stroke-width="2"/>
+  <text x="740" y="417" text-anchor="middle" fill="#827717" font-size="16" font-weight="bold" font-family="Arial,sans-serif">Redis Pub/Sub</text>
+  <text x="740" y="436" text-anchor="middle" fill="#827717" font-size="12" opacity="0.8" font-family="Arial,sans-serif">message broker</text>
+  <rect x="339" y="334" width="230" height="160" rx="12" fill="#00000015"/>
+  <rect x="335" y="330" width="230" height="160" rx="12" fill="#E8EAF6" stroke="#3F51B5" stroke-width="2"/>
+  <path d="M 347 330 L 553 330 A 12 12 0 0 1 565 342 L 565 356 L 335 356 L 335 342 A 12 12 0 0 1 347 330 Z" fill="#3F51B5"/>
+  <text x="450" y="347" text-anchor="middle" fill="white" font-size="11" font-weight="600" font-family="Arial,sans-serif">pinn-broker</text>
+  <text x="450" y="378" text-anchor="middle" fill="#1A237E" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Stage 4: ℂ-Covariance Layer</text>
+  <text x="450" y="396" text-anchor="middle" fill="#1A237E" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">Complex Encoder</text>
+  <text x="450" y="412" text-anchor="middle" fill="#1A237E" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">Hermitian Matrix · Extractor</text>
+  <rect x="420" y="422" width="60" height="40" fill="white" rx="3" stroke="#3F51B5" stroke-width="1" opacity="0.8"/>
+<line x1="425" y1="447" x2="475" y2="447" stroke="#999" stroke-width="1"/>
+<line x1="450" y1="427" x2="450" y2="457" stroke="#999" stroke-width="1"/>
+<line x1="450" y1="447" x2="465" y2="437" stroke="#E91E63" stroke-width="1.5" marker-end="url(#arr-arg)"/>
+<line x1="450" y1="447" x2="440" y2="432" stroke="#00BCD4" stroke-width="1.5" marker-end="url(#arr-arg)"/>
+<line x1="450" y1="447" x2="468" y2="452" stroke="#FFC107" stroke-width="1.5" marker-end="url(#arr-arg)"/>
+  <line x1="350" y1="465" x2="550" y2="465" stroke="#3F51B5" stroke-width="1" opacity="0.4"/>
+  <text x="450" y="476" text-anchor="middle" fill="#303F9F" font-size="10.5" font-style="italic" font-weight="bold" font-family="Arial,sans-serif">torch.complex</text>
+  <rect x="49" y="334" width="230" height="160" rx="12" fill="#00000015"/>
+  <rect x="45" y="330" width="230" height="160" rx="12" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+  <path d="M 57 330 L 263 330 A 12 12 0 0 1 275 342 L 275 356 L 45 356 L 45 342 A 12 12 0 0 1 57 330 Z" fill="#43A047"/>
+  <text x="160" y="347" text-anchor="middle" fill="white" font-size="11" font-weight="600" font-family="Arial,sans-serif">pinn-broker</text>
+  <text x="160" y="378" text-anchor="middle" fill="#1B5E20" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Stage 5: PINN Engine</text>
+  <text x="160" y="396" text-anchor="middle" fill="#1B5E20" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">Prediction Head</text>
+  <text x="160" y="412" text-anchor="middle" fill="#1B5E20" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">PDE Residual · Combined Loss</text>
+  <rect x="130" y="425" width="60" height="35" fill="white" rx="3" stroke="#43A047" stroke-width="1" opacity="0.8"/>
+<path d="M 140 440 Q 160 460 180 435" stroke="#1B5E20" stroke-width="1.5" fill="none"/>
+<path d="M 140 450 Q 160 470 180 445" stroke="#81C784" stroke-width="1.5" fill="none"/>
+<line x1="140" y1="440" x2="140" y2="450" stroke="#43A047" stroke-width="0.5"/>
+<line x1="160" y1="450" x2="160" y2="460" stroke="#43A047" stroke-width="0.5"/>
+<line x1="180" y1="435" x2="180" y2="445" stroke="#43A047" stroke-width="0.5"/>
+  <line x1="60" y1="465" x2="260" y2="465" stroke="#43A047" stroke-width="1" opacity="0.4"/>
+  <text x="160" y="476" text-anchor="middle" fill="#388E3C" font-size="10.5" font-style="italic" font-weight="bold" font-family="Arial,sans-serif">DeepXDE · PyTorch</text>
+  <rect x="49" y="584" width="230" height="160" rx="12" fill="#00000015"/>
+  <rect x="45" y="580" width="230" height="160" rx="12" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+  <path d="M 57 580 L 263 580 A 12 12 0 0 1 275 592 L 275 606 L 45 606 L 45 592 A 12 12 0 0 1 57 580 Z" fill="#43A047"/>
+  <text x="160" y="597" text-anchor="middle" fill="white" font-size="11" font-weight="600" font-family="Arial,sans-serif">evaluator</text>
+  <text x="160" y="628" text-anchor="middle" fill="#1B5E20" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Stage 6: Output &amp; Evaluation</text>
+  <text x="160" y="646" text-anchor="middle" fill="#1B5E20" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">Softmax → {↑,→,↓}</text>
+  <text x="160" y="662" text-anchor="middle" fill="#1B5E20" font-size="11.5" opacity="0.9" font-family="Arial,sans-serif">Walk-Forward · F1 · DSR</text>
+  <line x1="60" y1="715" x2="260" y2="715" stroke="#43A047" stroke-width="1" opacity="0.4"/>
+  <text x="160" y="726" text-anchor="middle" fill="#388E3C" font-size="10.5" font-style="italic" font-weight="bold" font-family="Arial,sans-serif">MLflow · Optuna</text>
+  <rect x="364" y="632" width="180" height="65" rx="8" fill="#00000015"/>
+  <rect x="360" y="628" width="180" height="65" rx="8" fill="#F5F5F5" stroke="#757575" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="450" y="656" text-anchor="middle" fill="#212121" font-size="13" font-weight="bold" font-family="Arial,sans-serif">FastAPI Gateway</text>
+  <text x="450" y="674" text-anchor="middle" fill="#212121" font-size="11" opacity="0.8" font-family="Arial,sans-serif">api-gateway</text>
+  <rect x="74" y="822" width="180" height="65" rx="8" fill="#00000015"/>
+  <rect x="70" y="818" width="180" height="65" rx="8" fill="#F5F5F5" stroke="#757575" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="160" y="846" text-anchor="middle" fill="#212121" font-size="13" font-weight="bold" font-family="Arial,sans-serif">MLflow Server</text>
+  <text x="160" y="864" text-anchor="middle" fill="#212121" font-size="11" opacity="0.8" font-family="Arial,sans-serif">mlflow-server</text>
+  <rect x="364" y="822" width="180" height="65" rx="8" fill="#00000015"/>
+  <rect x="360" y="818" width="180" height="65" rx="8" fill="#F5F5F5" stroke="#757575" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="450" y="846" text-anchor="middle" fill="#212121" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Dashboard</text>
+  <text x="450" y="864" text-anchor="middle" fill="#212121" font-size="11" opacity="0.8" font-family="Arial,sans-serif">HTML/JS Visualisation</text>
+  <path d="M 275 160 L 335 160" stroke="#757575" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <text x="305" y="154" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">raw</text>
+  <text x="305" y="154" text-anchor="middle" fill="#757575" font-size="12" font-weight="600" font-family="Arial,sans-serif">raw</text>
+  <text x="305" y="172" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">tick dict</text>
+  <text x="305" y="172" text-anchor="middle" fill="#757575" font-size="12" font-weight="600" font-family="Arial,sans-serif">tick dict</text>
+  <path d="M 565 160 L 625 160" stroke="#757575" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <text x="595" y="154" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">Tensor</text>
+  <text x="595" y="154" text-anchor="middle" fill="#757575" font-size="12" font-weight="600" font-family="Arial,sans-serif">Tensor</text>
+  <text x="595" y="172" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">[B,40,4]</text>
+  <text x="595" y="172" text-anchor="middle" fill="#757575" font-size="12" font-weight="600" font-family="Arial,sans-serif">[B,40,4]</text>
+  <path d="M 740 240 L 740 384" stroke="#EF6C00" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <text x="740" y="298" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Spike S(t)</text>
+  <text x="740" y="298" text-anchor="middle" fill="#EF6C00" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Spike S(t)</text>
+  <text x="740" y="316" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="bold" font-family="Arial,sans-serif">∈ {0,1}</text>
+  <text x="740" y="316" text-anchor="middle" fill="#EF6C00" font-size="12" font-weight="bold" font-family="Arial,sans-serif">∈ {0,1}</text>
+  <path d="M 650 410 L 565 410" stroke="#9E9D24" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <text x="595" y="404" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Spike</text>
+  <text x="595" y="404" text-anchor="middle" fill="#9E9D24" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Spike</text>
+  <text x="595" y="422" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="bold" font-family="Arial,sans-serif">event</text>
+  <text x="595" y="422" text-anchor="middle" fill="#9E9D24" font-size="12" font-weight="bold" font-family="Arial,sans-serif">event</text>
+  <path d="M 335 410 L 275 410" stroke="#757575" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <text x="305" y="404" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">complex64</text>
+  <text x="305" y="404" text-anchor="middle" fill="#757575" font-size="12" font-weight="600" font-family="Arial,sans-serif">complex64</text>
+  <text x="305" y="422" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">3×3 C</text>
+  <text x="305" y="422" text-anchor="middle" fill="#757575" font-size="12" font-weight="600" font-family="Arial,sans-serif">3×3 C</text>
+  <path d="M 160 490 L 160 580" stroke="#757575" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <text x="160" y="529" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">logits</text>
+  <text x="160" y="529" text-anchor="middle" fill="#757575" font-size="12" font-weight="600" font-family="Arial,sans-serif">logits</text>
+  <text x="160" y="547" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">[B,3]</text>
+  <text x="160" y="547" text-anchor="middle" fill="#757575" font-size="12" font-weight="600" font-family="Arial,sans-serif">[B,3]</text>
+  <path d="M 275 660 L 360 660" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr-s)"/>
+  <text x="305" y="654" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">model</text>
+  <text x="305" y="654" text-anchor="middle" fill="#9E9E9E" font-size="12" font-weight="600" font-family="Arial,sans-serif">model</text>
+  <text x="305" y="672" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">predictions</text>
+  <text x="305" y="672" text-anchor="middle" fill="#9E9E9E" font-size="12" font-weight="600" font-family="Arial,sans-serif">predictions</text>
+  <path d="M 160 740 L 160 818" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr-s)"/>
+  <text x="160" y="773" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">metrics/</text>
+  <text x="160" y="773" text-anchor="middle" fill="#9E9E9E" font-size="12" font-weight="600" font-family="Arial,sans-serif">metrics/</text>
+  <text x="160" y="791" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">logs</text>
+  <text x="160" y="791" text-anchor="middle" fill="#9E9E9E" font-size="12" font-weight="600" font-family="Arial,sans-serif">logs</text>
+  <path d="M 450 692 L 450 818" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr-s)"/>
+  <text x="450" y="749" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">ws</text>
+  <text x="450" y="749" text-anchor="middle" fill="#9E9E9E" font-size="12" font-weight="600" font-family="Arial,sans-serif">ws</text>
+  <text x="450" y="767" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">stream</text>
+  <text x="450" y="767" text-anchor="middle" fill="#9E9E9E" font-size="12" font-weight="600" font-family="Arial,sans-serif">stream</text>
+  <path d="M 710 80 C 710 20, 770 20, 770 80" stroke="#D32F2F" stroke-width="2.5" fill="none" stroke-dasharray="6,5" marker-end="url(#arr-r)"/>
+  <text x="740" y="29" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">DORMANT ~99%</text>
+  <text x="740" y="29" text-anchor="middle" fill="#D32F2F" font-size="12" font-weight="600" font-family="Arial,sans-serif">DORMANT ~99%</text>
+  <path d="M 130 330 C 130 270, 190 270, 190 330" stroke="#673AB7" stroke-width="2.5" fill="none" marker-end="url(#arr-p)"/>
+  <text x="160" y="279" text-anchor="middle" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round" font-size="12" font-weight="600" font-family="Arial,sans-serif">∂L/∂θ</text>
+  <text x="160" y="279" text-anchor="middle" fill="#673AB7" font-size="12" font-weight="600" font-family="Arial,sans-serif">∂L/∂θ</text>
+</svg>

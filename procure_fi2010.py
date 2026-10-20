@@ -1,0 +1,109 @@
+import sys
+import shutil
+import zipfile
+import pandas as pd
+from pathlib import Path
+
+# Paths
+REFERENCE_DIR = Path("data/reference/fi2010")
+ZIP_PATH = REFERENCE_DIR / "BenchmarkDatasets.zip"
+
+def main():
+    REFERENCE_DIR.mkdir(parents=True, exist_ok=True)
+    
+    if not ZIP_PATH.exists():
+        print(f"Error: The FI-2010 dataset was not found at {ZIP_PATH}.")
+        print("\n" + "="*50)
+        print("              MANUAL DOWNLOAD REQUIRED")
+        print("="*50)
+        print("Because the official FI-2010 dataset is a 1.86 GB archive hosted on ")
+        print("the Fairdata Etsin academic portal (which requires navigating their ")
+        print("web interface), it cannot be downloaded automatically without a key.")
+        print("\nPlease follow these steps to securely fetch it:")
+        print("1. Go to: https://etsin.fairdata.fi/dataset/73eb48d7-4dbc-4a10-a52a-da745b47a649")
+        print("2. Navigate to the 'Data' tab and download 'BenchmarkDatasets.zip'.")
+        print(f"3. Move the downloaded ZIP into this exact folder:")
+        print(f"   -> {REFERENCE_DIR.absolute()}")
+        print("4. Run this script again.")
+        print("="*50 + "\n")
+        sys.exit(1)
+        
+    print(f"Found FI-2010 dataset at {ZIP_PATH}!")
+    
+    # 1. Create a temp directory for extraction
+    temp_dir = REFERENCE_DIR / "temp"
+    temp_dir.mkdir(exist_ok=True)
+    
+    try:
+        print("Extracting outer ZIP...")
+        with zipfile.ZipFile(ZIP_PATH, 'r') as z:
+            z.extract("published/BenchmarkDatasets/BenchmarkDatasets.zip", temp_dir)
+            
+        inner_zip = temp_dir / "published" / "BenchmarkDatasets" / "BenchmarkDatasets.zip"
+        
+        print("Extracting inner ZIP...")
+        with zipfile.ZipFile(inner_zip, 'r') as z:
+            # Extract just the NoAuction Zscore folder
+            for member in z.namelist():
+                if "NoAuction/1.NoAuction_Zscore/" in member:
+                    z.extract(member, temp_dir)
+                    
+        # 2. Parse the files
+        print("Parsing folds and converting to Parquet...")
+        base_path = temp_dir / "BenchmarkDatasets" / "NoAuction" / "1.NoAuction_Zscore"
+        
+        all_dfs = []
+        for split in ["Train", "Test"]:
+            split_folder = base_path / f"NoAuction_Zscore_{'Training' if split == 'Train' else 'Testing'}"
+            for fold in range(1, 10):
+                prefix = 'Train_Dst' if split == 'Train' else 'Test_Dst'
+                file_path = split_folder / f"{prefix}_NoAuction_ZScore_CF_{fold}.txt"
+                
+                if not file_path.exists():
+                    continue
+                    
+                print(f"  Reading {split} fold {fold}...")
+                # FI-2010 has 149 rows (144 features, 5 labels), and cols = timesteps
+                df = pd.read_csv(file_path, sep=r'\s+', header=None)
+                
+                # Transpose so rows = timesteps, cols = features
+                df = df.T
+                
+                # Add metadata columns
+                df['split'] = split
+                df['fold'] = fold
+                
+                all_dfs.append(df)
+                
+        print("Concatenating into single DataFrame...")
+        final_df = pd.concat(all_dfs, ignore_index=True)
+        
+        # 3. Rename columns for clarity (features 0-143, labels 144-148)
+        col_names = {i: f"feature_{i}" for i in range(144)}
+        col_names.update({
+            144: "label_k10",
+            145: "label_k20",
+            146: "label_k30",
+            147: "label_k50",
+            148: "label_k100"
+        })
+        final_df = final_df.rename(columns=col_names)
+        
+        # Convert labels from 1/2/3 to 0/1/2 (standard for PyTorch CrossEntropy)
+        label_cols = ["label_k10", "label_k20", "label_k30", "label_k50", "label_k100"]
+        final_df[label_cols] = final_df[label_cols] - 1.0
+        
+        # 4. Save to Parquet
+        out_parquet = REFERENCE_DIR / "fi2010_noauction_zscore.parquet"
+        print(f"Saving to {out_parquet}...")
+        final_df.to_parquet(out_parquet, engine='pyarrow', compression='zstd')
+        
+        print("Success! FI-2010 successfully procured and normalized.")
+        
+    finally:
+        # Cleanup
+        print("Cleaning up scratch files...")
+        shutil.rmtree(temp_dir, ignore_errors=True)
+
+if __name__ == "__main__":
+    main()

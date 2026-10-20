@@ -1,0 +1,14 @@
+# Core Scientific & Deep Learning
+torch>=2.1.0
+numpy>=1.24.0
+scipy>=1.10.0
+pandas>=2.0.0
+pyarrow>=12.0.0
+
+# Real-Time Streaming & Networking
+websockets>=11.0.0
+httpx>=0.24.0
+
+# Interactive Dashboard & Visuals
+streamlit>=1.28.0
+plotly>=5.15.0

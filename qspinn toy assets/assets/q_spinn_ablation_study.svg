@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="950" height="950" viewBox="0 0 950 950">
+  
+  <defs>
+  <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,10 L10,5 z" fill="#9E9E9E"/></marker>
+</defs>
+  <rect width="950" height="950" fill="#FFFFFF"/>
+  <text x="475" y="50" text-anchor="middle" fill="#212121" font-size="22" font-weight="bold" font-family="Arial,sans-serif">Q-SPINN: Ablation Study — 5-Variant Comparison (Results Pending)</text>
+  <text x="115" y="90" text-anchor="middle" fill="#424242" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Full Q-SPINN</text>
+  <rect x="55" y="110" width="120" height="30" rx="4" fill="#EEEEEE"/>
+  <text x="115" y="130" text-anchor="middle" fill="#616161" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Data Input</text>
+  <path d="M 115 140 L 115 135" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="49" y="139" width="140" height="90" rx="8" fill="#00000015"/>
+  <rect x="45" y="135" width="140" height="90" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="115" y="185" text-anchor="middle" fill="#E65100" font-size="13" font-weight="bold" font-family="Arial,sans-serif">SNN Gatekeeper</text>
+  <path d="M 115 225 L 115 265" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="49" y="269" width="140" height="90" rx="8" fill="#00000015"/>
+  <rect x="45" y="265" width="140" height="90" rx="8" fill="#E8EAF6" stroke="#3F51B5" stroke-width="2"/>
+  <text x="115" y="315" text-anchor="middle" fill="#1A237E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">ℂ-Covariance</text>
+  <path d="M 115 355 L 115 395" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="49" y="399" width="140" height="90" rx="8" fill="#00000015"/>
+  <rect x="45" y="395" width="140" height="90" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+  <text x="115" y="445" text-anchor="middle" fill="#1B5E20" font-size="13" font-weight="bold" font-family="Arial,sans-serif">PINN Engine</text>
+  <path d="M 115 485 L 115 525" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="49" y="529" width="140" height="90" rx="8" fill="#00000015"/>
+  <rect x="45" y="525" width="140" height="90" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+  <text x="115" y="575" text-anchor="middle" fill="#1B5E20" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Prediction Head</text>
+  <path d="M 115 615 L 115 690" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="50" y="690" width="130" height="30" rx="4" fill="#EEEEEE"/>
+  <text x="115" y="710" text-anchor="middle" fill="#616161" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Prediction Output</text>
+  <rect x="45" y="780" width="140" height="90" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="1.5"/>
+  <text x="55" y="802" fill="#616161" font-size="12" font-family="Monospace,sans-serif">F1: —</text>
+  <text x="55" y="822" fill="#616161" font-size="12" font-family="Monospace,sans-serif">DSR: —</text>
+  <text x="55" y="842" fill="#616161" font-size="12" font-family="Monospace,sans-serif">FLOPs: —</text>
+  <text x="55" y="862" fill="#616161" font-size="12" font-family="Monospace,sans-serif">PDE Residual: —</text>
+  <text x="295" y="90" text-anchor="middle" fill="#424242" font-size="14" font-weight="bold" font-family="Arial,sans-serif">SNN-only</text>
+  <rect x="235" y="110" width="120" height="30" rx="4" fill="#EEEEEE"/>
+  <text x="295" y="130" text-anchor="middle" fill="#616161" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Data Input</text>
+  <path d="M 295 140 L 295 135" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="229" y="139" width="140" height="90" rx="8" fill="#00000015"/>
+  <rect x="225" y="135" width="140" height="90" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="295" y="185" text-anchor="middle" fill="#E65100" font-size="13" font-weight="bold" font-family="Arial,sans-serif">SNN Gatekeeper</text>
+  <path d="M 295 225 L 295 265" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="225" y="265" width="140" height="90" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="235" y1="275" x2="355" y2="345" stroke="#EEEEEE" stroke-width="2"/>
+  <line x1="235" y1="345" x2="355" y2="275" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="295" y="315" text-anchor="middle" fill="#9E9E9E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">ℂ-Covariance</text>
+  <path d="M 295 355 L 295 395" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="225" y="395" width="140" height="90" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="235" y1="405" x2="355" y2="475" stroke="#EEEEEE" stroke-width="2"/>
+  <line x1="235" y1="475" x2="355" y2="405" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="295" y="445" text-anchor="middle" fill="#9E9E9E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">PINN Engine</text>
+  <path d="M 295 485 L 295 525" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="229" y="529" width="140" height="90" rx="8" fill="#00000015"/>
+  <rect x="225" y="525" width="140" height="90" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+  <text x="295" y="575" text-anchor="middle" fill="#1B5E20" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Prediction Head</text>
+  <path d="M 295 615 L 295 690" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="230" y="690" width="130" height="30" rx="4" fill="#EEEEEE"/>
+  <text x="295" y="710" text-anchor="middle" fill="#616161" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Prediction Output</text>
+  <rect x="225" y="780" width="140" height="90" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="1.5"/>
+  <text x="235" y="802" fill="#616161" font-size="12" font-family="Monospace,sans-serif">F1: —</text>
+  <text x="235" y="822" fill="#616161" font-size="12" font-family="Monospace,sans-serif">DSR: —</text>
+  <text x="235" y="842" fill="#616161" font-size="12" font-family="Monospace,sans-serif">FLOPs: —</text>
+  <text x="235" y="862" fill="#616161" font-size="12" font-family="Monospace,sans-serif">PDE Residual: —</text>
+  <text x="475" y="90" text-anchor="middle" fill="#424242" font-size="14" font-weight="bold" font-family="Arial,sans-serif">PINN-only</text>
+  <rect x="415" y="110" width="120" height="30" rx="4" fill="#EEEEEE"/>
+  <text x="475" y="130" text-anchor="middle" fill="#616161" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Data Input</text>
+  <path d="M 475 140 L 475 135" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="405" y="135" width="140" height="90" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="415" y1="145" x2="535" y2="215" stroke="#EEEEEE" stroke-width="2"/>
+  <line x1="415" y1="215" x2="535" y2="145" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="475" y="185" text-anchor="middle" fill="#9E9E9E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">SNN Gatekeeper</text>
+  <path d="M 475 225 L 475 265" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="405" y="265" width="140" height="90" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="415" y1="275" x2="535" y2="345" stroke="#EEEEEE" stroke-width="2"/>
+  <line x1="415" y1="345" x2="535" y2="275" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="475" y="315" text-anchor="middle" fill="#9E9E9E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">ℂ-Covariance</text>
+  <path d="M 475 355 L 475 395" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="409" y="399" width="140" height="90" rx="8" fill="#00000015"/>
+  <rect x="405" y="395" width="140" height="90" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+  <text x="475" y="445" text-anchor="middle" fill="#1B5E20" font-size="13" font-weight="bold" font-family="Arial,sans-serif">PINN Engine</text>
+  <path d="M 475 485 L 475 525" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="409" y="529" width="140" height="90" rx="8" fill="#00000015"/>
+  <rect x="405" y="525" width="140" height="90" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+  <text x="475" y="575" text-anchor="middle" fill="#1B5E20" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Prediction Head</text>
+  <path d="M 475 615 L 475 690" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="410" y="690" width="130" height="30" rx="4" fill="#EEEEEE"/>
+  <text x="475" y="710" text-anchor="middle" fill="#616161" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Prediction Output</text>
+  <rect x="405" y="780" width="140" height="90" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="1.5"/>
+  <text x="415" y="802" fill="#616161" font-size="12" font-family="Monospace,sans-serif">F1: —</text>
+  <text x="415" y="822" fill="#616161" font-size="12" font-family="Monospace,sans-serif">DSR: —</text>
+  <text x="415" y="842" fill="#616161" font-size="12" font-family="Monospace,sans-serif">FLOPs: —</text>
+  <text x="415" y="862" fill="#616161" font-size="12" font-family="Monospace,sans-serif">PDE Residual: —</text>
+  <text x="655" y="90" text-anchor="middle" fill="#424242" font-size="14" font-weight="bold" font-family="Arial,sans-serif">LSTM Baseline</text>
+  <rect x="595" y="110" width="120" height="30" rx="4" fill="#EEEEEE"/>
+  <text x="655" y="130" text-anchor="middle" fill="#616161" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Data Input</text>
+  <path d="M 655 140 L 655 135" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="585" y="135" width="140" height="90" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="595" y1="145" x2="715" y2="215" stroke="#EEEEEE" stroke-width="2"/>
+  <line x1="595" y1="215" x2="715" y2="145" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="655" y="185" text-anchor="middle" fill="#9E9E9E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">SNN Gatekeeper</text>
+  <path d="M 655 225 L 655 265" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="585" y="265" width="140" height="90" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="595" y1="275" x2="715" y2="345" stroke="#EEEEEE" stroke-width="2"/>
+  <line x1="595" y1="345" x2="715" y2="275" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="655" y="315" text-anchor="middle" fill="#9E9E9E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">ℂ-Covariance</text>
+  <path d="M 655 355 L 655 395" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="589" y="399" width="140" height="90" rx="8" fill="#00000015"/>
+  <rect x="585" y="395" width="140" height="90" rx="8" fill="#E3F2FD" stroke="#1E88E5" stroke-width="2"/>
+  <text x="655" y="445" text-anchor="middle" fill="#0D47A1" font-size="13" font-weight="bold" font-family="Arial,sans-serif">LSTM Cell</text>
+  <path d="M 655 485 L 655 525" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="585" y="525" width="140" height="90" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="595" y1="535" x2="715" y2="605" stroke="#EEEEEE" stroke-width="2"/>
+  <line x1="595" y1="605" x2="715" y2="535" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="655" y="575" text-anchor="middle" fill="#9E9E9E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Prediction Head</text>
+  <path d="M 655 615 L 655 690" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="590" y="690" width="130" height="30" rx="4" fill="#EEEEEE"/>
+  <text x="655" y="710" text-anchor="middle" fill="#616161" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Prediction Output</text>
+  <rect x="585" y="780" width="140" height="90" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="1.5"/>
+  <text x="595" y="802" fill="#616161" font-size="12" font-family="Monospace,sans-serif">F1: —</text>
+  <text x="595" y="822" fill="#616161" font-size="12" font-family="Monospace,sans-serif">DSR: —</text>
+  <text x="595" y="842" fill="#616161" font-size="12" font-family="Monospace,sans-serif">FLOPs: —</text>
+  <text x="595" y="862" fill="#616161" font-size="12" font-family="Monospace,sans-serif">PDE Residual: —</text>
+  <text x="835" y="90" text-anchor="middle" fill="#424242" font-size="14" font-weight="bold" font-family="Arial,sans-serif">Transformer/DeepLOB</text>
+  <rect x="775" y="110" width="120" height="30" rx="4" fill="#EEEEEE"/>
+  <text x="835" y="130" text-anchor="middle" fill="#616161" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Data Input</text>
+  <path d="M 835 140 L 835 135" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="765" y="135" width="140" height="90" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="775" y1="145" x2="895" y2="215" stroke="#EEEEEE" stroke-width="2"/>
+  <line x1="775" y1="215" x2="895" y2="145" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="835" y="185" text-anchor="middle" fill="#9E9E9E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">SNN Gatekeeper</text>
+  <path d="M 835 225 L 835 265" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="765" y="265" width="140" height="90" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="775" y1="275" x2="895" y2="345" stroke="#EEEEEE" stroke-width="2"/>
+  <line x1="775" y1="345" x2="895" y2="275" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="835" y="315" text-anchor="middle" fill="#9E9E9E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">ℂ-Covariance</text>
+  <path d="M 835 355 L 835 395" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="769" y="399" width="140" height="90" rx="8" fill="#00000015"/>
+  <rect x="765" y="395" width="140" height="90" rx="8" fill="#F3E5F5" stroke="#8E24AA" stroke-width="2"/>
+  <text x="835" y="445" text-anchor="middle" fill="#4A148C" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Transformer Block</text>
+  <path d="M 835 485 L 835 525" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="765" y="525" width="140" height="90" rx="8" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="775" y1="535" x2="895" y2="605" stroke="#EEEEEE" stroke-width="2"/>
+  <line x1="775" y1="605" x2="895" y2="535" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="835" y="575" text-anchor="middle" fill="#9E9E9E" font-size="13" font-weight="bold" font-family="Arial,sans-serif">Prediction Head</text>
+  <path d="M 835 615 L 835 690" stroke="#9E9E9E" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <rect x="770" y="690" width="130" height="30" rx="4" fill="#EEEEEE"/>
+  <text x="835" y="710" text-anchor="middle" fill="#616161" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Prediction Output</text>
+  <rect x="765" y="780" width="140" height="90" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="1.5"/>
+  <text x="775" y="802" fill="#616161" font-size="12" font-family="Monospace,sans-serif">F1: —</text>
+  <text x="775" y="822" fill="#616161" font-size="12" font-family="Monospace,sans-serif">DSR: —</text>
+  <text x="775" y="842" fill="#616161" font-size="12" font-family="Monospace,sans-serif">FLOPs: —</text>
+  <text x="775" y="862" fill="#616161" font-size="12" font-family="Monospace,sans-serif">PDE Residual: —</text>
+  <rect x="295" y="900" width="360" height="40" rx="4" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="1.5"/>
+  <rect x="315" y="912" width="24" height="16" rx="4" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+  <text x="350" y="925" fill="#424242" font-size="13" font-family="Arial,sans-serif">Active Component</text>
+  <rect x="495" y="912" width="24" height="16" rx="4" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="530" y="925" fill="#424242" font-size="13" font-family="Arial,sans-serif">Bypassed / Absent (Ghost)</text>
+</svg>

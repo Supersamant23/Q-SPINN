@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q-SPINN — Zeroth Review Presentation</title>
+  <meta name="description" content="Zeroth Review: Q-SPINN — Spiking-Gated, Quantum-Inspired Physics-Informed Neural Network for Regime-Aware LOB Prediction">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* =========================================================
+   Q-SPINN Presentation — Clean Academic Design System
+   ========================================================= */
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Design Tokens ── */
+:root {
+  /* Canvas & Ink */
+  --canvas: #FDFCFA;
+  --canvas-warm: #F7F5F0;
+  --ink: #1C1C1C;
+  --ink-mid: #2C2C2C;
+  --ink-light: #4F4F4F;
+  --ink-faint: #A0A0A0;
+  --ink-hairline: #D8D6D0;
+
+  /* Sparse accent colours */
+  --red: #C44D3F;
+  --red-bg: #FDF0EE;
+  --amber: #C49A3F;
+  --amber-bg: #FDF8EE;
+  --blue: #3F7EC4;
+  --blue-bg: #EEF4FD;
+  --green: #3FA65E;
+  --green-bg: #EEFDF2;
+
+  /* Typography — readable, clean */
+  --font-display: 'Inter', -apple-system, Segoe UI, sans-serif;
+  --font-body: 'Inter', -apple-system, Segoe UI, sans-serif;
+  --font-label: 'Nunito', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-serif: 'Playfair Display', serif;
+  --font-hand: 'Nunito', sans-serif;
+
+  /* Spacing */
+  --slide-pad: clamp(2rem, 5vw, 5rem);
+
+  /* Sketch border effect */
+  --sketch-border: 1.5px solid var(--ink);
+  --sketch-border-light: 1px solid var(--ink-faint);
+}
+
+/* ── Base ── */
+html {
+  font-size: 17px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--canvas);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 1 — LAYOUT
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Slide Container ── */
+.deck {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--slide-pad);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--canvas);
+  overflow: hidden;
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.slide-inner {
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Grid & Flex Helpers ── */
+.row {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.row--center { align-items: center; }
+.row--stretch { align-items: stretch; }
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+
+.gap-sm { gap: 0.75rem; }
+.gap-md { gap: 1.5rem; }
+.gap-lg { gap: 2.5rem; }
+.gap-xl { gap: 4rem; }
+
+.text-center { text-align: center; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.self-center { align-self: center; }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 2 — TYPOGRAPHY
+   ══════════════════════════════════════════════════════════ */
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+h1 { font-size: clamp(2.8rem, 5vw, 4.5rem); }
+h2 { font-size: clamp(2rem, 3.5vw, 3rem); }
+h3 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
+
+p, li {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--ink-mid);
+  max-width: 65ch;
+}
+
+.slide-label {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  color: var(--ink-mid);
+}
+
+.slide-label-lg {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  color: var(--ink);
+}
+
+.sketch-label { 
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  color: var(--ink-mid);
+}
+
+.sketch-label-lg {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  color: var(--ink);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.muted { color: var(--ink-light); }
+.small { font-size: 0.85rem; }
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 3 — COMPONENTS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Typography Additions ── */
+.serif-heading {
+  font-family: var(--font-serif);
+}
+
+.hand-note {
+  font-family: var(--font-hand);
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+}
+
+/* ── Split Bar ── */
+.split-bar-container {
+  display: flex;
+  height: clamp(24px, 4vw, 36px);
+  border: var(--sketch-border-light);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--canvas-warm);
+}
+
+.split-bar-noise {
+  flex: 0 0 99%;
+  background: var(--canvas-warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  font-family: var(--font-mono);
+}
+
+.split-bar-signal {
+  flex: 0 0 1%;
+  background: var(--amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--canvas);
+  font-family: var(--font-mono);
+}
+
+/* ── Sketch Cards ── */
+.sketch-card {
+  border: var(--sketch-border);
+  border-radius: 2px;
+  padding: 1.5rem 2rem;
+  position: relative;
+  background: var(--canvas);
+}
+
+.sketch-card--tilted { transform: rotate(-0.3deg); }
+.sketch-card--red    { border-color: var(--red);   background: var(--red-bg); }
+.sketch-card--blue   { border-color: var(--blue);  background: var(--blue-bg); }
+.sketch-card--amber  { border-color: var(--amber); background: var(--amber-bg); }
+.sketch-card--green  { border-color: var(--green); background: var(--green-bg); }
+
+/* ── Divider ── */
+.sketch-divider {
+  width: 100%;
+  height: 2px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 2'%3E%3Cpath d='M0,1 Q50,0 100,1 T200,1 T300,1 T400,1' fill='none' stroke='%23D0CEC8' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+  background-size: 400px 2px;
+}
+
+/* ── Section Marker ── */
+.section-marker {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: -0.5rem;
+}
+
+/* ── Pillar Cards ── */
+.pillar {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border: var(--sketch-border);
+  border-radius: 2px;
+  position: relative;
+}
+
+.pillar::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.pillar--snn::before     { background: var(--amber); }
+.pillar--quantum::before { background: var(--blue); }
+.pillar--pinn::before    { background: var(--green); }
+
+.pillar h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.pillar p {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+}
+
+/* ── Pipeline ── */
+.pipeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: nowrap;
+}
+
+.pipeline-stage {
+  padding: 1rem 1.5rem;
+  border: var(--sketch-border);
+  border-radius: 2px;
+  text-align: center;
+  background: var(--canvas);
+  min-width: 120px;
+  position: relative;
+}
+
+.pipeline-stage.dormant {
+  border-style: dashed;
+  opacity: 0.5;
+}
+
+.pipeline-stage.active-stage {
+  border-width: 2px;
+  opacity: 1;
+}
+
+.pipeline-arrow {
+  width: 40px;
+  text-align: center;
+  color: var(--ink-light);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* ── Tables ── */
+.sketch-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+}
+
+.sketch-table th {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 1em;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: var(--sketch-border);
+}
+
+.sketch-table td {
+  padding: 0.6rem 1rem;
+  border-bottom: var(--sketch-border-light);
+  color: var(--ink-mid);
+}
+
+.sketch-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Gantt Table ── */
+.gantt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.gantt-table th {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 0.5rem 0.4rem;
+  border-bottom: var(--sketch-border);
+  color: var(--ink-light);
+}
+
+.gantt-table th:first-child {
+  text-align: left;
+  min-width: 140px;
+}
+
+.gantt-table td {
+  padding: 0.5rem 0.4rem;
+  border-bottom: var(--sketch-border-light);
+  text-align: center;
+  color: var(--ink-mid);
+}
+
+.gantt-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+.gantt-fill {
+  display: inline-block;
+  height: 16px;
+  border-radius: 2px;
+  background: var(--ink);
+}
+
+.gantt-fill--blue  { background: var(--blue); }
+.gantt-fill--amber { background: var(--amber); }
+.gantt-fill--green { background: var(--green); }
+.gantt-fill--red   { background: var(--red); }
+
+/* ── Load Bars ── */
+.load-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.load-bar-track {
+  flex: 1;
+  height: 18px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 1px;
+  overflow: hidden;
+  background: var(--canvas);
+}
+
+.load-bar-fill {
+  height: 100%;
+  background: var(--ink);
+  border-radius: 1px;
+  width: 0%;
+}
+
+.load-bar-fill--red   { background: var(--red); }
+.load-bar-fill--blue  { background: var(--blue); }
+.load-bar-fill--amber { background: var(--amber); }
+.load-bar-fill--green { background: var(--green); }
+
+.load-bar-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-light);
+  min-width: 3em;
+  text-align: right;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 4 — SVG & ILLUSTRATIONS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Sizing ── */
+.illustration {
+  width: 100%;
+  max-width: 500px;
+}
+
+.illustration--sm   { max-width: 320px; }
+.illustration--lg   { max-width: 700px; }
+.illustration--full { max-width: 100%; }
+
+/* ── SVG Background Layer ── */
+.slide-bg-svg {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Icon SVG Sizes ── */
+.icon-svg {
+  width: 48px;
+  height: 48px;
+  display: block;
+  margin: 0 auto 0.5rem;
+}
+
+.icon-svg--lg {
+  width: 80px;
+  height: 60px;
+  display: block;
+  margin: 0 auto 0.75rem;
+}
+
+.icon-svg--xl {
+  width: 120px;
+  height: 120px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ── SVG Stroke Utilities ── */
+.sketch-svg {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sketch-svg--light { stroke: var(--ink-light); stroke-width: 1; }
+.sketch-svg--red   { stroke: var(--red); }
+.sketch-svg--blue  { stroke: var(--blue); }
+.sketch-svg--amber { stroke: var(--amber); }
+.sketch-svg--green { stroke: var(--green); }
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 5 — NAVIGATION UI
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Progress Bar ── */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--ink);
+  z-index: 100;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Slide Counter ── */
+.slide-counter {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-light);
+  z-index: 100;
+  letter-spacing: 0.05em;
+}
+
+/* ── Navigation Arrows ── */
+.nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  background: none;
+  border: var(--sketch-border);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 1.2rem;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+  border-radius: 2px;
+}
+
+.nav-arrow:hover { opacity: 1; }
+.nav-prev { left: 1.5rem; }
+.nav-next { right: 1.5rem; }
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 6 — SLIDE-SPECIFIC STYLES
+   ══════════════════════════════════════════════════════════ */
+
+#slide-title {
+  background: var(--canvas);
+}
+
+#slide-title .title-main {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+#slide-title .title-sub {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  color: var(--ink-mid);
+  max-width: 55ch;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+#slide-title .title-meta {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink-light);
+  margin-top: 2rem;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 7 — BASE ANIMATIONS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Stagger fade-in for slide children ── */
+.anim-in { opacity: 0; }
+
+.slide.active .anim-in {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-d1 { animation-delay: 0.1s !important; }
+.anim-d2 { animation-delay: 0.25s !important; }
+.anim-d3 { animation-delay: 0.4s !important; }
+.anim-d4 { animation-delay: 0.55s !important; }
+.anim-d5 { animation-delay: 0.7s !important; }
+.anim-d6 { animation-delay: 0.85s !important; }
+.anim-d7 { animation-delay: 1.0s !important; }
+.anim-d8 { animation-delay: 1.15s !important; }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Draw-in (SVG stroke reveal) ── */
+.draw-in {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.slide.active .draw-in {
+  animation: drawIn 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes drawIn {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ── Bar grow (vertical scale) ── */
+.bar-grow {
+  transform-origin: 0 150px;
+  transform: scaleY(0);
+}
+
+.slide.active .bar-grow {
+  animation: scaleUpY 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scaleUpY {
+  to { transform: scaleY(1); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 8 — SLIDE-SPECIFIC ANIMATIONS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Slide 1: Title wave float ── */
+.wave-float { animation: none; }
+
+.slide.active .wave-float {
+  animation: waveFloat 8s ease-in-out infinite;
+}
+
+@keyframes waveFloat {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(-20px); }
+}
+
+/* ── Slide 2: Regime shift colour transition ── */
+.regime-bar {
+  transition: fill 0.6s ease;
+}
+
+.slide.active .regime-bar.regime-shift {
+  animation: regimeFlash 3s ease-in-out 2s both;
+}
+
+@keyframes regimeFlash {
+  0%   { fill: #3FA65E; }
+  40%  { fill: #3FA65E; }
+  50%  { fill: #C44D3F; }
+  100% { fill: #C44D3F; }
+}
+
+.regime-flash-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--red);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: 4px;
+}
+
+.slide.active .regime-flash-overlay {
+  animation: flashBang 0.3s ease 3.2s both;
+}
+
+@keyframes flashBang {
+  0%   { opacity: 0; }
+  50%  { opacity: 0.08; }
+  100% { opacity: 0; }
+}
+
+/* ── Slide 5: Scope target draw-in ── */
+.scope-ring-outer { stroke-dasharray: 320; stroke-dashoffset: 320; }
+.scope-ring-mid   { stroke-dasharray: 220; stroke-dashoffset: 220; }
+.scope-ring-inner { stroke-dasharray: 115; stroke-dashoffset: 115; }
+
+.scope-bullseye {
+  transform: scale(0);
+  transform-origin: center;
+}
+
+.slide.active .scope-ring-outer { animation: drawIn 1s ease 0.5s forwards; }
+.slide.active .scope-ring-mid   { animation: drawIn 0.8s ease 1s forwards; }
+.slide.active .scope-ring-inner { animation: drawIn 0.6s ease 1.5s forwards; }
+
+.slide.active .scope-bullseye {
+  animation: scopePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2s forwards;
+}
+
+@keyframes scopePop {
+  to { transform: scale(1); }
+}
+
+.slide.active .scope-bullseye-glow {
+  animation: scopeGlow 2s ease-in-out 2.5s infinite;
+}
+
+@keyframes scopeGlow {
+  0%, 100% { opacity: 0.5; r: 4; }
+  50%      { opacity: 0.9; r: 6; }
+}
+
+/* ── Slide 7: Pipeline data particle ── */
+.slide.active .pulse-1 { animation: pipelinePulse 6s ease-in-out infinite 0s; }
+.slide.active .pulse-2 { animation: pipelinePulse 6s ease-in-out infinite 0.6s; }
+.slide.active .pulse-3 { animation: pipelinePulse 6s ease-in-out infinite 1.2s; }
+.slide.active .pulse-4 { animation: pipelinePulse 6s ease-in-out infinite 1.8s; }
+.slide.active .pulse-5 { animation: pipelinePulse 6s ease-in-out infinite 2.4s; }
+.slide.active .pulse-6 { animation: pipelinePulse 6s ease-in-out infinite 3.0s; }
+
+@keyframes pipelinePulse {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  15% { box-shadow: 0 0 15px 3px var(--blue); border-color: var(--blue); }
+  35% { box-shadow: 0 0 0 0 transparent; }
+}
+
+/* ── Slide 7: Pillar micro-animations ── */
+.pillar--snn .icon-svg--lg     { animation: none; }
+.pillar--quantum .icon-svg--lg { animation: none; }
+.pillar--pinn .icon-svg--lg    { animation: none; }
+
+.slide.active .pillar--snn .icon-svg--lg {
+  animation: neuronPulse 2.5s ease-in-out 1s infinite;
+}
+
+.slide.active .pillar--quantum .icon-svg--lg {
+  animation: vectorRotate 6s linear 1s infinite;
+}
+
+.slide.active .pillar--pinn .icon-svg--lg {
+  animation: lossConverge 3s ease-in-out 1s infinite;
+}
+
+@keyframes neuronPulse {
+  0%, 100% { transform: scale(1);    filter: brightness(1); }
+  30%      { transform: scale(1);    filter: brightness(1); }
+  35%      { transform: scale(1.08); filter: brightness(1.2); }
+  40%      { transform: scale(1);    filter: brightness(1); }
+  70%      { transform: scale(1);    filter: brightness(1); }
+  75%      { transform: scale(1.08); filter: brightness(1.2); }
+  80%      { transform: scale(1);    filter: brightness(1); }
+}
+
+@keyframes vectorRotate {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes lossConverge {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50%      { transform: scale(1.02) translateY(-2px); }
+}
+
+/* ── Slide 9: Load bar staggered fill ── */
+.load-bar-fill {
+  width: 0% !important;
+  transition: none;
+}
+
+.slide.active .load-bar-fill {
+  animation: loadBarFill 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.load-bar-fill.load-delay-1 { animation-delay: 0.5s !important; }
+.load-bar-fill.load-delay-2 { animation-delay: 0.8s !important; }
+.load-bar-fill.load-delay-3 { animation-delay: 1.1s !important; }
+.load-bar-fill.load-delay-4 { animation-delay: 1.4s !important; }
+
+.load-bar-fill[data-target="90"] { --target-width: 90%; }
+.load-bar-fill[data-target="72"] { --target-width: 72%; }
+.load-bar-fill[data-target="65"] { --target-width: 65%; }
+.load-bar-fill[data-target="80"] { --target-width: 80%; }
+
+@keyframes loadBarFill {
+  to { width: var(--target-width, 80%); }
+}
+
+/* ── Slide 10: Icon idle animations ── */
+.icon-bob   { animation: none; }
+.icon-pulse { animation: none; }
+.icon-blink { animation: none; }
+
+.slide.active .icon-bob   { animation: iconBob 2s ease-in-out infinite; }
+.slide.active .icon-pulse { animation: iconPulse 2.5s ease-in-out infinite; }
+.slide.active .icon-blink { animation: iconBlink 3s step-end infinite; }
+
+@keyframes iconBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.06); opacity: 0.85; }
+}
+
+@keyframes iconBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95%           { opacity: 0.5; }
+}
+
+/* ── Slide 11: Gantt bar fill ── */
+.gantt-fill {
+  width: 0%;
+  transition: none;
+}
+
+.slide.active .gantt-fill {
+  animation: ganttGrow 0.8s ease forwards;
+}
+
+.gantt-fill.gantt-delay-1 { animation-delay: 0.3s !important; }
+.gantt-fill.gantt-delay-2 { animation-delay: 0.5s !important; }
+.gantt-fill.gantt-delay-3 { animation-delay: 0.7s !important; }
+.gantt-fill.gantt-delay-4 { animation-delay: 0.9s !important; }
+.gantt-fill.gantt-delay-5 { animation-delay: 1.1s !important; }
+.gantt-fill.gantt-delay-6 { animation-delay: 1.3s !important; }
+.gantt-fill.gantt-delay-7 { animation-delay: 1.5s !important; }
+
+@keyframes ganttGrow {
+  to { width: 100%; }
+}
+
+/* ── Slide 13: Typewriter ── */
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--ink);
+  width: 0;
+  display: inline-block;
+}
+
+.slide.active .typewriter {
+  animation: typeIn 1s steps(10) 0.5s forwards, cursorBlink 0.7s step-end 0.5s infinite;
+}
+
+@keyframes typeIn {
+  to { width: 100%; }
+}
+
+@keyframes cursorBlink {
+  0%, 100% { border-color: var(--ink); }
+  50%      { border-color: transparent; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 9 — RESPONSIVE & PRINT
+   ══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .row { flex-direction: column; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .pipeline { flex-wrap: wrap; justify-content: center; }
+  .nav-arrow { display: none; }
+}
+
+@media print {
+  .slide { 
+    position: relative; 
+    opacity: 1; 
+    pointer-events: auto;
+    page-break-after: always;
+    height: auto;
+    min-height: 100vh;
+  }
+  .nav-arrow, .progress-bar, .slide-counter { display: none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Slide Counter -->
+<div class="slide-counter" id="slideCounter">01 / 14</div>
+
+<!-- Navigation Arrows -->
+<button class="nav-arrow nav-prev" id="navPrev" aria-label="Previous slide">&#8592;</button>
+<button class="nav-arrow nav-next" id="navNext" aria-label="Next slide">&#8594;</button>
+
+<!-- ============================================================ -->
+<!-- DECK                                                          -->
+<!-- ============================================================ -->
+<div class="deck" id="deck">
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 1 — Title                                             -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide active" id="slide-title">
+    <!-- Background wave -->
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDEyMCIgZmlsbD0ibm9uZSI+CiAgPCEtLSBOZXVyYWwtcHVsc2Ugc2luZSB3YXZlIOKAlCBkZWNvcmF0aXZlIGJhY2tncm91bmQgZm9yIHRpdGxlIHNsaWRlIC0tPgogIDxwYXRoIGQ9Ik0wLDYwIFE1MCwyMCAxMDAsNjAgVDIwMCw2MCBUMzAwLDYwIFQ0MDAsNjAgVDUwMCw2MCBUNjAwLDYwIFQ3MDAsNjAgVDgwMCw2MCBUOTAwLDYwIFQxMDAwLDYwIFQxMTAwLDYwIFQxMjAwLDYwIgogICAgICAgIHN0cm9rZT0iIzFDMUMxQyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuMDgiLz4KICA8cGF0aCBkPSJNMCw2MCBRNzUsNSAxNTAsNjAgVDMwMCw2MCBUNDUwLDYwIFQ2MDAsNjAgVDc1MCw2MCBUOTAwLDYwIFQxMDUwLDYwIFQxMjAwLDYwIgogICAgICAgIHN0cm9rZT0iIzNGN0VDNCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC4wNiIvPgogIDxwYXRoIGQ9Ik0wLDYwIFE2MCw5NSAxMjAsNjAgVDI0MCw2MCBUMzYwLDYwIFQ0ODAsNjAgVDYwMCw2MCBUNzIwLDYwIFQ4NDAsNjAgVDk2MCw2MCBUMTA4MCw2MCBUMTIwMCw2MCIKICAgICAgICBzdHJva2U9IiNDNDREM0YiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBmaWxsPSJub25lIiBvcGFjaXR5PSIwLjA1Ii8+Cjwvc3ZnPgo=" class="slide-bg-svg wave-float" alt="">
+    <div class="slide-inner text-center" style="align-items:center;position:relative;z-index:1;">
+      <!-- Decorative top line -->
+      <svg width="120" height="4" viewBox="0 0 120 4" class="anim-in anim-d1" style="margin:0 auto;">
+        <path d="M0,2 Q20,0 40,2 T80,2 T120,2" fill="none" stroke="#1C1C1C" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+
+      <h1 class="anim-in anim-d2 title-main" style="margin-top:1rem; font-size: 2.5rem; line-height: 1.2;">Quantum-Inspired Physics-Informed Neural Networks</h1>
+      <p class="anim-in anim-d3 title-sub mx-auto">
+        A Formalism for Stochastic Financial Modelling
+      </p>
+
+      <!-- Student details -->
+      <div class="anim-in anim-d4" style="margin-top:2rem;">
+        <div class="sketch-divider" style="max-width:400px;margin:0 auto 1.5rem;"></div>
+        <div class="grid-4 gap-sm" style="max-width:800px;margin:0 auto;text-align:center;">
+          <div>
+            <p class="small" style="color:var(--ink);font-weight:600;">Abiruth S</p>
+            <p class="small muted" style="margin-top:0.2rem;">CB.SC.U4AIE23002</p>
+          </div>
+          <div>
+            <p class="small" style="color:var(--ink);font-weight:600;">Aditya Samant</p>
+            <p class="small muted" style="margin-top:0.2rem;">CB.SC.U4AIE23012</p>
+          </div>
+          <div>
+            <p class="small" style="color:var(--ink);font-weight:600;">Ansh Raj Rath</p>
+            <p class="small muted" style="margin-top:0.2rem;">CB.SC.U4AIE23006</p>
+          </div>
+          <div>
+            <p class="small" style="color:var(--ink);font-weight:600;">Dinesh Karthikeyan</p>
+            <p class="small muted" style="margin-top:0.2rem;">CB.SC.U4AIE23023</p>
+          </div>
+        </div>
+        <p class="small muted" style="margin-top:1.5rem;">Team Number: A2 &nbsp;&nbsp;|&nbsp;&nbsp; Supervisor: Dr. Biswajit Das</p>
+      </div>
+
+      <div class="anim-in anim-d5 title-meta">B.Tech Final Year Project · Zeroth Review</div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 2 — Market Basics                                     -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-basics">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 2</div>
+      <h2 class="anim-in anim-d2">Introduction: Market mechanics</h2>
+
+      <div class="anim-in anim-d3 grid-2 gap-md" style="margin-top:1.5rem; align-items: stretch;">
+        
+        <!-- Left Column -->
+        <div class="col gap-md">
+          <!-- Stock = Piece of Company -->
+          <div class="sketch-card row row--center gap-md" style="padding:1.2rem 1.5rem;text-align:left; flex: 1; position: relative;">
+            <svg viewBox="0 0 64 64" fill="none" style="width: 80px; height: 80px; flex-shrink: 0; margin: 0;">
+              <!-- 3/4 Pie Chart (Company) -->
+              <path d="M30,34 L30,12 A22,22 0 1,0 52,34 Z" fill="none" stroke="var(--ink-light)" stroke-width="2" stroke-linejoin="round" />
+              
+              <!-- Pulled out slice (The Stock) -->
+              <path d="M38,26 L60,26 A22,22 0 0,0 38,4 Z" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="2" stroke-linejoin="round" />
+            </svg>
+            <div class="flex-1">
+              <span class="sketch-label-lg" style="color:var(--amber);font-size:1.1rem;">1. The Stock</span>
+              <p class="small muted" style="margin-top:0.3rem;">
+                A stock represents a fractional ownership (a "share") in a company. When you buy a stock, you own a piece of that business.
+              </p>
+            </div>
+            
+            <!-- Arrow pointing to LOB -->
+            <div style="position: absolute; right: -1rem; top: 50%; transform: translate(50%, -50%); color: var(--ink-light); z-index: 10;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; display: block;">
+                <line x1="0" y1="12" x2="22" y2="12"></line>
+                <polyline points="15 5 22 12 15 19"></polyline>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Vertical Double-Ended Arrow -->
+          <div style="text-align: center; color: var(--ink-light); margin: -0.8rem 0; z-index: 10; position: relative;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; display: inline-block;">
+              <line x1="12" y1="2" x2="12" y2="22"></line>
+              <polyline points="5 9 12 2 19 9"></polyline>
+              <polyline points="5 15 12 22 19 15"></polyline>
+            </svg>
+          </div>
+
+          <!-- Stock Market = Trading Venue -->
+          <div class="sketch-card row row--center gap-md" style="padding:1.2rem 1.5rem;text-align:left; flex: 1; position: relative;">
+            <svg viewBox="0 0 64 64" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 80px; height: 80px; flex-shrink: 0; margin: 0;">
+              <!-- Exchange Building -->
+              <path d="M8 52h48M12 52V28M22 52V28M32 52V28M42 52V28M52 52V28M8 28h48M32 10L8 28M32 10l24 18" />
+              <!-- Trading arrows -->
+              <path d="M22 18h10m-10 0l4-4m-4 4l4 4" stroke="var(--red)" />
+              <path d="M42 22H32m10 0l-4-4m4 4l-4 4" stroke="var(--green)" />
+            </svg>
+            <div class="flex-1">
+              <span class="sketch-label-lg" style="color:var(--green);font-size:1.1rem;">2. The Market</span>
+              <p class="small muted" style="margin-top:0.3rem;">
+                The Stock Market (like NSE) is the central venue where buyers and sellers meet to exchange these shares for capital.
+              </p>
+            </div>
+            
+            <!-- Arrow pointing to LOB -->
+            <div style="position: absolute; right: -1rem; top: 50%; transform: translate(50%, -50%); color: var(--ink-light); z-index: 10;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; display: block;">
+                <line x1="0" y1="12" x2="22" y2="12"></line>
+                <polyline points="15 5 22 12 15 19"></polyline>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column (LOB) -->
+        <div class="sketch-card col row--center gap-lg" style="padding:2.5rem 1.5rem;text-align:center;justify-content:center;">
+          <svg viewBox="0 0 64 64" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 140px; height: 140px; margin: 0 auto;">
+            <!-- LOB Order Book representation -->
+            <!-- Sell side (Red) -->
+            <line x1="32" y1="12" x2="52" y2="12" stroke="var(--red)" stroke-width="3"/>
+            <line x1="32" y1="20" x2="48" y2="20" stroke="var(--red)" stroke-width="3"/>
+            <line x1="32" y1="28" x2="42" y2="28" stroke="var(--red)" stroke-width="3"/>
+            <!-- Mid price gap -->
+            <line x1="12" y1="34" x2="52" y2="34" stroke="var(--ink-light)" stroke-dasharray="2 2" stroke-width="1"/>
+            <!-- Buy side (Green) -->
+            <line x1="32" y1="40" x2="20" y2="40" stroke="var(--green)" stroke-width="3"/>
+            <line x1="32" y1="48" x2="16" y2="48" stroke="var(--green)" stroke-width="3"/>
+            <line x1="32" y1="56" x2="8" y2="56" stroke="var(--green)" stroke-width="3"/>
+            <!-- Center axis -->
+            <line x1="32" y1="8" x2="32" y2="60" stroke="var(--ink)" stroke-width="1"/>
+          </svg>
+          <div>
+            <span class="sketch-label-lg" style="color:var(--amber);font-size:1.3rem;">3. Limit Order Book (LOB)</span>
+            <p class="small muted mx-auto" style="margin-top:0.8rem; line-height:1.6; max-width:32ch;">
+              A real-time electronic ledger tracking all pending buy and sell orders at various prices. The exchange engine matches trades here.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 3 — Introduction & Motivation                         -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-intro">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 3</div>
+      <h2 class="anim-in anim-d2">Motivations</h2>
+
+      <!-- Boxed Row: Motivation & Visual -->
+      <div class="sketch-card anim-in anim-d3" style="padding: 1.5rem; margin-top:0.5rem;">
+        <div class="row gap-lg">
+          <div class="flex-1 col gap-md" style="justify-content: center;">
+            <p style="color:var(--ink); line-height: 1.6; font-size: 1.05rem;">
+              <strong>The Scale Challenge:</strong> The NSE's upcoming nanosecond upgrade will trigger a ~1,000&times; surge, driving throughput to <strong>~100 million transactions/sec</strong> in an already algorithm-dominated market.
+            </p>
+            <p style="color:var(--ink); line-height: 1.6; font-size: 1.05rem; margin-top:0.8rem;">
+              <strong>Our Objective:</strong> We urgently need a lean architecture that <em>sleeps through the noise</em>, <em>wakes for genuine signals</em>, and <em>respects the physics</em> of time-lagged market dynamics.
+            </p>
+          </div>
+  
+          <!-- Visual: Market speed illustration (Adapted) -->
+          <div class="flex-1 col gap-md text-center" style="justify-content:center; padding: 0.5rem 0;">
+            <div style="position: relative;">
+              <div id="tick-phase-label" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); transition: color 0.4s ease;">Today &middot; NSE throughput</div>
+              <div id="tick-counter" style="font-size: 4.2rem; font-weight: 700; font-family: var(--font-mono); letter-spacing: -0.05em; color: var(--ink); line-height: 1; margin-top: 0.15rem;">0</div>
+              <div class="hand-note" id="tick-caption" style="margin-top: 0.4rem; color: var(--ink-light);">transactions/sec</div>
+  
+
+            </div>
+  
+            <div class="hand-note" style="margin-top:0.6rem; color:var(--ink-light); font-size:0.65rem;">
+              Source: NSE, via Angel One (23 Feb 2026)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Row: Regime Shift (Boxed) -->
+      <div class="sketch-card anim-in anim-d5" style="padding: 1.5rem; margin-top:1.5rem;">
+        <div class="row gap-lg">
+          
+          <!-- Visual: Regime Shift -->
+          <div class="flex-1 col text-center" style="justify-content:center; position: relative; padding: 0.5rem 0;">
+            <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold;">The Regime Shift Problem</div>
+            
+            <svg viewBox="0 0 300 130" style="width: 100%; height: auto; max-height: 140px;" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <g transform="translate(0, 20)">
+                <path d="M10,70 L25,60 L40,75 L55,55 L70,70 L85,60 L100,75 L115,55 L130,65" stroke="var(--green)"/>
+                <line x1="140" y1="10" x2="140" y2="110" stroke="var(--red)" stroke-dasharray="6 6" stroke-width="2"/>
+                <path d="M130,65 L155,50 L170,100 L190,20 L210,110 L230,40 L250,95 L270,30 L290,80" stroke="var(--red)"/>
+              </g>
+              
+              <text x="146" y="15" fill="var(--red)" stroke="none" font-size="12" font-family="var(--font-sans)" font-weight="bold">Regime Shift</text>
+              <text x="146" y="29" fill="var(--red)" stroke="none" font-size="10" font-family="var(--font-sans)">(Models Break Here)</text>
+            </svg>
+            
+            <div class="hand-note" style="margin-top: 1rem; color: var(--ink-light); font-size: 0.9rem;">
+              Sudden changes in market behaviour invalidate learned patterns.
+            </div>
+          </div>
+
+          <!-- Text: Challenge & Objective -->
+          <div class="flex-1 col gap-md" style="justify-content: center;">
+            <p style="color:var(--ink); line-height: 1.6; font-size: 1.05rem;">
+              <strong>The Instability Challenge:</strong> Financial markets are highly non-stationary. A standard model trained during a quiet period will catastrophically fail when a macroeconomic event triggers a sudden "regime shift," drastically altering volatility and asset correlations.
+            </p>
+            <p style="color:var(--ink); line-height: 1.6; font-size: 1.05rem; margin-top:0.8rem;">
+              <strong>Our Objective:</strong> We need a structural anchor to keep predictions stable and grounded even when empirical data patterns suddenly collapse.
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 4 — Literature Review (Empty — to be filled)          -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-literature">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 4</div>
+      <h2 class="anim-in anim-d2">Literature Review</h2>
+
+      <div class="anim-in anim-d3" style="margin-top:1rem;">
+        <!-- Placeholder table structure -->
+        <table class="sketch-table" style="margin-top:1.5rem;">
+          <thead>
+            <tr>
+              <th style="width:5%;">#</th>
+              <th style="width:25%;">Citation</th>
+              <th style="width:25%;">Core Contribution</th>
+              <th style="width:20%;">Key Finding</th>
+              <th style="width:25%;">Relevance to Q-SPINN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>[1]</td>
+              <td>Black &amp; Scholes (1973), <br><em>Journal of Political Economy</em></td>
+              <td>Derived a closed form option pricing model assuming constant volatility and continuous trading</td>
+              <td>Markets can be priced analytically only if they move smoothly with stable volatility</td>
+              <td>The classical assumption Q-SPINN challenges; real markets violate this</td>
+            </tr>
+            <tr>
+              <td>[2]</td>
+              <td>Cont, Kukanov &amp; Stoikov (2014), <br><em>Journal of Financial Econometrics</em></td>
+              <td>Studied 50 stocks to find what drives short term price changes</td>
+              <td>Order flow imbalance predicts short term moves almost linearly, more than price or volume</td>
+              <td>Basis for treating order flow imbalance as the real signal our SNN gate detects</td>
+            </tr>
+            <tr>
+              <td>[3]</td>
+              <td>Raissi, Perdikaris &amp; Karniadakis (2019), <br><em>Journal of Computational Physics</em></td>
+              <td>Introduced Physics Informed Neural Networks (PINNs)</td>
+              <td>Adding a governing equation to the loss (L = L_data + λL_PDE) cuts data needs and improves generalisation</td>
+              <td>Template for our PINN layer, with the PDE replaced by a quantum inspired equation</td>
+            </tr>
+            <tr>
+              <td>[4]</td>
+              <td>Neftci, Mostafa &amp; Zenke (2019), <br><em>IEEE Signal Processing Magazine</em></td>
+              <td>Introduced surrogate gradient learning for spiking neural networks</td>
+              <td>A smooth surrogate function used only in backpropagation makes non differentiable spikes trainable</td>
+              <td>Enables training of our SNN gatekeeper that decides when to wake the PINN</td>
+            </tr>
+            <tr>
+              <td>[5]</td>
+              <td>Baaquie (2004), <br><em>Quantum Finance</em></td>
+              <td>Formalised quantum probability as a computational tool for pricing derivatives</td>
+              <td>Quantum math can be borrowed purely as formalism, not a physical claim, to model correlated uncertainty</td>
+              <td>Justifies our Hamiltonian and Schrodinger type equation as mathematical formalism only</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 5 — Research Gap                                      -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-gap">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 5</div>
+      <h2 class="anim-in anim-d2">Research Gap</h2>
+
+      <div class="anim-in anim-d3 grid-3 gap-md" style="margin-top:1rem;">
+        <!-- Gap 1 -->
+        <div class="sketch-card" style="padding:1.5rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg" style="width: 120px; height: auto; margin-bottom: 1.5rem;">
+            <!-- Normal Distribution -->
+            <path d="M4,40 C14,40 18,5 24,5 C30,5 34,40 44,40" stroke="var(--ink-light)" stroke-width="1.5" stroke-dasharray="2 2" />
+            <!-- Fat Tail Distribution -->
+            <path d="M4,32 C16,38 21,18 24,18 C27,18 32,38 44,32" stroke="var(--red)" stroke-width="2" />
+            <!-- Center Line -->
+            <line x1="24" y1="5" x2="24" y2="44" stroke="var(--ink-light)" stroke-width="1" stroke-dasharray="1 2" opacity="0.5"/>
+            <!-- X Axis -->
+            <line x1="4" y1="44" x2="44" y2="44" stroke="var(--ink)" stroke-width="1.5"/>
+          </svg>
+          <span class="sketch-label" style="color:var(--red);font-size:1.1rem;">Gap 1: Static Physics</span>
+          <p class="small" style="margin-top:0.5rem;color:var(--ink-mid);">
+            Classical models (Black-Scholes, Heston) assume constant volatility and log-normal distributions — real markets have fat tails, jumps, and regime breaks.
+          </p>
+        </div>
+
+        <!-- Gap 2 -->
+        <div class="sketch-card" style="padding:1.5rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg" style="width: 120px; height: auto; margin-bottom: 1.5rem;">
+            <!-- Connections -->
+            <g stroke="var(--ink-light)" stroke-width="1.2" opacity="0.4">
+              <path d="M10,14 L24,9 M10,14 L24,19 M10,14 L24,29 M10,14 L24,39" />
+              <path d="M10,24 L24,9 M10,24 L24,19 M10,24 L24,29 M10,24 L24,39" />
+              <path d="M10,34 L24,9 M10,34 L24,19 M10,34 L24,29 M10,34 L24,39" />
+              <path d="M24,9 L38,19 M24,9 L38,29" />
+              <path d="M24,19 L38,19 M24,19 L38,29" />
+              <path d="M24,29 L38,19 M24,29 L38,29" />
+              <path d="M24,39 L38,19 M24,39 L38,29" />
+            </g>
+            <!-- Nodes -->
+            <g fill="var(--canvas)" stroke-width="2">
+              <circle cx="10" cy="14" r="3.5" stroke="var(--red)" />
+              <circle cx="10" cy="24" r="3.5" stroke="var(--red)" />
+              <circle cx="10" cy="34" r="3.5" stroke="var(--red)" />
+              <circle cx="24" cy="9" r="3.5" stroke="var(--amber)" />
+              <circle cx="24" cy="19" r="3.5" stroke="var(--amber)" />
+              <circle cx="24" cy="29" r="3.5" stroke="var(--amber)" />
+              <circle cx="24" cy="39" r="3.5" stroke="var(--amber)" />
+              <circle cx="38" cy="19" r="3.5" stroke="var(--blue)" />
+              <circle cx="38" cy="29" r="3.5" stroke="var(--blue)" />
+            </g>
+          </svg>
+          <span class="sketch-label" style="color:var(--red);font-size:1.1rem;">Gap 2: Brute-Force DNNs</span>
+          <p class="small" style="margin-top:0.5rem;color:var(--ink-mid);">
+            Deep learning processes every tick identically — wasting 99% of compute on noise. No mechanism to distinguish signal from noise. Overfits to regime-specific patterns.
+          </p>
+          
+          <!-- Noise Diagram (moved from slide 3) -->
+          <div style="width: 100%; margin: 1.25rem auto 0;">
+            <div style="display: flex; gap: 0.5rem; align-items: stretch; justify-content: center; height: 28px;">
+              <div style="flex: 1; border: var(--sketch-border-light); background: var(--canvas-warm); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--ink-light); font-family: var(--font-mono); border-radius: 2px;">~99% noise</div>
+              <div style="width: 35px; border: 1.5px solid var(--amber); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: var(--amber); font-family: var(--font-mono); border-radius: 2px;">1%</div>
+            </div>
+            <div class="hand-note" style="color: var(--amber); margin-top: 0.4rem; text-align: center; font-size: 0.8rem;">
+              Only this sliver matters
+            </div>
+          </div>
+        </div>
+
+        <!-- Gap 3 -->
+        <div class="sketch-card" style="padding:1.5rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg" style="width: 120px; height: auto; margin-bottom: 1.5rem;">
+            <line x1="4" y1="44" x2="44" y2="44" stroke="var(--ink)" stroke-width="1.5"/>
+            <line x1="4" y1="44" x2="4" y2="4" stroke="var(--ink)" stroke-width="1.5"/>
+            <path d="M4,15 L12,18 L16,35 L24,38 L44,35" stroke="var(--blue)" stroke-width="2" />
+            <path d="M4,22 L18,25 L22,40 L30,42 L44,40" stroke="var(--red)" stroke-width="2" />
+            <line x1="14" y1="18" x2="14" y2="44" stroke="var(--blue)" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+            <line x1="20" y1="25" x2="20" y2="44" stroke="var(--red)" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+            <line x1="14" y1="22" x2="19" y2="22" stroke="var(--amber)" stroke-width="1.5" />
+            <polygon points="19,22 17,20 17,24" fill="var(--amber)" stroke="none" />
+          </svg>
+          <span class="sketch-label" style="color:var(--red);font-size:1.1rem;">Gap 3: Synchronous Correlations</span>
+          <p class="small" style="margin-top:0.5rem;color:var(--ink-mid);">
+            Standard covariance matrices assume simultaneous movement. Real assets show <em>time-lagged</em> correlations (e.g., AAPL drops → MSFT follows 200ms later) — invisible to real-valued methods.
+          </p>
+        </div>
+      </div>
+
+      <div class="anim-in anim-d4" style="margin-top:1.5rem;">
+        <p class="mx-auto text-center" style="max-width:65ch;color:var(--ink-mid);font-size:1.15rem;margin-bottom:1rem;line-height:1.5;">
+          No existing architecture combines event-driven processing, physics-informed learning, <em>and</em> complex-valued correlation modelling in a single framework.
+        </p>
+        <div class="sketch-divider"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 6 — Problem Statement                                 -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-problem">
+    <div class="slide-inner text-center" style="align-items:center;">
+      <div class="anim-in anim-d1 section-marker">Slide 6</div>
+      <h2 class="anim-in anim-d2">Problem Statement</h2>
+
+      <div class="anim-in anim-d3 sketch-card" style="max-width:750px;margin-top:1.5rem;padding:2.5rem 3rem;">
+        <p style="font-size:1.15rem;line-height:1.8;color:var(--ink);max-width:none;">
+          Design and validate a <strong>hybrid neural architecture</strong> (Q-SPINN) that integrates spiking neural network gating, quantum-inspired complex-valued covariance modelling, and physics-informed loss constraints to achieve <strong>regime-aware, event-driven prediction</strong> of limit order book mid-price direction — outperforming existing methods while reducing redundant computation by >90%.
+        </p>
+      </div>
+
+      <div class="anim-in anim-d4" style="margin-top:1.5rem;text-align:center;">
+        <svg viewBox="0 0 120 120" width="120" height="120" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;display:block;margin-bottom:1rem;">
+          <circle cx="60" cy="60" r="50" stroke="#C44D3F" stroke-width="1.5" stroke-dasharray="6 4" fill="none" class="scope-ring-outer"/>
+          <circle cx="60" cy="60" r="35" stroke="#8A8A8A" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.5" class="scope-ring-mid"/>
+          <circle cx="60" cy="60" r="18" stroke="#3FA65E" stroke-width="2" fill="none" class="scope-ring-inner"/>
+          <circle cx="60" cy="60" r="4" fill="#3FA65E" opacity="0.7" class="scope-bullseye"/>
+          <circle cx="60" cy="60" r="4" fill="#3FA65E" opacity="0.5" class="scope-bullseye-glow"/>
+          <line x1="60" y1="6" x2="60" y2="38" stroke="#1C1C1C" stroke-width="1" opacity="0.3" class="scope-ring-outer"/>
+          <line x1="60" y1="82" x2="60" y2="114" stroke="#1C1C1C" stroke-width="1" opacity="0.3" class="scope-ring-outer"/>
+          <line x1="6" y1="60" x2="38" y2="60" stroke="#1C1C1C" stroke-width="1" opacity="0.3" class="scope-ring-outer"/>
+          <line x1="82" y1="60" x2="114" y2="60" stroke="#1C1C1C" stroke-width="1" opacity="0.3" class="scope-ring-outer"/>
+        </svg>
+      </div>
+
+      <div class="anim-in anim-d5" style="margin-top:0;max-width:550px;">
+        <div class="sketch-divider" style="margin-bottom:1.5rem;"></div>
+        <div class="grid-2 gap-md">
+          <div class="sketch-card" style="padding:1rem;text-align:center;">
+            <span class="sketch-label" style="color:var(--green);">✓ In scope</span>
+            <p class="small muted" style="margin-top:0.3rem;">3-asset LOB basket (AAPL, MSFT, NVDA). FI-2010 + Binance data. Classical GPU training.</p>
+          </div>
+          <div class="sketch-card" style="padding:1rem;text-align:center;">
+            <span class="sketch-label" style="color:var(--red);">✗ Out of scope</span>
+            <p class="small muted" style="margin-top:0.3rem;">Real quantum hardware. Live trading deployment. Multi-asset portfolios beyond 3.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 7 — Objectives                                        -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-objectives">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 7</div>
+      <h2 class="anim-in anim-d2">Objectives</h2>
+
+      <div class="anim-in anim-d3 col gap-md" style="margin-top:1rem;max-width:800px;position:relative;">
+        <style>
+          @keyframes flowDownObj {
+            0% { top: -80px; }
+            100% { top: 100%; }
+          }
+        </style>
+        <div style="position:absolute;left:17px;top:2.5rem;bottom:2.5rem;width:2px;background:var(--ink-hairline);z-index:0;overflow:hidden;border-radius:2px;">
+           <div style="position:absolute;left:0;width:100%;height:80px;background:linear-gradient(to bottom, transparent, var(--blue) 50%, transparent);animation:flowDownObj 7s linear infinite;"></div>
+        </div>
+
+        <div class="row gap-md" style="align-items:center;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue);color:var(--canvas);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.9rem;position:relative;z-index:1;flex-shrink:0;">O1</div>
+          <div>
+            <p style="color:var(--ink);"><strong>Build an SNN gating mechanism</strong> that filters >90% of non-informative LOB ticks before they reach the prediction engine.</p>
+            <p class="small muted" style="margin-top:0.2rem;">Metric: Spike ratio, computational FLOP reduction vs. always-on baseline.</p>
+          </div>
+        </div>
+
+        <div class="sketch-divider" style="margin-left:52px;"></div>
+
+        <div class="row gap-md" style="align-items:center;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue);color:var(--canvas);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.9rem;position:relative;z-index:1;flex-shrink:0;">O2</div>
+          <div>
+            <p style="color:var(--ink);"><strong>Implement a complex-valued covariance layer</strong> that captures both correlation strength (amplitude) and time-lag (phase) between assets.</p>
+            <p class="small muted" style="margin-top:0.2rem;">Metric: Phase accuracy vs. known lead-lag pairs; ablation vs. real-valued baseline.</p>
+          </div>
+        </div>
+
+        <div class="sketch-divider" style="margin-left:52px;"></div>
+
+        <div class="row gap-md" style="align-items:center;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue);color:var(--canvas);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.9rem;position:relative;z-index:1;flex-shrink:0;">O3</div>
+          <div>
+            <p style="color:var(--ink);"><strong>Embed a modified Black-Scholes PDE</strong> as a physics-informed loss constraint (PINN layer) to regularize predictions during regime shifts.</p>
+            <p class="small muted" style="margin-top:0.2rem;">Metric: PDE residual loss; prediction stability during volatility spikes.</p>
+          </div>
+        </div>
+
+        <div class="sketch-divider" style="margin-left:52px;"></div>
+
+        <div class="row gap-md" style="align-items:center;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue);color:var(--canvas);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.9rem;position:relative;z-index:1;flex-shrink:0;">O4</div>
+          <div>
+            <p style="color:var(--ink);"><strong>Validate on FI-2010 + Binance LOB datasets</strong> using walk-forward backtesting and Deflated Sharpe Ratio.</p>
+            <p class="small muted" style="margin-top:0.2rem;">Metric: DSR, F1-score for mid-price direction, comparison vs. LSTM/Transformer baselines.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 8 — Proposed Methodology / Framework                  -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-methodology">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 8</div>
+      <h2 class="anim-in anim-d2">Proposed Methodology</h2>
+
+      <!-- Pipeline diagram -->
+      <div class="anim-in anim-d3" style="overflow-x:auto;padding:1rem 0;">
+        <div class="pipeline" style="min-width:750px;justify-content:center;position:relative;">
+          <div class="pipeline-stage pulse-1">
+            <span style="font-size:1.3rem;">📊</span>
+            <div class="sketch-label" style="margin-top:0.3rem;">LOB Data</div>
+            <span class="small muted">FI-2010 / Binance</span>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage pulse-2">
+            <span style="font-size:1.3rem;">🔄</span>
+            <div class="sketch-label" style="margin-top:0.3rem;">Preprocess</div>
+            <span class="small muted">Normalise, window</span>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage pulse-3" style="border-color:var(--amber);">
+            <span style="font-size:1.3rem;">⚡</span>
+            <div class="sketch-label" style="margin-top:0.3rem;color:var(--amber);">SNN Gate</div>
+            <span class="small muted">Spike/No-spike</span>
+          </div>
+          <div style="display:flex;flex-direction:column;justify-content:space-around;align-self:stretch;padding:0.5rem 0;">
+            <div class="pipeline-arrow" style="width:auto;margin:0 0.5rem;">→</div>
+            <div class="pipeline-arrow" style="width:auto;margin:0 0.5rem;">→</div>
+          </div>
+          <!-- Branch -->
+          <div style="display:flex;flex-direction:column;gap:0.5rem;align-items:stretch;">
+            <div class="pipeline-stage dormant" style="border-color:var(--red);box-shadow:0 0 15px 3px rgba(235, 87, 87, 0.3);padding:0.6rem 1rem;">
+              <div class="sketch-label" style="font-size:0.85rem;color:var(--ink);">No Spike → Sleep</div>
+              <span class="small" style="color:var(--ink);font-weight:600;">~99% ticks</span>
+            </div>
+            <div class="pipeline-stage active-stage pulse-4" style="border-color:var(--blue);padding:0.6rem 1rem;">
+              <div class="sketch-label" style="font-size:0.85rem;color:var(--blue);">Spike! → Wake</div>
+              <span class="small muted">~1% ticks</span>
+            </div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage pulse-5" style="border-color:var(--blue);">
+            <span style="font-size:1.3rem;">🌀</span>
+            <div class="sketch-label" style="margin-top:0.3rem;color:var(--blue);">Q-PINN</div>
+            <span class="small muted">ℂ-valued loss</span>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage pulse-6" style="border-color:var(--green);">
+            <span style="font-size:1.3rem;">✓</span>
+            <div class="sketch-label" style="margin-top:0.3rem;color:var(--green);">Output</div>
+            <span class="small muted">↑ / → / ↓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three pillars -->
+      <div class="anim-in anim-d4 grid-3 gap-md" style="margin-top:0.5rem;">
+        <div class="pillar pillar--snn">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8IS0tIExJRiBOZXVyb246IG1lbWJyYW5lIHBvdGVudGlhbCByaXNpbmcgdG8gdGhyZXNob2xkLCBzcGlrZSwgcmVzZXQgLS0+CiAgPCEtLSBBeGVzIC0tPgogIDxsaW5lIHgxPSI4IiB5MT0iNTIiIHgyPSI3NSIgeTI9IjUyIiBzdHJva2U9IiMxQzFDMUMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+CiAgPGxpbmUgeDE9IjgiIHkxPSI1MiIgeDI9IjgiIHkyPSI1IiBzdHJva2U9IiMxQzFDMUMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+CiAgCiAgPCEtLSBUaHJlc2hvbGQgbGluZSAoZGFzaGVkKSAtLT4KICA8bGluZSB4MT0iOCIgeTE9IjE4IiB4Mj0iNzUiIHkyPSIxOCIgc3Ryb2tlPSIjQzQ5QTNGIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1kYXNoYXJyYXk9IjMgMiIgb3BhY2l0eT0iMC42Ii8+CiAgPHRleHQgeD0iNzYiIHk9IjIwIiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNSIgZmlsbD0iI0M0OUEzRiIgb3BhY2l0eT0iMC44Ij7OuDwvdGV4dD4KICAKICA8IS0tIE1lbWJyYW5lIHBvdGVudGlhbDogcmFtcCB1cCDihpIgc3Bpa2Ug4oaSIHJlc2V0IOKGkiByYW1wIHVwIGFnYWluIC0tPgogIDxwYXRoIGQ9Ik0xMCw1MCBMMTgsNDIgTDI0LDM2IEwzMCwyNiBMMzQsMTggTDM0LDYgTDM0LDE4IEwzNCw0OCBMMzgsNTAgTDQ0LDQyIEw1MCwzNCBMNTQsMjQgTDU4LDE4IEw1OCw2IEw1OCwxOCBMNTgsNDggTDYyLDUwIEw2OCw0MiBMNzIsMzYiCiAgICAgICAgc3Ryb2tlPSIjQzQ5QTNGIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAKICA8IS0tIFNwaWtlIGxhYmVscyAtLT4KICA8dGV4dCB4PSIzMiIgeT0iNCIgZm9udC1mYW1pbHk9IkludGVyLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjQuNSIgZmlsbD0iI0M0OUEzRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9IjYwMCI+c3Bpa2UhPC90ZXh0PgogIAogIDwhLS0gQXhpcyBsYWJlbHMgLS0+CiAgPHRleHQgeD0iNDIiIHk9IjU4IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNCIgZmlsbD0iIzhBOEE4QSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+dGltZTwvdGV4dD4KICA8dGV4dCB4PSIzIiB5PSIyOCIgZm9udC1mYW1pbHk9IkludGVyLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjQiIGZpbGw9IiM4QThBOEEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwgMywgMjgpIj5WX208L3RleHQ+Cjwvc3ZnPgo=" class="icon-svg--lg" alt="LIF neuron diagram">
+          <h3>SNN Gating Layer</h3>
+          <p>Leaky Integrate-and-Fire neurons detect regime shifts. Only fires on genuine signals.</p>
+        </div>
+        <div class="pillar pillar--quantum">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8IS0tIEFyZ2FuZCAvIENvbXBsZXggUGxhbmUgZGlhZ3JhbSAtLT4KICA8IS0tIEF4ZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iNjUiIHgyPSI3NSIgeTI9IjY1IiBzdHJva2U9IiMxQzFDMUMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+CiAgPGxpbmUgeDE9IjEwIiB5MT0iNjUiIHgyPSIxMCIgeTI9IjUiIHN0cm9rZT0iIzFDMUMxQyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz4KICAKICA8IS0tIEF4aXMgbGFiZWxzIC0tPgogIDx0ZXh0IHg9IjcyIiB5PSI3MyIgZm9udC1mYW1pbHk9IkludGVyLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjUiIGZpbGw9IiM4QThBOEEiPlJlPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjgiIGZvbnQtZmFtaWx5PSJJbnRlciwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI1IiBmaWxsPSIjOEE4QThBIj5JbTwvdGV4dD4KICAKICA8IS0tIFZlY3RvciBmcm9tIG9yaWdpbiB0byBwb2ludCAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSI2NSIgeDI9IjU1IiB5Mj0iMjAiIHN0cm9rZT0iIzNGN0VDNCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPCEtLSBBcnJvd2hlYWQgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSI1NSwyMCA1MCwyNSA1MiwxOSIgZmlsbD0iIzNGN0VDNCIvPgogIAogIDwhLS0gUG9pbnQgZG90IC0tPgogIDxjaXJjbGUgY3g9IjU1IiBjeT0iMjAiIHI9IjMiIGZpbGw9IiMzRjdFQzQiLz4KICAKICA8IS0tIFBoYXNlIGFuZ2xlIGFyYyAtLT4KICA8cGF0aCBkPSJNMjUsNjUgQTE3LDE3IDAgMCwwIDIyLDUzIiBzdHJva2U9IiNDNDREM0YiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIi8+CiAgPHRleHQgeD0iMjciIHk9IjU3IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNiIgZmlsbD0iI0M0NEQzRiIgZm9udC13ZWlnaHQ9IjYwMCI+zrg8L3RleHQ+CiAgCiAgPCEtLSBBbXBsaXR1ZGUgbGFiZWwgLS0+CiAgPHRleHQgeD0iMjgiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNC41IiBmaWxsPSIjM0Y3RUM0IiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUsIDI4LCAzOCkiIGZvbnQtd2VpZ2h0PSI2MDAiPmFtcGxpdHVkZTwvdGV4dD4KICAKICA8IS0tIERhc2hlZCBwcm9qZWN0aW9uIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI1NSIgeTE9IjIwIiB4Mj0iNTUiIHkyPSI2NSIgc3Ryb2tlPSIjOEE4QThBIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWRhc2hhcnJheT0iMiAyIiBvcGFjaXR5PSIwLjUiLz4KICA8bGluZSB4MT0iNTUiIHkxPSIyMCIgeDI9IjEwIiB5Mj0iMjAiIHN0cm9rZT0iIzhBOEE4QSIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1kYXNoYXJyYXk9IjIgMiIgb3BhY2l0eT0iMC41Ii8+CiAgCiAgPCEtLSBQb2ludCBsYWJlbCAtLT4KICA8dGV4dCB4PSI1OCIgeT0iMTgiIGZvbnQtZmFtaWx5PSJJbnRlciwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI1IiBmaWxsPSIjM0Y3RUM0IiBmb250LXdlaWdodD0iNjAwIj56ID0gYStiaTwvdGV4dD4KPC9zdmc+Cg==" class="icon-svg--lg" style="height:80px;" alt="Argand diagram">
+          <h3>Quantum-Inspired Layer</h3>
+          <p>Complex-valued covariance captures both correlation strength (amplitude) and time-lag (phase).</p>
+        </div>
+        <div class="pillar pillar--pinn">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8IS0tIExvc3Mgc3VyZmFjZSBjcm9zcy1zZWN0aW9uIHdpdGggUERFIGNvbnN0cmFpbnQgLS0+CiAgPCEtLSBBeGVzIC0tPgogIDxsaW5lIHgxPSI4IiB5MT0iNTIiIHgyPSI3NSIgeTI9IjUyIiBzdHJva2U9IiMxQzFDMUMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+CiAgPGxpbmUgeDE9IjgiIHkxPSI1MiIgeDI9IjgiIHkyPSI1IiBzdHJva2U9IiMxQzFDMUMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+CiAgCiAgPCEtLSBMb3NzIGN1cnZlIChVLXNoYXBlZCkgLS0+CiAgPHBhdGggZD0iTTEyLDE1IFEyMCwxMiAyOCwyMCBRMzYsMzUgNDIsNDIgUTQ0LDQ0IDQ2LDQyIFE1MiwzNSA1OCwyMCBRNjQsMTIgNzIsMTAiCiAgICAgICAgc3Ryb2tlPSIjOEE4QThBIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC41Ii8+CiAgCiAgPCEtLSBDb25zdHJhaW5lZCBsb3NzIGN1cnZlIChuYXJyb3dlciwgZGVlcGVyIG1pbmltdW0pIC0tPgogIDxwYXRoIGQ9Ik0yMiwxOCBRMzAsMjIgMzYsMzIgUTQwLDQwIDQ0LDQwIFE0OCwzMiA1NCwyMiBRNjAsMTggNjUsMTUiCiAgICAgICAgc3Ryb2tlPSIjM0ZBNjVFIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAKICA8IS0tIFBERSBjb25zdHJhaW50IHBsYW5lIChob3Jpem9udGFsIGRhc2hlZCBsaW5lKSAtLT4KICA8bGluZSB4MT0iMTIiIHkxPSIzMCIgeDI9IjcyIiB5Mj0iMzAiIHN0cm9rZT0iIzNGQTY1RSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1kYXNoYXJyYXk9IjQgMyIvPgogIAogIDwhLS0gQ29uc3RyYWluZWQgbWluaW11bSBwb2ludCAtLT4KICA8Y2lyY2xlIGN4PSI0NCIgY3k9IjQwIiByPSIzIiBmaWxsPSIjM0ZBNjVFIiBvcGFjaXR5PSIwLjgiLz4KICAKICA8IS0tIFVuY29uc3RyYWluZWQgbWluaW11bSAoaGlnaGVyKSAtLT4KICA8Y2lyY2xlIGN4PSI0NiIgY3k9IjQyIiByPSIyIiBmaWxsPSIjOEE4QThBIiBvcGFjaXR5PSIwLjQiLz4KICAKICA8IS0tIExhYmVscyAtLT4KICA8dGV4dCB4PSI3NCIgeT0iMjkiIGZvbnQtZmFtaWx5PSJJbnRlciwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI0IiBmaWxsPSIjM0ZBNjVFIiBmb250LXdlaWdodD0iNjAwIj5QREU8L3RleHQ+CiAgPHRleHQgeD0iNDQiIHk9IjQ4IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNCIgZmlsbD0iIzNGQTY1RSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9IjYwMCI+bWluPC90ZXh0PgogIAogIDwhLS0gQXhpcyBsYWJlbHMgLS0+CiAgPHRleHQgeD0iNDIiIHk9IjU4IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNCIgZmlsbD0iIzhBOEE4QSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+cGFyYW1zPC90ZXh0PgogIDx0ZXh0IHg9IjMiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNCIgZmlsbD0iIzhBOEE4QSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwLCAzLCAyOCkiPmxvc3M8L3RleHQ+Cjwvc3ZnPgo=" class="icon-svg--lg" alt="Loss surface with PDE constraint">
+          <h3>PINN Loss Layer</h3>
+          <p>Modified Black-Scholes PDE embedded as a loss constraint — predictions must obey physics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 9 — Techniques & Tools                                -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-techniques">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 9</div>
+      <h2 class="anim-in anim-d2">Techniques &amp; Tools</h2>
+
+      <div class="anim-in anim-d3" style="margin-top:0.5rem;">
+        <table class="sketch-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Technique</th>
+              <th>Library / Platform</th>
+              <th>Why chosen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Datasets</strong></td>
+              <td>LOB snapshots, 10-level depth</td>
+              <td>FI-2010 (NASDAQ) + Binance (crypto)</td>
+              <td>Standard academic benchmark + live market data</td>
+            </tr>
+            <tr>
+              <td><strong>Baselines</strong></td>
+              <td>LSTM, Transformer, DeepLOB</td>
+              <td>PyTorch</td>
+              <td>Industry-standard comparisons for ablation</td>
+            </tr>
+            <tr>
+              <td><strong>Hardware</strong></td>
+              <td>GPU training</td>
+              <td>NVIDIA RTX 3070 / 4060</td>
+              <td>Standard deep learning hardware (no QPU needed)</td>
+            </tr>
+            <tr>
+              <td><strong>SNN Gating</strong></td>
+              <td>Leaky Integrate-and-Fire (LIF)</td>
+              <td>snnTorch + PyTorch</td>
+              <td>Event-driven; fires only on threshold crossings</td>
+            </tr>
+            <tr>
+              <td><strong>Quantum Layer</strong></td>
+              <td>Complex-valued Dense + Hermitian covariance</td>
+              <td>PyTorch (custom ℂ-ops)</td>
+              <td>Captures amplitude (strength) + phase (lag) natively</td>
+            </tr>
+            <tr>
+              <td><strong>PINN Loss</strong></td>
+              <td>Modified Black-Scholes PDE residual</td>
+              <td>DeepXDE / custom autograd</td>
+              <td>Physics regularization without extra data</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 10 — Expected Outcomes                                 -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-outcomes">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 10</div>
+      <h2 class="anim-in anim-d2">Expected Outcomes</h2>
+
+      <div class="anim-in anim-d3 grid-2 gap-lg" style="margin-top:1rem;">
+        <!-- Deliverables -->
+        <div class="col gap-md">
+          <h3>Deliverables</h3>
+          <div class="sketch-card" style="padding:1.2rem;">
+            <span class="sketch-label" style="color:var(--blue);">Trained Q-SPINN Model</span>
+            <p class="small muted" style="margin-top:0.3rem;">Full SNN + Quantum + PINN pipeline, trained on FI-2010 and Binance LOB data.</p>
+          </div>
+          <div class="sketch-card" style="padding:1.2rem;">
+            <span class="sketch-label" style="color:var(--amber);">Ablation Study Report</span>
+            <p class="small muted" style="margin-top:0.3rem;">SNN-only, PINN-only, LSTM, Transformer vs. full Q-SPINN.</p>
+          </div>
+          <div class="sketch-card" style="padding:1.2rem;">
+            <span class="sketch-label" style="color:var(--green);">Research Paper Draft</span>
+            <p class="small muted" style="margin-top:0.3rem;">Conference-ready manuscript targeting IEEE/ACM venues.</p>
+          </div>
+        </div>
+
+        <!-- Target metrics -->
+        <div class="col gap-md">
+          <h3>Target Metrics</h3>
+          <div class="col gap-sm" style="margin-top:0.2rem;">
+            <div class="load-bar-container">
+              <span class="small" style="min-width:140px;color:var(--ink);">FLOP Reduction</span>
+              <div class="load-bar-track"><div class="load-bar-fill load-bar-fill--amber load-delay-1" style="width: 90% !important;"></div></div>
+              <span class="load-bar-label">>90%</span>
+            </div>
+            <div class="load-bar-container">
+              <span class="small" style="min-width:140px;color:var(--ink);">F1 (Direction)</span>
+              <div class="load-bar-track"><div class="load-bar-fill load-bar-fill--blue load-delay-2" style="width: 72% !important;"></div></div>
+              <span class="load-bar-label">>72%</span>
+            </div>
+            <div class="load-bar-container">
+              <span class="small" style="min-width:140px;color:var(--ink);">Deflated Sharpe</span>
+              <div class="load-bar-track"><div class="load-bar-fill load-bar-fill--green load-delay-3" style="width: 75% !important;"></div></div>
+              <span class="load-bar-label">>1.5</span>
+            </div>
+            <div class="load-bar-container">
+              <span class="small" style="min-width:140px;color:var(--ink);">Phase Accuracy</span>
+              <div class="load-bar-track"><div class="load-bar-fill load-bar-fill--blue load-delay-4" style="width: 80% !important;"></div></div>
+              <span class="load-bar-label">>80%</span>
+            </div>
+          </div>
+          <p class="small muted" style="margin-top:0.5rem;">All metrics evaluated via walk-forward cross-validation on unseen time periods.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 11 — Industry Relevance (Optional)                    -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-industry">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 11</div>
+      <h2 class="anim-in anim-d2">Industry Relevance</h2>
+
+      <div class="anim-in anim-d3 grid-3 gap-md" style="margin-top:1.5rem;">
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8IS0tIENhbmRsZXN0aWNrIGNoYXJ0IGljb24gZm9yIEhGVCBmaXJtcyAtLT4KICA8IS0tIENhbmRsZSAxIChncmVlbiAvIGJ1bGxpc2gpIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjEwIiB4Mj0iMTAiIHkyPSIzOCIgc3Ryb2tlPSIjM0ZBNjVFIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxyZWN0IHg9IjYiIHk9IjE2IiB3aWR0aD0iOCIgaGVpZ2h0PSIxNCIgcng9IjEiIHN0cm9rZT0iIzNGQTY1RSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9IiNFRUZERjIiLz4KICAKICA8IS0tIENhbmRsZSAyIChyZWQgLyBiZWFyaXNoKSAtLT4KICA8bGluZSB4MT0iMjQiIHkxPSI4IiB4Mj0iMjQiIHkyPSI0MCIgc3Ryb2tlPSIjQzQ0RDNGIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxyZWN0IHg9IjIwIiB5PSIxMiIgd2lkdGg9IjgiIGhlaWdodD0iMTgiIHJ4PSIxIiBzdHJva2U9IiNDNDREM0YiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSIjRkRGMEVFIi8+CiAgCiAgPCEtLSBDYW5kbGUgMyAoZ3JlZW4gLyBidWxsaXNoKSAtLT4KICA8bGluZSB4MT0iMzgiIHkxPSIxNCIgeDI9IjM4IiB5Mj0iMzYiIHN0cm9rZT0iIzNGQTY1RSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cmVjdCB4PSIzNCIgeT0iMTgiIHdpZHRoPSI4IiBoZWlnaHQ9IjEwIiByeD0iMSIgc3Ryb2tlPSIjM0ZBNjVFIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0iI0VFRkRGMiIvPgogIAogIDwhLS0gU3BlZWQgYXJyb3cgLS0+CiAgPHBhdGggZD0iTTYsNDIgTDQyLDQyIiBzdHJva2U9IiMzRjdFQzQiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC40Ii8+CiAgPHBhdGggZD0iTTM4LDQwIEw0Miw0MiBMMzgsNDQiIHN0cm9rZT0iIzNGN0VDNCIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBvcGFjaXR5PSIwLjQiLz4KPC9zdmc+Cg==" class="icon-svg icon-bob" alt="Candlestick chart">
+          <span class="sketch-label" style="color:var(--blue);">HFT Firms</span>
+          <p class="small muted" style="margin-top:0.5rem;">Event-driven architectures that skip noise ticks directly reduce latency and hardware costs in production trading systems.</p>
+        </div>
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8IS0tIFNoaWVsZCB3aXRoIG5ldHdvcmsvY29ycmVsYXRpb24gd2ViIGluc2lkZSAtLT4KICA8IS0tIFNoaWVsZCBvdXRsaW5lIC0tPgogIDxwYXRoIGQ9Ik0yNCw0IEw0MCwxMiBMNDAsMjQgUTQwLDM4IDI0LDQ0IFE4LDM4IDgsMjQgTDgsMTIgWiIgc3Ryb2tlPSIjQzQ5QTNGIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0iI0ZERjhFRSIvPgogIAogIDwhLS0gTmV0d29yayBub2RlcyBpbnNpZGUgc2hpZWxkIC0tPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMTgiIHI9IjIuNSIgZmlsbD0iI0M0OUEzRiIvPgogIDxjaXJjbGUgY3g9IjE2IiBjeT0iMjgiIHI9IjIuNSIgZmlsbD0iI0M0OUEzRiIvPgogIDxjaXJjbGUgY3g9IjMyIiBjeT0iMjgiIHI9IjIuNSIgZmlsbD0iI0M0OUEzRiIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMzYiIHI9IjIiIGZpbGw9IiNDNDlBM0YiIG9wYWNpdHk9IjAuNiIvPgogIAogIDwhLS0gTmV0d29yayBlZGdlcyAtLT4KICA8bGluZSB4MT0iMjQiIHkxPSIxOCIgeDI9IjE2IiB5Mj0iMjgiIHN0cm9rZT0iI0M0OUEzRiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KICA8bGluZSB4MT0iMjQiIHkxPSIxOCIgeDI9IjMyIiB5Mj0iMjgiIHN0cm9rZT0iI0M0OUEzRiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KICA8bGluZSB4MT0iMTYiIHkxPSIyOCIgeDI9IjMyIiB5Mj0iMjgiIHN0cm9rZT0iI0M0OUEzRiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KICA8bGluZSB4MT0iMTYiIHkxPSIyOCIgeDI9IjI0IiB5Mj0iMzYiIHN0cm9rZT0iI0M0OUEzRiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjQiLz4KICA8bGluZSB4MT0iMzIiIHkxPSIyOCIgeDI9IjI0IiB5Mj0iMzYiIHN0cm9rZT0iI0M0OUEzRiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjQiLz4KPC9zdmc+Cg==" class="icon-svg icon-pulse" alt="Shield with network">
+          <span class="sketch-label" style="color:var(--amber);">Risk Management</span>
+          <p class="small muted" style="margin-top:0.5rem;">Complex-valued correlation modelling detects lagged contagion effects between assets — critical for portfolio risk in volatile markets.</p>
+        </div>
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8IS0tIENoaXAgLyBwcm9jZXNzb3Igd2l0aCBicmFpbiBzcXVpZ2dsZSBpbnNpZGUgLS0+CiAgPCEtLSBDaGlwIGJvZHkgLS0+CiAgPHJlY3QgeD0iMTIiIHk9IjEyIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHJ4PSIyIiBzdHJva2U9IiMzRkE2NUUiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSIjRUVGREYyIi8+CiAgCiAgPCEtLSBDaGlwIHBpbnMg4oCUIHRvcCAtLT4KICA8bGluZSB4MT0iMTgiIHkxPSI4IiB4Mj0iMTgiIHkyPSIxMiIgc3Ryb2tlPSIjM0ZBNjVFIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxsaW5lIHgxPSIyNCIgeTE9IjgiIHgyPSIyNCIgeTI9IjEyIiBzdHJva2U9IiMzRkE2NUUiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGxpbmUgeDE9IjMwIiB5MT0iOCIgeDI9IjMwIiB5Mj0iMTIiIHN0cm9rZT0iIzNGQTY1RSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8IS0tIENoaXAgcGlucyDigJQgYm90dG9tIC0tPgogIDxsaW5lIHgxPSIxOCIgeTE9IjM2IiB4Mj0iMTgiIHkyPSI0MCIgc3Ryb2tlPSIjM0ZBNjVFIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxsaW5lIHgxPSIyNCIgeTE9IjM2IiB4Mj0iMjQiIHkyPSI0MCIgc3Ryb2tlPSIjM0ZBNjVFIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxsaW5lIHgxPSIzMCIgeTE9IjM2IiB4Mj0iMzAiIHkyPSI0MCIgc3Ryb2tlPSIjM0ZBNjVFIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gQ2hpcCBwaW5zIOKAlCBsZWZ0IC0tPgogIDxsaW5lIHgxPSI4IiB5MT0iMTgiIHgyPSIxMiIgeTI9IjE4IiBzdHJva2U9IiMzRkE2NUUiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGxpbmUgeDE9IjgiIHkxPSIyNCIgeDI9IjEyIiB5Mj0iMjQiIHN0cm9rZT0iIzNGQTY1RSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iOCIgeTE9IjMwIiB4Mj0iMTIiIHkyPSIzMCIgc3Ryb2tlPSIjM0ZBNjVFIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gQ2hpcCBwaW5zIOKAlCByaWdodCAtLT4KICA8bGluZSB4MT0iMzYiIHkxPSIxOCIgeDI9IjQwIiB5Mj0iMTgiIHN0cm9rZT0iIzNGQTY1RSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMzYiIHkxPSIyNCIgeDI9IjQwIiB5Mj0iMjQiIHN0cm9rZT0iIzNGQTY1RSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMzYiIHkxPSIzMCIgeDI9IjQwIiB5Mj0iMzAiIHN0cm9rZT0iIzNGQTY1RSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAKICA8IS0tIEJyYWluIHNxdWlnZ2xlIGluc2lkZSAtLT4KICA8cGF0aCBkPSJNMTgsMjAgUTIwLDE2IDI0LDIwIFEyOCwyNCAyNCwyOCBRMjAsMzIgMjQsMjggUTI4LDI0IDMwLDI4IgogICAgICAgIHN0cm9rZT0iIzNGQTY1RSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuNyIvPgo8L3N2Zz4K" class="icon-svg icon-blink" alt="Neuromorphic chip">
+          <span class="sketch-label" style="color:var(--green);">Neuromorphic Computing</span>
+          <p class="small muted" style="margin-top:0.5rem;">SNN layers map directly to Intel Loihi / IBM TrueNorth chips — offering a path to ultra-low-power edge deployment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 12 — Timeline                                         -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-timeline">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 12</div>
+      <h2 class="anim-in anim-d2">Timeline</h2>
+
+      <div class="anim-in anim-d3" style="margin-top:1rem;">
+        <table class="gantt-table">
+          <thead>
+            <tr>
+              <th>Phase / Task</th>
+              <th>Aug</th>
+              <th>Sep</th>
+              <th>Oct</th>
+              <th>Nov</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Literature survey &amp; gap analysis</td>
+              <td><div class="gantt-fill gantt-fill--blue gantt-delay-1"></div></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Data acquisition &amp; preprocessing</td>
+              <td><div class="gantt-fill gantt-fill--amber gantt-delay-2"></div></td>
+              <td><div class="gantt-fill gantt-fill--amber gantt-delay-2"></div></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>SNN gating module</td>
+              <td></td>
+              <td><div class="gantt-fill gantt-fill--amber gantt-delay-3"></div></td>
+              <td><div class="gantt-fill gantt-fill--amber gantt-delay-3"></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>ℂ-valued covariance layer</td>
+              <td></td>
+              <td><div class="gantt-fill gantt-fill--blue gantt-delay-4"></div></td>
+              <td><div class="gantt-fill gantt-fill--blue gantt-delay-4"></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>PINN loss integration</td>
+              <td></td>
+              <td></td>
+              <td><div class="gantt-fill gantt-fill--green gantt-delay-5"></div></td>
+              <td><div class="gantt-fill gantt-fill--green gantt-delay-5"></div></td>
+            </tr>
+            <tr>
+              <td>Training &amp; ablation study</td>
+              <td></td>
+              <td></td>
+              <td><div class="gantt-fill gantt-fill--green gantt-delay-6"></div></td>
+              <td><div class="gantt-fill gantt-fill--green gantt-delay-6"></div></td>
+            </tr>
+            <tr>
+              <td>Paper writing &amp; final review</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><div class="gantt-fill gantt-fill--red gantt-delay-7"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="anim-in anim-d4" style="margin-top:1.5rem;">
+        <div class="grid-3 gap-sm">
+          <div class="sketch-card" style="padding:0.8rem;text-align:center;">
+            <span class="sketch-label" style="font-size:0.95rem;">📋 Zeroth Review</span>
+            <p class="small muted" style="margin-top:0.2rem;">Aug — Proposal</p>
+          </div>
+          <div class="sketch-card" style="padding:0.8rem;text-align:center;">
+            <span class="sketch-label" style="font-size:0.95rem;">🔬 First Review</span>
+            <p class="small muted" style="margin-top:0.2rem;">Oct — SNN + data pipeline working</p>
+          </div>
+          <div class="sketch-card" style="padding:0.8rem;text-align:center;">
+            <span class="sketch-label" style="font-size:0.95rem;">📝 Final Review</span>
+            <p class="small muted" style="margin-top:0.2rem;">Nov — Full results + paper</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 13 — Team Roles                                       -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-team">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 13</div>
+      <h2 class="anim-in anim-d2">Team Roles</h2>
+
+      <div class="anim-in anim-d3 grid-4 gap-md" style="margin-top:1.5rem;">
+        <!-- Member 1 -->
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8IS0tIExJRiBOZXVyb246IG1lbWJyYW5lIHBvdGVudGlhbCByaXNpbmcgdG8gdGhyZXNob2xkLCBzcGlrZSwgcmVzZXQgLS0+CiAgPCEtLSBBeGVzIC0tPgogIDxsaW5lIHgxPSI4IiB5MT0iNTIiIHgyPSI3NSIgeTI9IjUyIiBzdHJva2U9IiMxQzFDMUMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+CiAgPGxpbmUgeDE9IjgiIHkxPSI1MiIgeDI9IjgiIHkyPSI1IiBzdHJva2U9IiMxQzFDMUMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+CiAgCiAgPCEtLSBUaHJlc2hvbGQgbGluZSAoZGFzaGVkKSAtLT4KICA8bGluZSB4MT0iOCIgeTE9IjE4IiB4Mj0iNzUiIHkyPSIxOCIgc3Ryb2tlPSIjQzQ5QTNGIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1kYXNoYXJyYXk9IjMgMiIgb3BhY2l0eT0iMC42Ii8+CiAgPHRleHQgeD0iNzYiIHk9IjIwIiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNSIgZmlsbD0iI0M0OUEzRiIgb3BhY2l0eT0iMC44Ij7OuDwvdGV4dD4KICAKICA8IS0tIE1lbWJyYW5lIHBvdGVudGlhbDogcmFtcCB1cCDihpIgc3Bpa2Ug4oaSIHJlc2V0IOKGkiByYW1wIHVwIGFnYWluIC0tPgogIDxwYXRoIGQ9Ik0xMCw1MCBMMTgsNDIgTDI0LDM2IEwzMCwyNiBMMzQsMTggTDM0LDYgTDM0LDE4IEwzNCw0OCBMMzgsNTAgTDQ0LDQyIEw1MCwzNCBMNTQsMjQgTDU4LDE4IEw1OCw2IEw1OCwxOCBMNTgsNDggTDYyLDUwIEw2OCw0MiBMNzIsMzYiCiAgICAgICAgc3Ryb2tlPSIjQzQ5QTNGIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAKICA8IS0tIFNwaWtlIGxhYmVscyAtLT4KICA8dGV4dCB4PSIzMiIgeT0iNCIgZm9udC1mYW1pbHk9IkludGVyLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjQuNSIgZmlsbD0iI0M0OUEzRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9IjYwMCI+c3Bpa2UhPC90ZXh0PgogIAogIDwhLS0gQXhpcyBsYWJlbHMgLS0+CiAgPHRleHQgeD0iNDIiIHk9IjU4IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNCIgZmlsbD0iIzhBOEE4QSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+dGltZTwvdGV4dD4KICA8dGV4dCB4PSIzIiB5PSIyOCIgZm9udC1mYW1pbHk9IkludGVyLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjQiIGZpbGw9IiM4QThBOEEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwgMywgMjgpIj5WX208L3RleHQ+Cjwvc3ZnPgo=" class="icon-svg icon-svg--lg" alt="SNN neuron">
+          <span class="sketch-label" style="color:var(--amber);font-size:1.15rem;">Dinesh K</span>
+          <p class="small muted" style="margin-top:0.5rem; line-height:1.5;">
+            Leads the core software architecture and SNN module integration, ensuring rigorous system debugging and robust performance optimization.
+          </p>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8IS0tIEFyZ2FuZCAvIENvbXBsZXggUGxhbmUgZGlhZ3JhbSAtLT4KICA8IS0tIEF4ZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iNjUiIHgyPSI3NSIgeTI9IjY1IiBzdHJva2U9IiMxQzFDMUMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+CiAgPGxpbmUgeDE9IjEwIiB5MT0iNjUiIHgyPSIxMCIgeTI9IjUiIHN0cm9rZT0iIzFDMUMxQyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz4KICAKICA8IS0tIEF4aXMgbGFiZWxzIC0tPgogIDx0ZXh0IHg9IjcyIiB5PSI3MyIgZm9udC1mYW1pbHk9IkludGVyLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjUiIGZpbGw9IiM4QThBOEEiPlJlPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjgiIGZvbnQtZmFtaWx5PSJJbnRlciwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI1IiBmaWxsPSIjOEE4QThBIj5JbTwvdGV4dD4KICAKICA8IS0tIFZlY3RvciBmcm9tIG9yaWdpbiB0byBwb2ludCAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSI2NSIgeDI9IjU1IiB5Mj0iMjAiIHN0cm9rZT0iIzNGN0VDNCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPCEtLSBBcnJvd2hlYWQgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSI1NSwyMCA1MCwyNSA1MiwxOSIgZmlsbD0iIzNGN0VDNCIvPgogIAogIDwhLS0gUG9pbnQgZG90IC0tPgogIDxjaXJjbGUgY3g9IjU1IiBjeT0iMjAiIHI9IjMiIGZpbGw9IiMzRjdFQzQiLz4KICAKICA8IS0tIFBoYXNlIGFuZ2xlIGFyYyAtLT4KICA8cGF0aCBkPSJNMjUsNjUgQTE3LDE3IDAgMCwwIDIyLDUzIiBzdHJva2U9IiNDNDREM0YiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIi8+CiAgPHRleHQgeD0iMjciIHk9IjU3IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNiIgZmlsbD0iI0M0NEQzRiIgZm9udC13ZWlnaHQ9IjYwMCI+zrg8L3RleHQ+CiAgCiAgPCEtLSBBbXBsaXR1ZGUgbGFiZWwgLS0+CiAgPHRleHQgeD0iMjgiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNC41IiBmaWxsPSIjM0Y3RUM0IiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUsIDI4LCAzOCkiIGZvbnQtd2VpZ2h0PSI2MDAiPmFtcGxpdHVkZTwvdGV4dD4KICAKICA8IS0tIERhc2hlZCBwcm9qZWN0aW9uIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI1NSIgeTE9IjIwIiB4Mj0iNTUiIHkyPSI2NSIgc3Ryb2tlPSIjOEE4QThBIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWRhc2hhcnJheT0iMiAyIiBvcGFjaXR5PSIwLjUiLz4KICA8bGluZSB4MT0iNTUiIHkxPSIyMCIgeDI9IjEwIiB5Mj0iMjAiIHN0cm9rZT0iIzhBOEE4QSIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1kYXNoYXJyYXk9IjIgMiIgb3BhY2l0eT0iMC41Ii8+CiAgCiAgPCEtLSBQb2ludCBsYWJlbCAtLT4KICA8dGV4dCB4PSI1OCIgeT0iMTgiIGZvbnQtZmFtaWx5PSJJbnRlciwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI1IiBmaWxsPSIjM0Y3RUM0IiBmb250LXdlaWdodD0iNjAwIj56ID0gYStiaTwvdGV4dD4KPC9zdmc+Cg==" class="icon-svg icon-svg--lg" alt="Complex plane">
+          <span class="sketch-label" style="color:var(--blue);font-size:1.15rem;">Aditya S</span>
+          <p class="small muted" style="margin-top:0.5rem; line-height:1.5;">
+            Drives the quantum-inspired layers and PINN implementation, managing complex-valued PyTorch operations and automated training pipelines.
+          </p>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8IS0tIExvc3Mgc3VyZmFjZSBjcm9zcy1zZWN0aW9uIHdpdGggUERFIGNvbnN0cmFpbnQgLS0+CiAgPCEtLSBBeGVzIC0tPgogIDxsaW5lIHgxPSI4IiB5MT0iNTIiIHgyPSI3NSIgeTI9IjUyIiBzdHJva2U9IiMxQzFDMUMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+CiAgPGxpbmUgeDE9IjgiIHkxPSI1MiIgeDI9IjgiIHkyPSI1IiBzdHJva2U9IiMxQzFDMUMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+CiAgCiAgPCEtLSBMb3NzIGN1cnZlIChVLXNoYXBlZCkgLS0+CiAgPHBhdGggZD0iTTEyLDE1IFEyMCwxMiAyOCwyMCBRMzYsMzUgNDIsNDIgUTQ0LDQ0IDQ2LDQyIFE1MiwzNSA1OCwyMCBRNjQsMTIgNzIsMTAiCiAgICAgICAgc3Ryb2tlPSIjOEE4QThBIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC41Ii8+CiAgCiAgPCEtLSBDb25zdHJhaW5lZCBsb3NzIGN1cnZlIChuYXJyb3dlciwgZGVlcGVyIG1pbmltdW0pIC0tPgogIDxwYXRoIGQ9Ik0yMiwxOCBRMzAsMjIgMzYsMzIgUTQwLDQwIDQ0LDQwIFE0OCwzMiA1NCwyMiBRNjAsMTggNjUsMTUiCiAgICAgICAgc3Ryb2tlPSIjM0ZBNjVFIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAKICA8IS0tIFBERSBjb25zdHJhaW50IHBsYW5lIChob3Jpem9udGFsIGRhc2hlZCBsaW5lKSAtLT4KICA8bGluZSB4MT0iMTIiIHkxPSIzMCIgeDI9IjcyIiB5Mj0iMzAiIHN0cm9rZT0iIzNGQTY1RSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1kYXNoYXJyYXk9IjQgMyIvPgogIAogIDwhLS0gQ29uc3RyYWluZWQgbWluaW11bSBwb2ludCAtLT4KICA8Y2lyY2xlIGN4PSI0NCIgY3k9IjQwIiByPSIzIiBmaWxsPSIjM0ZBNjVFIiBvcGFjaXR5PSIwLjgiLz4KICAKICA8IS0tIFVuY29uc3RyYWluZWQgbWluaW11bSAoaGlnaGVyKSAtLT4KICA8Y2lyY2xlIGN4PSI0NiIgY3k9IjQyIiByPSIyIiBmaWxsPSIjOEE4QThBIiBvcGFjaXR5PSIwLjQiLz4KICAKICA8IS0tIExhYmVscyAtLT4KICA8dGV4dCB4PSI3NCIgeT0iMjkiIGZvbnQtZmFtaWx5PSJJbnRlciwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI0IiBmaWxsPSIjM0ZBNjVFIiBmb250LXdlaWdodD0iNjAwIj5QREU8L3RleHQ+CiAgPHRleHQgeD0iNDQiIHk9IjQ4IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNCIgZmlsbD0iIzNGQTY1RSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9IjYwMCI+bWluPC90ZXh0PgogIAogIDwhLS0gQXhpcyBsYWJlbHMgLS0+CiAgPHRleHQgeD0iNDIiIHk9IjU4IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNCIgZmlsbD0iIzhBOEE4QSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+cGFyYW1zPC90ZXh0PgogIDx0ZXh0IHg9IjMiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNCIgZmlsbD0iIzhBOEE4QSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwLCAzLCAyOCkiPmxvc3M8L3RleHQ+Cjwvc3ZnPgo=" class="icon-svg icon-svg--lg" alt="PINN loss">
+          <span class="sketch-label" style="color:var(--green);font-size:1.15rem;">Ansh R</span>
+          <p class="small muted" style="margin-top:0.5rem; line-height:1.5;">
+            Spearheads mathematical derivations and theoretical analysis, focusing on equation validation, PINN formulation, and hyperparameter reasoning.
+          </p>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8IS0tIEJhciBjaGFydCB3aXRoIG1hZ25pZnlpbmcgZ2xhc3Mgb3ZlcmxheSDigJQgZGF0YSAmIGV2YWx1YXRpb24gLS0+CiAgPCEtLSBCYXIgY2hhcnQgYmFycyAtLT4KICA8cmVjdCB4PSI4IiB5PSIyNCIgd2lkdGg9IjYiIGhlaWdodD0iMTgiIHJ4PSIxIiBzdHJva2U9IiNDNDREM0YiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSIjRkRGMEVFIi8+CiAgPHJlY3QgeD0iMTciIHk9IjE2IiB3aWR0aD0iNiIgaGVpZ2h0PSIyNiIgcng9IjEiIHN0cm9rZT0iI0M0NEQzRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9IiNGREYwRUUiLz4KICA8cmVjdCB4PSIyNiIgeT0iMjAiIHdpZHRoPSI2IiBoZWlnaHQ9IjIyIiByeD0iMSIgc3Ryb2tlPSIjQzQ0RDNGIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0iI0ZERjBFRSIvPgogIAogIDwhLS0gQmFzZWxpbmUgLS0+CiAgPGxpbmUgeDE9IjUiIHkxPSI0MiIgeDI9IjM1IiB5Mj0iNDIiIHN0cm9rZT0iIzFDMUMxQyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz4KICAKICA8IS0tIE1hZ25pZnlpbmcgZ2xhc3MgLS0+CiAgPGNpcmNsZSBjeD0iMzYiIGN5PSIxNiIgcj0iOCIgc3Ryb2tlPSIjQzQ0RDNGIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPgogIDxsaW5lIHgxPSI0MiIgeTE9IjIyIiB4Mj0iNDYiIHkyPSIyNiIgc3Ryb2tlPSIjQzQ0RDNGIiBzdHJva2Utd2lkdGg9IjIiLz4KICAKICA8IS0tIENoZWNrbWFyayBpbnNpZGUgbWFnbmlmaWVyIC0tPgogIDxwYXRoIGQ9Ik0zMiwxNiBMMzUsMTkgTDQwLDEzIiBzdHJva2U9IiMzRkE2NUUiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIi8+Cjwvc3ZnPgo=" class="icon-svg icon-svg--lg" alt="Data evaluation">
+          <span class="sketch-label" style="color:var(--red);font-size:1.15rem;">Abiruth S</span>
+          <p class="small muted" style="margin-top:0.5rem; line-height:1.5;">
+            Manages dataset preprocessing, robust experimental evaluation, and baselines, alongside full responsibility for research documentation and presentations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 14 — References                                       -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-references">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 14</div>
+      <h2 class="anim-in anim-d2">References</h2>
+
+      <div class="anim-in anim-d3 col gap-sm" style="margin-top:1rem;">
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [1] <a href="https://www.angelone.in/news/market-updates/nse-unveils-nanosecond-trading-speeds-aiming-for-100-million-trades-per-second-by-april-11" target="_blank" style="color:inherit; text-decoration:underline;">Angel One News: NSE unveils nanosecond trading speeds aiming for 100 million trades per second by April 11</a>
+        </p>
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [2] <a href="https://www.investopedia.com/terms/l/limitorderbook.asp" target="_blank" style="color:inherit; text-decoration:underline;">Investopedia: Limit Order Book (LOB)</a>
+        </p>
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [3] <a href="https://www.investopedia.com/terms/s/stockmarket.asp" target="_blank" style="color:inherit; text-decoration:underline;">Investopedia: Stock Market</a>
+        </p>
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [4] <a href="https://digitalcommons.harrisburgu.edu/cgi/viewcontent.cgi?article=1061&context=dandt" target="_blank" style="color:inherit; text-decoration:underline;">Harrisburg University Digital Commons: Article 1061</a>
+        </p>
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [5] <a href="https://www.sciencedirect.com/science/article/abs/pii/S0925231226019788" target="_blank" style="color:inherit; text-decoration:underline;">ScienceDirect: Article S0925231226019788</a>
+        </p>
+      </div>
+
+      <!-- Closing -->
+      <div class="anim-in anim-d4" style="margin-top:2rem;text-align:center;">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgOCIgZmlsbD0ibm9uZSI+CiAgPCEtLSBEZWNvcmF0aXZlIGNsb3Npbmcgd2F2ZSBmb3IgdGhhbmsteW91IHNlY3Rpb24gLS0+CiAgPHBhdGggZD0iTTAsNCBRMTUsMSAzMCw0IFQ2MCw0IFQ5MCw0IFQxMjAsNCBUMTUwLDQgVDE4MCw0IFQyMTAsNCBUMjUwLDQiCiAgICAgICAgc3Ryb2tlPSIjMUMxQzFDIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBmaWxsPSJub25lIi8+Cjwvc3ZnPgo=" alt="" style="width:250px;margin:0 auto;display:block;">
+        <div style="margin-top:1rem;margin-bottom:0.5rem;font-family:var(--font-display);font-weight:700;font-size:1.3rem;color:var(--ink);display:inline-block;position:relative;">
+          <span style="visibility:hidden;">Thank you.</span>
+          <span class="typewriter" style="position:absolute;left:0;top:0;height:100%;">Thank you.</span>
+        </div>
+        <br>
+        <span class="sketch-label muted">Questions welcome.</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /deck -->
+
+<script>
+/* =========================================================
+   Q-SPINN Presentation — Navigation & Animations
+   ========================================================= */
+
+(function () {
+  'use strict';
+
+  // ── State ──
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let current = 0;
+  const total = slides.length;
+
+  // ── DOM refs ──
+  const progressBar = document.getElementById('progressBar');
+  const slideCounter = document.getElementById('slideCounter');
+  const navPrev = document.getElementById('navPrev');
+  const navNext = document.getElementById('navNext');
+
+  // ── Helpers ──
+  function pad(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  function updateUI() {
+    const pct = ((current + 1) / total) * 100;
+    progressBar.style.width = pct + '%';
+    slideCounter.textContent = pad(current + 1) + ' / ' + pad(total);
+
+    navPrev.style.opacity = current === 0 ? '0.1' : '';
+    navPrev.style.pointerEvents = current === 0 ? 'none' : '';
+    navNext.style.opacity = current === total - 1 ? '0.1' : '';
+    navNext.style.pointerEvents = current === total - 1 ? 'none' : '';
+  }
+
+  // ── Navigation ──
+  function goTo(index) {
+    if (index < 0 || index >= total || index === current) return;
+
+    const oldSlide = slides[current];
+    oldSlide.classList.remove('active');
+    resetAnimations(oldSlide);
+
+    current = index;
+
+    const newSlide = slides[current];
+    newSlide.classList.add('active');
+    triggerSlideAnimations(newSlide);
+
+    updateUI();
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  // ── Tick Counter Animation (Slide 3) ──
+  // Figures per NSE's nanosecond-response upgrade, effective 11 Apr 2026
+  // (source: NSE / Angel One, 23 Feb 2026): response time 100µs -> ns,
+  // ~1,000x speedup, ~55 lakh tx/sec today -> ~100 million tx/sec post-upgrade.
+  let tickCounterInterval;
+  let tickTimeouts = [];
+
+  const TICK_TODAY_RATE = 5500000;      // ~55 lakh tx/sec (current NSE throughput)
+  const TICK_UPGRADE_RATE = 100000000;  // ~100 million tx/sec (post-upgrade target)
+
+  function startTickCounter(slide) {
+    const counterEl = slide.querySelector('#tick-counter');
+    const labelEl = slide.querySelector('#tick-phase-label');
+    const captionEl = slide.querySelector('#tick-caption');
+    const badgeEl = slide.querySelector('#tick-upgrade-badge');
+    if (!counterEl) return;
+
+    let currentCount = 0;
+    let phase = 'today'; // 'today' -> 'holding' -> 'upgrade' -> 'live'
+    const stepToday = Math.floor(TICK_TODAY_RATE / 30);       // ramp to today's rate in ~1s
+    const stepUpgrade = Math.floor((TICK_UPGRADE_RATE - TICK_TODAY_RATE) / 45); // then ramp to post-upgrade rate
+
+    counterEl.textContent = '0';
+
+    tickCounterInterval = setInterval(() => {
+      if (phase === 'today') {
+        currentCount += stepToday;
+        if (currentCount >= TICK_TODAY_RATE) {
+          currentCount = TICK_TODAY_RATE;
+          phase = 'holding';
+
+          // Brief pause on today's number, then flash the upgrade badge
+          tickTimeouts.push(setTimeout(() => {
+            if (labelEl) labelEl.textContent = 'Upgrading…';
+            if (badgeEl) {
+              badgeEl.style.opacity = '1';
+              badgeEl.style.transform = 'translateY(0)';
+            }
+            tickTimeouts.push(setTimeout(() => {
+              phase = 'upgrade';
+              if (labelEl) labelEl.textContent = 'Post-upgrade · 11 Apr 2026';
+              if (captionEl) captionEl.textContent = 'transactions/sec (nanosecond response)';
+            }, 550));
+          }, 500));
+        }
+      } else if (phase === 'upgrade') {
+        currentCount += stepUpgrade;
+        if (currentCount >= TICK_UPGRADE_RATE) {
+          currentCount = TICK_UPGRADE_RATE;
+          phase = 'done';
+          counterEl.textContent = currentCount.toLocaleString('en-IN');
+          clearInterval(tickCounterInterval);
+          tickCounterInterval = null;
+          return;
+        }
+      }
+      counterEl.textContent = currentCount.toLocaleString('en-IN');
+    }, 33);
+  }
+
+  function stopTickCounter(slide) {
+    if (tickCounterInterval) {
+      clearInterval(tickCounterInterval);
+      tickCounterInterval = null;
+    }
+    tickTimeouts.forEach(t => clearTimeout(t));
+    tickTimeouts = [];
+
+    // Reset visual state so re-entering the slide starts fresh
+    if (slide) {
+      const counterEl = slide.querySelector('#tick-counter');
+      const labelEl = slide.querySelector('#tick-phase-label');
+      const captionEl = slide.querySelector('#tick-caption');
+      const badgeEl = slide.querySelector('#tick-upgrade-badge');
+      if (counterEl) counterEl.textContent = '0';
+      if (labelEl) labelEl.textContent = 'Today · NSE throughput';
+      if (captionEl) captionEl.textContent = 'transactions/sec';
+      if (badgeEl) {
+        badgeEl.style.opacity = '0';
+        badgeEl.style.transform = 'translateY(6px)';
+      }
+    }
+  }
+
+  // ── Animation Engine ──
+  //
+  // All animations are CSS-driven via the .slide.active selector.
+  // This list covers every animated class so we can force-reset
+  // them when navigating away, and force-restart on entry.
+
+  const ANIM_SELECTORS = [
+    // Core entrance animations
+    '.anim-in', '.draw-in', '.bar-grow',
+    // Slide 2: wave float
+    '.wave-float',
+    // Slide 3: regime shift
+    '.regime-bar', '.regime-flash-overlay',
+    // Slide 6: scope target
+    '.scope-ring-outer', '.scope-ring-mid', '.scope-ring-inner',
+    '.scope-bullseye', '.scope-bullseye-glow',
+    // Slide 8: pipeline particle + pillar icons
+    '.pillar--snn .icon-svg--lg',
+    '.pillar--quantum .icon-svg--lg',
+    '.pillar--pinn .icon-svg--lg',
+    // Slide 10: load bars
+    '.load-bar-fill',
+    // Slide 11: icon idle animations
+    '.icon-bob', '.icon-pulse', '.icon-blink',
+    // Slide 12: gantt bars
+    '.gantt-fill',
+    // Slide 14: typewriter
+    '.typewriter'
+  ];
+
+  function resetAnimations(slide) {
+    // Force-reset all CSS animations
+    ANIM_SELECTORS.forEach(selector => {
+      slide.querySelectorAll(selector).forEach(el => {
+        el.style.animation = 'none';
+        void el.offsetHeight;
+        el.style.animation = '';
+      });
+    });
+
+    // Reset stateful inline styles
+    slide.querySelectorAll('.scope-bullseye').forEach(el => {
+      el.style.transform = '';
+    });
+    slide.querySelectorAll('.gantt-fill').forEach(el => {
+      el.style.width = '0%';
+    });
+    // Removed .load-bar-fill reset to keep inline target metrics statically drawn
+    slide.querySelectorAll('.typewriter').forEach(el => {
+      el.style.width = '0';
+    });
+    
+    if (slide.id === 'slide-intro') {
+      stopTickCounter(slide);
+    }
+  }
+
+  function triggerSlideAnimations(slide) {
+    // Force reflow on all animated elements to restart CSS animations
+    ANIM_SELECTORS.forEach(selector => {
+      slide.querySelectorAll(selector).forEach(el => {
+        el.style.animation = 'none';
+        void el.offsetHeight;
+        el.style.animation = '';
+      });
+    });
+    
+    if (slide.id === 'slide-intro') {
+      startTickCounter(slide);
+    }
+  }
+
+  // ── Input Handlers ──
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+      case ' ':
+        e.preventDefault();
+        next();
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault();
+        prev();
+        break;
+      case 'Home':
+        e.preventDefault();
+        goTo(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        goTo(total - 1);
+        break;
+    }
+  });
+
+  // Click
+  navPrev.addEventListener('click', prev);
+  navNext.addEventListener('click', next);
+
+  // Touch / Swipe
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) next();
+      else prev();
+    }
+  }, { passive: true });
+
+  // Mouse Wheel (throttled)
+  let wheelThrottle = false;
+  document.addEventListener('wheel', (e) => {
+    if (wheelThrottle) return;
+    wheelThrottle = true;
+
+    if (e.deltaY > 30) next();
+    else if (e.deltaY < -30) prev();
+
+    setTimeout(() => { wheelThrottle = false; }, 400);
+  }, { passive: true });
+
+  // ── Initialize ──
+  updateUI();
+  triggerSlideAnimations(slides[0]);
+
+})();
+
+</script>
+</body>
+</html>

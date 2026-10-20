@@ -1,0 +1,361 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1100" font-family="Inter, Segoe UI, Arial, sans-serif">
+  <defs>
+    <!-- Gradient for implemented header bars -->
+    <linearGradient id="hdrGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6C63FF"/>
+      <stop offset="100%" stop-color="#48CFAD"/>
+    </linearGradient>
+    <!-- Gradient for Phase 2 header bars (greyed out) -->
+    <linearGradient id="hdrGrey" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#9E9E9E"/>
+      <stop offset="100%" stop-color="#BDBDBD"/>
+    </linearGradient>
+    <!-- Arrowhead marker -->
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#555"/>
+    </marker>
+    <marker id="arrowGrey" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#BDBDBD"/>
+    </marker>
+    <!-- Drop shadow filter -->
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2.5" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="1100" rx="12" fill="#FAFBFC"/>
+
+  <!-- Title -->
+  <text x="700" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#222">Q-SPINN Unified Architecture</text>
+  <text x="700" y="58" text-anchor="middle" font-size="12" fill="#888">Phase 1 (Implemented) + Phase 2 (Greyed Out)</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- LEGEND                                                      -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <rect x="20" y="72" width="200" height="56" rx="6" fill="#fff" stroke="#ddd" filter="url(#shadow)"/>
+  <rect x="32" y="84" width="14" height="14" rx="3" fill="#EEF0FF" stroke="#6C63FF"/>
+  <text x="52" y="95" font-size="11" fill="#333">Implemented (Phase 1)</text>
+  <rect x="32" y="104" width="14" height="14" rx="3" fill="#F5F5F5" stroke="#BDBDBD" stroke-dasharray="4,2"/>
+  <text x="52" y="115" font-size="11" fill="#999">Not Yet Built (Phase 2)</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ROW 1 — DATA SOURCES                                        -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <!-- FI-2010 Dataset -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="150" width="240" height="80" rx="8" fill="#EEF0FF" stroke="#6C63FF" stroke-width="1.5"/>
+    <rect x="80" y="150" width="240" height="24" rx="8" fill="url(#hdrGrad)"/>
+    <rect x="80" y="162" width="240" height="12" fill="url(#hdrGrad)"/>
+    <text x="200" y="167" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">FI-2010 Dataset</text>
+    <text x="200" y="192" text-anchor="middle" font-size="10" fill="#555">144 features · 2M timesteps</text>
+    <text x="200" y="207" text-anchor="middle" font-size="10" fill="#555">NoAuction Z-Score · label_k10</text>
+    <text x="200" y="222" text-anchor="middle" font-size="9" fill="#6C63FF" font-weight="600">Exp B ✓</text>
+  </g>
+
+  <!-- Binance LOB -->
+  <g filter="url(#shadow)">
+    <rect x="380" y="150" width="240" height="80" rx="8" fill="#EEF0FF" stroke="#6C63FF" stroke-width="1.5"/>
+    <rect x="380" y="150" width="240" height="24" rx="8" fill="url(#hdrGrad)"/>
+    <rect x="380" y="162" width="240" height="12" fill="url(#hdrGrad)"/>
+    <text x="500" y="167" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Binance LOB Proxy</text>
+    <text x="500" y="192" text-anchor="middle" font-size="10" fill="#555">BTC · ETH · SOL snapshots</text>
+    <text x="500" y="207" text-anchor="middle" font-size="10" fill="#555">OFI · Volume · Spread</text>
+    <text x="500" y="222" text-anchor="middle" font-size="9" fill="#6C63FF" font-weight="600">Exp A ✓</text>
+  </g>
+
+  <!-- Live WebSocket (Phase 2) -->
+  <g filter="url(#shadow)" opacity="0.5">
+    <rect x="680" y="150" width="240" height="80" rx="8" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1.5" stroke-dasharray="6,3"/>
+    <rect x="680" y="150" width="240" height="24" rx="8" fill="url(#hdrGrey)"/>
+    <rect x="680" y="162" width="240" height="12" fill="url(#hdrGrey)"/>
+    <text x="800" y="167" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Live Binance WebSocket</text>
+    <text x="800" y="192" text-anchor="middle" font-size="10" fill="#999">Real-time tick stream</text>
+    <text x="800" y="207" text-anchor="middle" font-size="10" fill="#999">Multi-asset graph feed</text>
+    <text x="800" y="222" text-anchor="middle" font-size="9" fill="#BDBDBD" font-weight="600">Phase 2</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- Arrows: Data → Preprocessing                                -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <path d="M200,230 L200,270" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M500,230 L500,250 L360,250 L360,270" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M800,230 L800,250 L360,250" fill="none" stroke="#BDBDBD" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#arrowGrey)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ROW 2 — PREPROCESSING                                       -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="270" width="460" height="70" rx="8" fill="#EEF0FF" stroke="#6C63FF" stroke-width="1.5"/>
+    <rect x="60" y="270" width="460" height="24" rx="8" fill="url(#hdrGrad)"/>
+    <rect x="60" y="282" width="460" height="12" fill="url(#hdrGrad)"/>
+    <text x="290" y="287" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Preprocessing &amp; Windowing</text>
+    <text x="290" y="310" text-anchor="middle" font-size="10" fill="#555">Chronological split (Folds 1-7 / 8 / 9) · SEQ_LEN=20 unfold windows</text>
+    <text x="290" y="325" text-anchor="middle" font-size="10" fill="#555">2σ Realized-Vol Regime Proxy · Delta-Encoding (threshold=0.15)</text>
+  </g>
+
+  <!-- Arrow: Preprocessing → Model -->
+  <path d="M290,340 L290,390" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Split label -->
+  <text x="302" y="370" font-size="9" fill="#888">x_window, Δ-spikes, regime_mask</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ROW 3 — Q-SPINN MODEL (main box)                            -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <g filter="url(#shadow)">
+    <rect x="30" y="390" width="920" height="380" rx="10" fill="#fff" stroke="#6C63FF" stroke-width="2"/>
+    <rect x="30" y="390" width="920" height="30" rx="10" fill="url(#hdrGrad)"/>
+    <rect x="30" y="408" width="920" height="12" fill="url(#hdrGrad)"/>
+    <text x="490" y="410" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">QSPINN Model</text>
+  </g>
+
+  <!-- ─── CHEAP PATH (SNN Gate) ──────────────────────────────── -->
+  <g filter="url(#shadow)">
+    <rect x="55" y="440" width="260" height="145" rx="7" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1.2"/>
+    <rect x="55" y="440" width="260" height="22" rx="7" fill="#4CAF50"/>
+    <rect x="55" y="452" width="260" height="10" fill="#4CAF50"/>
+    <text x="185" y="456" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">SNNGate — Cheap Path</text>
+
+    <!-- LIF Layer 1 -->
+    <rect x="70" y="472" width="105" height="32" rx="4" fill="#fff" stroke="#66BB6A"/>
+    <text x="122" y="487" text-anchor="middle" font-size="9" fill="#333" font-weight="600">LIF Layer 1</text>
+    <text x="122" y="498" text-anchor="middle" font-size="8" fill="#888">288→64 neurons</text>
+
+    <!-- LIF Layer 2 -->
+    <rect x="195" y="472" width="105" height="32" rx="4" fill="#fff" stroke="#66BB6A"/>
+    <text x="247" y="487" text-anchor="middle" font-size="9" fill="#333" font-weight="600">LIF Layer 2</text>
+    <text x="247" y="498" text-anchor="middle" font-size="8" fill="#888">64→64 neurons</text>
+
+    <!-- Arrow between LIFs -->
+    <path d="M175,488 L195,488" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+
+    <!-- Cheap Head -->
+    <rect x="70" y="516" width="105" height="28" rx="4" fill="#fff" stroke="#66BB6A"/>
+    <text x="122" y="534" text-anchor="middle" font-size="9" fill="#333">Cheap Head → 3 cls</text>
+
+    <!-- Gate Head -->
+    <rect x="195" y="516" width="105" height="28" rx="4" fill="#fff" stroke="#66BB6A"/>
+    <text x="247" y="534" text-anchor="middle" font-size="9" fill="#333">Gate Head → σ(g)</text>
+
+    <!-- Surrogate spike -->
+    <text x="185" y="570" text-anchor="middle" font-size="8" fill="#4CAF50">Surrogate: arctan · β learnable · Stage A: 20 ep</text>
+  </g>
+
+  <!-- ─── HEAVY PATH (PINN) ──────────────────────────────────── -->
+  <g filter="url(#shadow)">
+    <rect x="355" y="440" width="310" height="145" rx="7" fill="#E3F2FD" stroke="#1E88E5" stroke-width="1.2"/>
+    <rect x="355" y="440" width="310" height="22" rx="7" fill="#1E88E5"/>
+    <rect x="355" y="452" width="310" height="10" fill="#1E88E5"/>
+    <text x="510" y="456" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">Heavy Path — Quantum-Inspired PINN</text>
+
+    <!-- ComplexAmplitudeLayer -->
+    <rect x="370" y="472" width="130" height="40" rx="4" fill="#fff" stroke="#42A5F5"/>
+    <text x="435" y="487" text-anchor="middle" font-size="9" fill="#333" font-weight="600">ComplexAmplitude</text>
+    <text x="435" y="500" text-anchor="middle" font-size="8" fill="#888">x → ψ ∈ ℂ⁸ (normalized)</text>
+
+    <!-- HamiltonianNet -->
+    <rect x="520" y="472" width="130" height="40" rx="4" fill="#fff" stroke="#42A5F5"/>
+    <text x="585" y="487" text-anchor="middle" font-size="9" fill="#333" font-weight="600">HamiltonianNet</text>
+    <text x="585" y="500" text-anchor="middle" font-size="8" fill="#888">v → H = ½(A+A†)</text>
+
+    <!-- Arrow -->
+    <path d="M500,492 L520,492" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+
+    <!-- Schrödinger Residual -->
+    <rect x="370" y="524" width="280" height="28" rx="4" fill="#fff" stroke="#42A5F5"/>
+    <text x="510" y="537" text-anchor="middle" font-size="9" fill="#333">L_pde = ‖dψ/dt + iHψ‖²  (Schrödinger Residual)</text>
+    <text x="510" y="549" text-anchor="middle" font-size="8" fill="#888">Finite-difference approx · λ=0.1</text>
+
+    <!-- Stage B label -->
+    <text x="510" y="575" text-anchor="middle" font-size="8" fill="#1E88E5">Density features ρ → MLP → 3 cls · Stage B: 20 ep</text>
+  </g>
+
+  <!-- ─── PHASE 2 MODULES (greyed out) ───────────────────────── -->
+
+  <!-- Kalman Filter / OU -->
+  <g filter="url(#shadow)" opacity="0.45">
+    <rect x="700" y="440" width="230" height="65" rx="7" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1.2" stroke-dasharray="6,3"/>
+    <rect x="700" y="440" width="230" height="22" rx="7" fill="url(#hdrGrey)"/>
+    <rect x="700" y="452" width="230" height="10" fill="url(#hdrGrey)"/>
+    <text x="815" y="456" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">Kalman / OU Forcing</text>
+    <text x="815" y="480" text-anchor="middle" font-size="9" fill="#999">Latent OU state · RTS smoother</text>
+    <text x="815" y="495" text-anchor="middle" font-size="9" fill="#999">torch.matrix_exp · F = e^(A_R h)</text>
+  </g>
+
+  <!-- Magnetic Graph Laplacian -->
+  <g filter="url(#shadow)" opacity="0.45">
+    <rect x="700" y="520" width="230" height="65" rx="7" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1.2" stroke-dasharray="6,3"/>
+    <rect x="700" y="520" width="230" height="22" rx="7" fill="url(#hdrGrey)"/>
+    <rect x="700" y="532" width="230" height="10" fill="url(#hdrGrey)"/>
+    <text x="815" y="536" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">Magnetic Graph Laplacian</text>
+    <text x="815" y="560" text-anchor="middle" font-size="9" fill="#999">Cross-asset lead/lag · κ coupling</text>
+    <text x="815" y="575" text-anchor="middle" font-size="9" fill="#999">Gauge-invariant cycle flux</text>
+  </g>
+
+  <!-- ─── SOFT-SIGMOID ARBITRATION ───────────────────────────── -->
+  <g filter="url(#shadow)">
+    <rect x="130" y="610" width="520" height="55" rx="7" fill="#FFF3E0" stroke="#FB8C00" stroke-width="1.2"/>
+    <rect x="130" y="610" width="520" height="22" rx="7" fill="#FB8C00"/>
+    <rect x="130" y="622" width="520" height="10" fill="#FB8C00"/>
+    <text x="390" y="626" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">Stage C — Soft-Sigmoid Gating Arbitration (20 ep)</text>
+    <text x="390" y="647" text-anchor="middle" font-size="10" fill="#555">f_out = σ(g) · f_heavy + (1 − σ(g)) · f_cheap</text>
+    <text x="390" y="659" text-anchor="middle" font-size="9" fill="#FB8C00">+ λ_gate · ḡ + λ_regime · BCE(g, regime_mask)</text>
+  </g>
+
+  <!-- Arrows: Cheap → Arbitration -->
+  <path d="M185,585 L185,610" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Arrows: Heavy → Arbitration -->
+  <path d="M510,585 L510,610" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ─── LOSS COMPONENTS ─────────────────────────────────────── -->
+  <g filter="url(#shadow)">
+    <rect x="130" y="690" width="520" height="55" rx="7" fill="#FCE4EC" stroke="#E91E63" stroke-width="1.2"/>
+    <rect x="130" y="690" width="520" height="22" rx="7" fill="#E91E63"/>
+    <rect x="130" y="702" width="520" height="10" fill="#E91E63"/>
+    <text x="390" y="706" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">Combined Loss</text>
+    <text x="390" y="727" text-anchor="middle" font-size="10" fill="#555">L = CE(ŷ, y; w_class) + 0.1 · L_pde + 0.02 · ḡ + 1.0 · BCE(g, regime)</text>
+    <text x="390" y="739" text-anchor="middle" font-size="9" fill="#E91E63">Class-balanced weights w_c ∝ 1/N_c · Sparsity penalty 1e-4</text>
+  </g>
+
+  <!-- Arrow: Arbitration → Loss -->
+  <path d="M390,665 L390,690" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ─── Cross-Fitted Generator (Phase 2) ────────────────────── -->
+  <g filter="url(#shadow)" opacity="0.45">
+    <rect x="700" y="690" width="230" height="55" rx="7" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1.2" stroke-dasharray="6,3"/>
+    <rect x="700" y="690" width="230" height="22" rx="7" fill="url(#hdrGrey)"/>
+    <rect x="700" y="702" width="230" height="10" fill="url(#hdrGrey)"/>
+    <text x="815" y="706" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">Cross-Fitted Generator</text>
+    <text x="815" y="727" text-anchor="middle" font-size="9" fill="#999">D = D_A ∪ D_B · EM on D_A</text>
+    <text x="815" y="739" text-anchor="middle" font-size="9" fill="#999">Backprop predictor on D_B</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ROW 4 — OUTPUTS                                             -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <!-- Arrow: Loss → Outputs -->
+  <path d="M390,745 L390,770 L290,770 L290,800" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Classification Output -->
+  <g filter="url(#shadow)">
+    <rect x="130" y="800" width="320" height="75" rx="8" fill="#EEF0FF" stroke="#6C63FF" stroke-width="1.5"/>
+    <rect x="130" y="800" width="320" height="24" rx="8" fill="url(#hdrGrad)"/>
+    <rect x="130" y="812" width="320" height="12" fill="url(#hdrGrad)"/>
+    <text x="290" y="817" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Classification Output</text>
+    <text x="290" y="840" text-anchor="middle" font-size="10" fill="#555">3-class mid-price direction: Up / Flat / Down</text>
+    <text x="290" y="855" text-anchor="middle" font-size="10" fill="#555">Macro-F1 = 0.811 · Gate Rate = 0.7%</text>
+    <text x="290" y="868" text-anchor="middle" font-size="9" fill="#6C63FF" font-weight="600">99.3% compute reduction vs always-awake PINN ✓</text>
+  </g>
+
+  <!-- EWS Output (Phase 2) -->
+  <g filter="url(#shadow)" opacity="0.45">
+    <rect x="500" y="800" width="320" height="75" rx="8" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1.5" stroke-dasharray="6,3"/>
+    <rect x="500" y="800" width="320" height="24" rx="8" fill="url(#hdrGrey)"/>
+    <rect x="500" y="812" width="320" height="12" fill="url(#hdrGrey)"/>
+    <text x="660" y="817" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Early Warning System (EWS)</text>
+    <text x="660" y="840" text-anchor="middle" font-size="10" fill="#999">ω(A_t) = λ_max(½(A+A†)) · Log-norm bounds</text>
+    <text x="660" y="855" text-anchor="middle" font-size="10" fill="#999">Ω_T(t) integrated growth · AUROC / AUPRC</text>
+    <text x="660" y="868" text-anchor="middle" font-size="9" fill="#BDBDBD" font-weight="600">Phase 2</text>
+  </g>
+
+  <!-- Arrow to EWS -->
+  <path d="M390,770 L660,770 L660,800" fill="none" stroke="#BDBDBD" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#arrowGrey)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ROW 5 — ABLATION SUITE                                      -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <g filter="url(#shadow)">
+    <rect x="130" y="910" width="690" height="65" rx="8" fill="#EEF0FF" stroke="#6C63FF" stroke-width="1.5"/>
+    <rect x="130" y="910" width="690" height="24" rx="8" fill="url(#hdrGrad)"/>
+    <rect x="130" y="922" width="690" height="12" fill="url(#hdrGrad)"/>
+    <text x="475" y="927" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Ablation Suite — Test Set Evaluation</text>
+    <text x="475" y="950" text-anchor="middle" font-size="10" fill="#555">LSTM (0.772) · SNN-only (0.751) · PINN-only (0.799) · Q-SPINN Hybrid (0.811) · Majority (0.642)</text>
+    <text x="475" y="964" text-anchor="middle" font-size="9" fill="#6C63FF">Hermiticity ‖H−H†‖ = 0.00e+00 · Wall time ≈ 25 min on RTX 3060</text>
+  </g>
+
+  <!-- Arrow: Classification → Ablation -->
+  <path d="M290,875 L290,910" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- RIGHT SIDEBAR — TRAINING STAGES LEGEND                      -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <g filter="url(#shadow)">
+    <rect x="1000" y="150" width="370" height="335" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
+    <rect x="1000" y="150" width="370" height="26" rx="8" fill="#333"/>
+    <rect x="1000" y="164" width="370" height="12" fill="#333"/>
+    <text x="1185" y="168" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Three-Stage Curriculum Training</text>
+
+    <!-- Stage A -->
+    <rect x="1015" y="190" width="340" height="75" rx="5" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1"/>
+    <text x="1185" y="208" text-anchor="middle" font-size="10" font-weight="700" fill="#2E7D32">Stage A — SNN Gate (20 epochs)</text>
+    <text x="1185" y="224" text-anchor="middle" font-size="9" fill="#555">Trains LIF layers + cheap classification head</text>
+    <text x="1185" y="238" text-anchor="middle" font-size="9" fill="#555">Heavy path is frozen (random weights)</text>
+    <text x="1185" y="252" text-anchor="middle" font-size="9" fill="#555">Loss: CE + 1e-4 · spike_rate</text>
+
+    <!-- Stage B -->
+    <rect x="1015" y="280" width="340" height="75" rx="5" fill="#E3F2FD" stroke="#1E88E5" stroke-width="1"/>
+    <text x="1185" y="298" text-anchor="middle" font-size="10" font-weight="700" fill="#1565C0">Stage B — Heavy PINN Path (20 epochs)</text>
+    <text x="1185" y="314" text-anchor="middle" font-size="9" fill="#555">Trains ComplexAmplitude + Hamiltonian + MLP head</text>
+    <text x="1185" y="328" text-anchor="middle" font-size="9" fill="#555">SNN gate is frozen</text>
+    <text x="1185" y="342" text-anchor="middle" font-size="9" fill="#555">Loss: CE(w_class) + 0.1 · L_pde</text>
+
+    <!-- Stage C -->
+    <rect x="1015" y="370" width="340" height="75" rx="5" fill="#FFF3E0" stroke="#FB8C00" stroke-width="1"/>
+    <text x="1185" y="388" text-anchor="middle" font-size="10" font-weight="700" fill="#E65100">Stage C — Gate Arbitration (20 epochs)</text>
+    <text x="1185" y="404" text-anchor="middle" font-size="9" fill="#555">Trains gate_head only (everything else frozen)</text>
+    <text x="1185" y="418" text-anchor="middle" font-size="9" fill="#555">Learns when to blend cheap vs heavy</text>
+    <text x="1185" y="432" text-anchor="middle" font-size="9" fill="#555">Loss: CE + λ_gate · ḡ + λ_regime · BCE(g, regime)</text>
+
+    <!-- Order arrow -->
+    <path d="M1185,265 L1185,280" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+    <path d="M1185,355 L1185,370" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- RIGHT SIDEBAR — PHASE 2 ROADMAP                             -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <g filter="url(#shadow)" opacity="0.55">
+    <rect x="1000" y="520" width="370" height="230" rx="8" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1" stroke-dasharray="6,3"/>
+    <rect x="1000" y="520" width="370" height="26" rx="8" fill="url(#hdrGrey)"/>
+    <rect x="1000" y="534" width="370" height="12" fill="url(#hdrGrey)"/>
+    <text x="1185" y="538" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Phase 2 Roadmap</text>
+
+    <text x="1020" y="568" font-size="10" fill="#777">☐ Replace finite-diff with torch.matrix_exp</text>
+    <text x="1020" y="588" font-size="10" fill="#777">☐ Implement latent OU stochastic forcing</text>
+    <text x="1020" y="608" font-size="10" fill="#777">☐ Kalman Filter / RTS smoother</text>
+    <text x="1020" y="628" font-size="10" fill="#777">☐ Cross-fitted generator (EM on D_A / D_B)</text>
+    <text x="1020" y="648" font-size="10" fill="#777">☐ Magnetic Graph Laplacian (multi-asset)</text>
+    <text x="1020" y="668" font-size="10" fill="#777">☐ EWS: ω(A_t) log-norm bounds</text>
+    <text x="1020" y="688" font-size="10" fill="#777">☐ snntorch swap (SWAP-05)</text>
+    <text x="1020" y="708" font-size="10" fill="#777">☐ Adaptive loss weighting (SWAP-08)</text>
+    <text x="1020" y="728" font-size="10" fill="#777">☐ Live WebSocket ingestor</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- RIGHT SIDEBAR — KEY METRICS                                  -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <g filter="url(#shadow)">
+    <rect x="1000" y="790" width="370" height="185" rx="8" fill="#fff" stroke="#6C63FF" stroke-width="1.5"/>
+    <rect x="1000" y="790" width="370" height="26" rx="8" fill="url(#hdrGrad)"/>
+    <rect x="1000" y="804" width="370" height="12" fill="url(#hdrGrad)"/>
+    <text x="1185" y="808" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Current Best Metrics (Phase 1)</text>
+
+    <text x="1020" y="840" font-size="11" fill="#333" font-weight="600">Q-SPINN Hybrid</text>
+    <text x="1020" y="858" font-size="10" fill="#555">Macro-F1:  0.811  (best of all models)</text>
+    <text x="1020" y="874" font-size="10" fill="#555">Accuracy:   0.851</text>
+    <text x="1020" y="890" font-size="10" fill="#555">Gate Rate:  0.7%  (99.3% compute saved)</text>
+    <text x="1020" y="906" font-size="10" fill="#555">‖H − H†‖:   0.00e+00 (exact Hermiticity)</text>
+
+    <line x1="1020" y1="916" x2="1350" y2="916" stroke="#eee" stroke-width="1"/>
+    <text x="1020" y="934" font-size="10" fill="#888">LSTM baseline: 0.772 · PINN-only: 0.799</text>
+    <text x="1020" y="950" font-size="10" fill="#888">Majority baseline: 0.642</text>
+    <text x="1020" y="966" font-size="10" fill="#888">Wall time: ~25 min · RTX 3060 Laptop</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- FOOTER                                                       -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <text x="700" y="1090" text-anchor="middle" font-size="10" fill="#bbb">Q-SPINN · Quantum-Spiking Physics-Informed Neural Network · Architecture Diagram v1.0</text>
+</svg>

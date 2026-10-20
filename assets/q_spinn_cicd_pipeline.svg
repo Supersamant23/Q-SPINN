@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="500" viewBox="0 0 1600 500">
+  
+  <defs>
+  <marker id="arr" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,12 L12,6 z" fill="#9E9E9E"/></marker>
+</defs>
+  <rect width="1600" height="500" fill="#FFFFFF"/>
+  <text x="800" y="50" text-anchor="middle" fill="#212121" font-size="24" font-weight="bold" font-family="Arial,sans-serif">Q-SPINN: CI/CD Pipeline — Sequential Overview (Conceptual/Developmental)</text>
+  <rect x="40" y="90" width="480" height="280" rx="12" fill="#E3F2FD" stroke="#90CAF9" stroke-width="2"/>
+  <rect x="40" y="90" width="480" height="40" rx="12" fill="#90CAF9"/>
+  <text x="280" y="116" text-anchor="middle" fill="#212121" font-size="16" font-weight="bold" font-family="Arial,sans-serif">Phase 1: Push</text>
+  <rect x="540" y="90" width="520" height="280" rx="12" fill="#FFF3E0" stroke="#FFCC80" stroke-width="2"/>
+  <rect x="540" y="90" width="520" height="40" rx="12" fill="#FFCC80"/>
+  <text x="800" y="116" text-anchor="middle" fill="#212121" font-size="16" font-weight="bold" font-family="Arial,sans-serif">Phase 2: Pull Request</text>
+  <rect x="1080" y="90" width="480" height="280" rx="12" fill="#E8F5E9" stroke="#A5D6A7" stroke-width="2"/>
+  <rect x="1080" y="90" width="480" height="40" rx="12" fill="#A5D6A7"/>
+  <text x="1320" y="116" text-anchor="middle" fill="#212121" font-size="16" font-weight="bold" font-family="Arial,sans-serif">Phase 3: Merge to main / Manual approval</text>
+  <rect x="74" y="194" width="200" height="100" rx="8" fill="#00000020"/>
+  <rect x="70" y="190" width="200" height="100" rx="8" fill="#FFFFFF" stroke="#43A047" stroke-width="2.5"/>
+  <rect x="70" y="190" width="200" height="6" fill="#43A047" rx="8"/>
+  <text x="170" y="225" text-anchor="middle" fill="#424242" font-size="15" font-weight="bold" font-family="Arial,sans-serif">Lint &amp; Type-check</text>
+  <text x="170" y="250" text-anchor="middle" fill="#757575" font-size="13" font-family="Monospace,sans-serif">ruff / mypy</text>
+  <rect x="140" y="265" width="60" height="18" rx="9" fill="#43A047"/>
+  <text x="170" y="278" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold" font-family="Arial,sans-serif">~30s</text>
+  <rect x="314" y="194" width="200" height="100" rx="8" fill="#00000020"/>
+  <rect x="310" y="190" width="200" height="100" rx="8" fill="#FFFFFF" stroke="#43A047" stroke-width="2.5"/>
+  <rect x="310" y="190" width="200" height="6" fill="#43A047" rx="8"/>
+  <text x="410" y="225" text-anchor="middle" fill="#424242" font-size="15" font-weight="bold" font-family="Arial,sans-serif">Unit Tests</text>
+  <text x="410" y="250" text-anchor="middle" fill="#757575" font-size="13" font-family="Monospace,sans-serif">pytest</text>
+  <rect x="380" y="265" width="60" height="18" rx="9" fill="#43A047"/>
+  <text x="410" y="278" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold" font-family="Arial,sans-serif">~45s</text>
+  <rect x="574" y="194" width="200" height="100" rx="8" fill="#00000020"/>
+  <rect x="570" y="190" width="200" height="100" rx="8" fill="#FFFFFF" stroke="#F57C00" stroke-width="2.5"/>
+  <rect x="570" y="190" width="200" height="6" fill="#F57C00" rx="8"/>
+  <text x="670" y="225" text-anchor="middle" fill="#424242" font-size="15" font-weight="bold" font-family="Arial,sans-serif">Integration Test</text>
+  <text x="670" y="250" text-anchor="middle" fill="#757575" font-size="13" font-family="Monospace,sans-serif">pytest+compose</text>
+  <rect x="640" y="265" width="60" height="18" rx="9" fill="#F57C00"/>
+  <text x="670" y="278" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold" font-family="Arial,sans-serif">~3min</text>
+  <rect x="834" y="194" width="200" height="100" rx="8" fill="#00000020"/>
+  <rect x="830" y="190" width="200" height="100" rx="8" fill="#FFFFFF" stroke="#E53935" stroke-width="2.5"/>
+  <rect x="830" y="190" width="200" height="6" fill="#E53935" rx="8"/>
+  <text x="930" y="225" text-anchor="middle" fill="#424242" font-size="15" font-weight="bold" font-family="Arial,sans-serif">Regression Test</text>
+  <text x="930" y="250" text-anchor="middle" fill="#757575" font-size="13" font-family="Monospace,sans-serif">MLflow</text>
+  <rect x="900" y="265" width="60" height="18" rx="9" fill="#E53935"/>
+  <text x="930" y="278" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold" font-family="Arial,sans-serif">~10min</text>
+  <rect x="1104" y="194" width="200" height="100" rx="8" fill="#00000020"/>
+  <rect x="1100" y="190" width="200" height="100" rx="8" fill="#FFFFFF" stroke="#F57C00" stroke-width="2.5"/>
+  <rect x="1100" y="190" width="200" height="6" fill="#F57C00" rx="8"/>
+  <text x="1200" y="225" text-anchor="middle" fill="#424242" font-size="15" font-weight="bold" font-family="Arial,sans-serif">Build &amp; Push</text>
+  <text x="1200" y="250" text-anchor="middle" fill="#757575" font-size="13" font-family="Monospace,sans-serif">docker buildx</text>
+  <rect x="1170" y="265" width="60" height="18" rx="9" fill="#F57C00"/>
+  <text x="1200" y="278" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold" font-family="Arial,sans-serif">~4min</text>
+  <rect x="1344" y="194" width="200" height="100" rx="8" fill="#00000020"/>
+  <rect x="1340" y="190" width="200" height="100" rx="8" fill="#FFFFFF" stroke="#43A047" stroke-width="2.5"/>
+  <rect x="1340" y="190" width="200" height="6" fill="#43A047" rx="8"/>
+  <text x="1440" y="225" text-anchor="middle" fill="#424242" font-size="15" font-weight="bold" font-family="Arial,sans-serif">Deploy</text>
+  <text x="1440" y="250" text-anchor="middle" fill="#757575" font-size="13" font-family="Monospace,sans-serif">docker-compose up -d</text>
+  <rect x="1410" y="265" width="60" height="18" rx="9" fill="#43A047"/>
+  <text x="1440" y="278" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold" font-family="Arial,sans-serif">~30s</text>
+  <path d="M 270 240 L 302 240" stroke="#9E9E9E" stroke-width="3" fill="none" marker-end="url(#arr)"/>
+  <path d="M 510 240 L 562 240" stroke="#9E9E9E" stroke-width="3" fill="none" marker-end="url(#arr)"/>
+  <path d="M 770 240 L 822 240" stroke="#9E9E9E" stroke-width="3" fill="none" marker-end="url(#arr)"/>
+  <path d="M 1030 240 L 1092 240" stroke="#9E9E9E" stroke-width="3" fill="none" marker-end="url(#arr)"/>
+  <path d="M 1300 240 L 1332 240" stroke="#9E9E9E" stroke-width="3" fill="none" marker-end="url(#arr)"/>
+  <rect x="610" y="420" width="380" height="40" rx="4" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1.5"/>
+  <rect x="630" y="432" width="20" height="16" rx="4" fill="#43A047"/>
+  <text x="655" y="445" fill="#424242" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Fast (&lt;1min)</text>
+  <rect x="760" y="432" width="20" height="16" rx="4" fill="#F57C00"/>
+  <text x="785" y="445" fill="#424242" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Medium (1-5min)</text>
+  <rect x="890" y="432" width="20" height="16" rx="4" fill="#E53935"/>
+  <text x="915" y="445" fill="#424242" font-size="12" font-weight="bold" font-family="Arial,sans-serif">Slow (&gt;5min)</text>
+  <text x="800" y="480" text-anchor="middle" fill="#757575" font-size="13" font-style="italic" font-family="Arial,sans-serif">Future scope: replace docker-compose deploy step with kubectl apply (Kubernetes) — see §10.</text>
+</svg>

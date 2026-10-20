@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 280" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Vertical checklist with 4 numbered circles connected by a line -->
+  <!-- Connecting vertical line -->
+  <line x1="30" y1="30" x2="30" y2="250" stroke="#3F7EC4" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.4"/>
+  
+  <!-- O1 circle -->
+  <circle cx="30" cy="35" r="18" stroke="#3F7EC4" stroke-width="2" fill="#EEF4FD"/>
+  <text x="30" y="40" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#3F7EC4">O1</text>
+  
+  <!-- O2 circle -->
+  <circle cx="30" cy="107" r="18" stroke="#3F7EC4" stroke-width="2" fill="#EEF4FD"/>
+  <text x="30" y="112" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#3F7EC4">O2</text>
+  
+  <!-- O3 circle -->
+  <circle cx="30" cy="179" r="18" stroke="#3F7EC4" stroke-width="2" fill="#EEF4FD"/>
+  <text x="30" y="184" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#3F7EC4">O3</text>
+  
+  <!-- O4 circle -->
+  <circle cx="30" cy="251" r="18" stroke="#3F7EC4" stroke-width="2" fill="#EEF4FD"/>
+  <text x="30" y="256" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#3F7EC4">O4</text>
+  
+  <!-- Small checkmarks inside each circle -->
+  <path d="M23,33 L28,38 L37,29" stroke="#3F7EC4" stroke-width="0" fill="none" opacity="0"/>
+</svg>

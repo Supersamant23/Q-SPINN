@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 60" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Loss surface cross-section with PDE constraint -->
+  <!-- Axes -->
+  <line x1="8" y1="52" x2="75" y2="52" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+  <line x1="8" y1="52" x2="8" y2="5" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Loss curve (U-shaped) -->
+  <path d="M12,15 Q20,12 28,20 Q36,35 42,42 Q44,44 46,42 Q52,35 58,20 Q64,12 72,10"
+        stroke="#8A8A8A" stroke-width="1.5" fill="none" opacity="0.5"/>
+  
+  <!-- Constrained loss curve (narrower, deeper minimum) -->
+  <path d="M22,18 Q30,22 36,32 Q40,40 44,40 Q48,32 54,22 Q60,18 65,15"
+        stroke="#3FA65E" stroke-width="2" fill="none"/>
+  
+  <!-- PDE constraint plane (horizontal dashed line) -->
+  <line x1="12" y1="30" x2="72" y2="30" stroke="#3FA65E" stroke-width="1.5" stroke-dasharray="4 3"/>
+  
+  <!-- Constrained minimum point -->
+  <circle cx="44" cy="40" r="3" fill="#3FA65E" opacity="0.8"/>
+  
+  <!-- Unconstrained minimum (higher) -->
+  <circle cx="46" cy="42" r="2" fill="#8A8A8A" opacity="0.4"/>
+  
+  <!-- Labels -->
+  <text x="74" y="29" font-family="Inter, sans-serif" font-size="4" fill="#3FA65E" font-weight="600">PDE</text>
+  <text x="44" y="48" font-family="Inter, sans-serif" font-size="4" fill="#3FA65E" text-anchor="middle" font-weight="600">min</text>
+  
+  <!-- Axis labels -->
+  <text x="42" y="58" font-family="Inter, sans-serif" font-size="4" fill="#8A8A8A" text-anchor="middle">params</text>
+  <text x="3" y="28" font-family="Inter, sans-serif" font-size="4" fill="#8A8A8A" text-anchor="middle" transform="rotate(-90, 3, 28)">loss</text>
+</svg>

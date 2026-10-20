@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Bar chart with magnifying glass overlay — data & evaluation -->
+  <!-- Bar chart bars -->
+  <rect x="8" y="24" width="6" height="18" rx="1" stroke="#C44D3F" stroke-width="1.5" fill="#FDF0EE"/>
+  <rect x="17" y="16" width="6" height="26" rx="1" stroke="#C44D3F" stroke-width="1.5" fill="#FDF0EE"/>
+  <rect x="26" y="20" width="6" height="22" rx="1" stroke="#C44D3F" stroke-width="1.5" fill="#FDF0EE"/>
+  
+  <!-- Baseline -->
+  <line x1="5" y1="42" x2="35" y2="42" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Magnifying glass -->
+  <circle cx="36" cy="16" r="8" stroke="#C44D3F" stroke-width="1.5" fill="none"/>
+  <line x1="42" y1="22" x2="46" y2="26" stroke="#C44D3F" stroke-width="2"/>
+  
+  <!-- Checkmark inside magnifier -->
+  <path d="M32,16 L35,19 L40,13" stroke="#3FA65E" stroke-width="1.5" fill="none"/>
+</svg>

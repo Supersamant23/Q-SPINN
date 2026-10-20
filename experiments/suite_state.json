@@ -1,0 +1,145 @@
+{
+  "jobs": {
+    "fi2010_k10_s0": {
+      "status": "COMPLETED",
+      "completed_at": "2026-10-18T19:23:38.841207",
+      "elapsed_seconds": 20399.2552318573,
+      "metrics": {
+        "horizon": 10,
+        "seed": 0,
+        "accuracy": 0.8037738800048828,
+        "macro_f1": 0.7456641921329955,
+        "gate_rate": 0.09965211898088455,
+        "hermiticity": 0.0,
+        "omega": -0.006184578873217106,
+        "crash_p": 0.19308634102344513,
+        "majority": 0.6422936320304871,
+        "weights_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\qspinn_fi2010_k10_s0.pt",
+        "results_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\RESULTS_k10_s0.md"
+      }
+    },
+    "fi2010_k20_s0": {
+      "status": "COMPLETED",
+      "completed_at": "2026-10-19T02:58:06.828136",
+      "elapsed_seconds": 4887.860722541809,
+      "metrics": {
+        "horizon": 20,
+        "seed": 0,
+        "accuracy": 0.7113766670227051,
+        "macro_f1": 0.6786136111867997,
+        "gate_rate": 0.1040058434009552,
+        "hermiticity": 0.0,
+        "omega": -0.001947650802321732,
+        "crash_p": 0.24912557005882263,
+        "majority": 0.5407083034515381,
+        "weights_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\qspinn_fi2010_k20_s0.pt",
+        "results_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\RESULTS_k20_s0.md"
+      }
+    },
+    "fi2010_k50_s0": {
+      "status": "COMPLETED",
+      "completed_at": "2026-10-19T08:51:07.714861",
+      "elapsed_seconds": 21180.83560037613,
+      "metrics": {
+        "horizon": 50,
+        "seed": 0,
+        "accuracy": 0.7971646189689636,
+        "macro_f1": 0.7942601109012489,
+        "gate_rate": 0.0534607395529747,
+        "hermiticity": 0.0,
+        "omega": -0.012526566162705421,
+        "crash_p": 0.14353518187999725,
+        "majority": 0.3744282126426697,
+        "weights_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\qspinn_fi2010_k50_s0.pt",
+        "results_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\RESULTS_k50_s0.md"
+      }
+    },
+    "fi2010_k10_s1": {
+      "status": "COMPLETED",
+      "completed_at": "2026-10-19T15:00:34.546408",
+      "elapsed_seconds": 22166.78467607498,
+      "metrics": {
+        "horizon": 10,
+        "seed": 1,
+        "accuracy": 0.8016685247421265,
+        "macro_f1": 0.7471598656115542,
+        "gate_rate": 0.10240094363689423,
+        "hermiticity": 0.0,
+        "omega": -0.006499538663774729,
+        "crash_p": 0.17974944412708282,
+        "majority": 0.6422936320304871,
+        "weights_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\qspinn_fi2010_k10_s1.pt",
+        "results_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\RESULTS_k10_s1.md"
+      }
+    },
+    "binance_3asset": {
+      "status": "COMPLETED",
+      "completed_at": "2026-10-19T16:43:04.467826",
+      "elapsed_seconds": 6027.339512825012,
+      "metrics": {
+        "acc": 0.5102663040161133,
+        "f1": 0.38854292755231085,
+        "gate": 0.009834800846874714,
+        "btc_eth_lead": -0.3972918689250946,
+        "btc_sol_lead": 1.737808346748352,
+        "weights": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_C_multi_asset_binance\\qspinn_binance_multi_asset.pt"
+      }
+    },
+    "fi2010_k10_s2": {
+      "status": "COMPLETED",
+      "completed_at": "2026-10-19T23:33:08.251748",
+      "elapsed_seconds": 24603.725786209106,
+      "metrics": {
+        "horizon": 10,
+        "seed": 2,
+        "accuracy": 0.7976465821266174,
+        "macro_f1": 0.7415715093209355,
+        "gate_rate": 0.10577040910720825,
+        "hermiticity": 0.0,
+        "omega": -0.007695906795561314,
+        "crash_p": 0.18357408046722412,
+        "majority": 0.6422936320304871,
+        "weights_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\qspinn_fi2010_k10_s2.pt",
+        "results_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\RESULTS_k10_s2.md"
+      }
+    },
+    "fi2010_k10_s3": {
+      "status": "COMPLETED",
+      "completed_at": "2026-10-20T04:58:49.124962",
+      "elapsed_seconds": 19540.815714359283,
+      "metrics": {
+        "horizon": 10,
+        "seed": 3,
+        "accuracy": 0.8046588897705078,
+        "macro_f1": 0.7473964761078061,
+        "gate_rate": 0.1027584820985794,
+        "hermiticity": 0.0,
+        "omega": -0.0067575047723948956,
+        "crash_p": 0.1870633214712143,
+        "majority": 0.6422936320304871,
+        "weights_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\qspinn_fi2010_k10_s3.pt",
+        "results_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\RESULTS_k10_s3.md"
+      }
+    },
+    "fi2010_k10_s4": {
+      "status": "COMPLETED",
+      "completed_at": "2026-10-20T11:48:52.698854",
+      "elapsed_seconds": 24603.508788585663,
+      "metrics": {
+        "horizon": 10,
+        "seed": 4,
+        "accuracy": 0.8063105344772339,
+        "macro_f1": 0.7516798598782777,
+        "gate_rate": 0.10190417617559433,
+        "hermiticity": 0.0,
+        "omega": -0.006742353551089764,
+        "crash_p": 0.20321021974086761,
+        "majority": 0.6422936320304871,
+        "weights_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\qspinn_fi2010_k10_s4.pt",
+        "results_path": "C:\\Users\\adity\\Documents\\College\\Projects\\College\\Q-SPINN\\experiments\\exp_B_hybrid_fi2010\\RESULTS_k10_s4.md"
+      }
+    }
+  },
+  "started_at": null,
+  "completed_at": "2026-10-20T11:48:52.720055"
+}

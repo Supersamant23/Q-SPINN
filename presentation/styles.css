@@ -1,0 +1,934 @@
+/* =========================================================
+   Q-SPINN Presentation — Clean Academic Design System
+   ========================================================= */
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Design Tokens ── */
+:root {
+  /* Canvas & Ink */
+  --canvas: #FDFCFA;
+  --canvas-warm: #F7F5F0;
+  --ink: #1C1C1C;
+  --ink-mid: #4A4A4A;
+  --ink-light: #8A8A8A;
+  --ink-faint: #D0CEC8;
+  --ink-hairline: #E8E6E0;
+
+  /* Sparse accent colours */
+  --red: #C44D3F;
+  --red-bg: #FDF0EE;
+  --amber: #C49A3F;
+  --amber-bg: #FDF8EE;
+  --blue: #3F7EC4;
+  --blue-bg: #EEF4FD;
+  --green: #3FA65E;
+  --green-bg: #EEFDF2;
+
+  /* Typography — readable, clean */
+  --font-display: 'Inter', -apple-system, Segoe UI, sans-serif;
+  --font-body: 'Inter', -apple-system, Segoe UI, sans-serif;
+  --font-label: 'Nunito', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-serif: 'Playfair Display', serif;
+  --font-hand: 'Nunito', sans-serif;
+
+  /* Spacing */
+  --slide-pad: clamp(2rem, 5vw, 5rem);
+
+  /* Sketch border effect */
+  --sketch-border: 1.5px solid var(--ink);
+  --sketch-border-light: 1px solid var(--ink-faint);
+}
+
+/* ── Base ── */
+html {
+  font-size: 17px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--canvas);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 1 — LAYOUT
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Slide Container ── */
+.deck {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--slide-pad);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--canvas);
+  overflow: hidden;
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.slide-inner {
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Grid & Flex Helpers ── */
+.row {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.row--center { align-items: center; }
+.row--stretch { align-items: stretch; }
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+
+.gap-sm { gap: 0.75rem; }
+.gap-md { gap: 1.5rem; }
+.gap-lg { gap: 2.5rem; }
+.gap-xl { gap: 4rem; }
+
+.text-center { text-align: center; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.self-center { align-self: center; }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 2 — TYPOGRAPHY
+   ══════════════════════════════════════════════════════════ */
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+h1 { font-size: clamp(2.8rem, 5vw, 4.5rem); }
+h2 { font-size: clamp(2rem, 3.5vw, 3rem); }
+h3 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
+
+p, li {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--ink-mid);
+  max-width: 65ch;
+}
+
+.slide-label {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  color: var(--ink-mid);
+}
+
+.slide-label-lg {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  color: var(--ink);
+}
+
+.sketch-label { 
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  color: var(--ink-mid);
+}
+
+.sketch-label-lg {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  color: var(--ink);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.muted { color: var(--ink-light); }
+.small { font-size: 0.85rem; }
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 3 — COMPONENTS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Typography Additions ── */
+.serif-heading {
+  font-family: var(--font-serif);
+}
+
+.hand-note {
+  font-family: var(--font-hand);
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+}
+
+/* ── Split Bar ── */
+.split-bar-container {
+  display: flex;
+  height: clamp(24px, 4vw, 36px);
+  border: var(--sketch-border-light);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--canvas-warm);
+}
+
+.split-bar-noise {
+  flex: 0 0 99%;
+  background: var(--canvas-warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  font-family: var(--font-mono);
+}
+
+.split-bar-signal {
+  flex: 0 0 1%;
+  background: var(--amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--canvas);
+  font-family: var(--font-mono);
+}
+
+/* ── Sketch Cards ── */
+.sketch-card {
+  border: var(--sketch-border);
+  border-radius: 2px;
+  padding: 1.5rem 2rem;
+  position: relative;
+  background: var(--canvas);
+}
+
+.sketch-card--tilted { transform: rotate(-0.3deg); }
+.sketch-card--red    { border-color: var(--red);   background: var(--red-bg); }
+.sketch-card--blue   { border-color: var(--blue);  background: var(--blue-bg); }
+.sketch-card--amber  { border-color: var(--amber); background: var(--amber-bg); }
+.sketch-card--green  { border-color: var(--green); background: var(--green-bg); }
+
+/* ── Divider ── */
+.sketch-divider {
+  width: 100%;
+  height: 2px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 2'%3E%3Cpath d='M0,1 Q50,0 100,1 T200,1 T300,1 T400,1' fill='none' stroke='%23D0CEC8' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+  background-size: 400px 2px;
+}
+
+/* ── Section Marker ── */
+.section-marker {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: -0.5rem;
+}
+
+/* ── Pillar Cards ── */
+.pillar {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border: var(--sketch-border);
+  border-radius: 2px;
+  position: relative;
+}
+
+.pillar::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.pillar--snn::before     { background: var(--amber); }
+.pillar--quantum::before { background: var(--blue); }
+.pillar--pinn::before    { background: var(--green); }
+
+.pillar h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.pillar p {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+}
+
+/* ── Pipeline ── */
+.pipeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: nowrap;
+}
+
+.pipeline-stage {
+  padding: 1rem 1.5rem;
+  border: var(--sketch-border);
+  border-radius: 2px;
+  text-align: center;
+  background: var(--canvas);
+  min-width: 120px;
+  position: relative;
+}
+
+.pipeline-stage.dormant {
+  border-style: dashed;
+  opacity: 0.5;
+}
+
+.pipeline-stage.active-stage {
+  border-width: 2px;
+  opacity: 1;
+}
+
+.pipeline-arrow {
+  width: 40px;
+  text-align: center;
+  color: var(--ink-light);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* ── Tables ── */
+.sketch-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+}
+
+.sketch-table th {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 1em;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: var(--sketch-border);
+}
+
+.sketch-table td {
+  padding: 0.6rem 1rem;
+  border-bottom: var(--sketch-border-light);
+  color: var(--ink-mid);
+}
+
+.sketch-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Gantt Table ── */
+.gantt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.gantt-table th {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 0.5rem 0.4rem;
+  border-bottom: var(--sketch-border);
+  color: var(--ink-light);
+}
+
+.gantt-table th:first-child {
+  text-align: left;
+  min-width: 140px;
+}
+
+.gantt-table td {
+  padding: 0.5rem 0.4rem;
+  border-bottom: var(--sketch-border-light);
+  text-align: center;
+  color: var(--ink-mid);
+}
+
+.gantt-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+.gantt-fill {
+  display: inline-block;
+  height: 16px;
+  border-radius: 2px;
+  background: var(--ink);
+}
+
+.gantt-fill--blue  { background: var(--blue); }
+.gantt-fill--amber { background: var(--amber); }
+.gantt-fill--green { background: var(--green); }
+.gantt-fill--red   { background: var(--red); }
+
+/* ── Load Bars ── */
+.load-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.load-bar-track {
+  flex: 1;
+  height: 18px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 1px;
+  overflow: hidden;
+  background: var(--canvas);
+}
+
+.load-bar-fill {
+  height: 100%;
+  background: var(--ink);
+  border-radius: 1px;
+  width: 0%;
+}
+
+.load-bar-fill--red   { background: var(--red); }
+.load-bar-fill--blue  { background: var(--blue); }
+.load-bar-fill--amber { background: var(--amber); }
+.load-bar-fill--green { background: var(--green); }
+
+.load-bar-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-light);
+  min-width: 3em;
+  text-align: right;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 4 — SVG & ILLUSTRATIONS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Sizing ── */
+.illustration {
+  width: 100%;
+  max-width: 500px;
+}
+
+.illustration--sm   { max-width: 320px; }
+.illustration--lg   { max-width: 700px; }
+.illustration--full { max-width: 100%; }
+
+/* ── SVG Background Layer ── */
+.slide-bg-svg {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Icon SVG Sizes ── */
+.icon-svg {
+  width: 48px;
+  height: 48px;
+  display: block;
+  margin: 0 auto 0.5rem;
+}
+
+.icon-svg--lg {
+  width: 80px;
+  height: 60px;
+  display: block;
+  margin: 0 auto 0.75rem;
+}
+
+.icon-svg--xl {
+  width: 120px;
+  height: 120px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ── SVG Stroke Utilities ── */
+.sketch-svg {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sketch-svg--light { stroke: var(--ink-light); stroke-width: 1; }
+.sketch-svg--red   { stroke: var(--red); }
+.sketch-svg--blue  { stroke: var(--blue); }
+.sketch-svg--amber { stroke: var(--amber); }
+.sketch-svg--green { stroke: var(--green); }
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 5 — NAVIGATION UI
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Progress Bar ── */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--ink);
+  z-index: 100;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Slide Counter ── */
+.slide-counter {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-light);
+  z-index: 100;
+  letter-spacing: 0.05em;
+}
+
+/* ── Navigation Arrows ── */
+.nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  background: none;
+  border: var(--sketch-border);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 1.2rem;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+  border-radius: 2px;
+}
+
+.nav-arrow:hover { opacity: 1; }
+.nav-prev { left: 1.5rem; }
+.nav-next { right: 1.5rem; }
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 6 — SLIDE-SPECIFIC STYLES
+   ══════════════════════════════════════════════════════════ */
+
+#slide-title {
+  background: var(--canvas);
+}
+
+#slide-title .title-main {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+#slide-title .title-sub {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  color: var(--ink-mid);
+  max-width: 55ch;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+#slide-title .title-meta {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink-light);
+  margin-top: 2rem;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 7 — BASE ANIMATIONS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Stagger fade-in for slide children ── */
+.anim-in { opacity: 0; }
+
+.slide.active .anim-in {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-d1 { animation-delay: 0.1s !important; }
+.anim-d2 { animation-delay: 0.25s !important; }
+.anim-d3 { animation-delay: 0.4s !important; }
+.anim-d4 { animation-delay: 0.55s !important; }
+.anim-d5 { animation-delay: 0.7s !important; }
+.anim-d6 { animation-delay: 0.85s !important; }
+.anim-d7 { animation-delay: 1.0s !important; }
+.anim-d8 { animation-delay: 1.15s !important; }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Draw-in (SVG stroke reveal) ── */
+.draw-in {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.slide.active .draw-in {
+  animation: drawIn 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes drawIn {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ── Bar grow (vertical scale) ── */
+.bar-grow {
+  transform-origin: 0 150px;
+  transform: scaleY(0);
+}
+
+.slide.active .bar-grow {
+  animation: scaleUpY 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scaleUpY {
+  to { transform: scaleY(1); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 8 — SLIDE-SPECIFIC ANIMATIONS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Slide 1: Title wave float ── */
+.wave-float { animation: none; }
+
+.slide.active .wave-float {
+  animation: waveFloat 8s ease-in-out infinite;
+}
+
+@keyframes waveFloat {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(-20px); }
+}
+
+/* ── Slide 2: Regime shift colour transition ── */
+.regime-bar {
+  transition: fill 0.6s ease;
+}
+
+.slide.active .regime-bar.regime-shift {
+  animation: regimeFlash 3s ease-in-out 2s both;
+}
+
+@keyframes regimeFlash {
+  0%   { fill: #3FA65E; }
+  40%  { fill: #3FA65E; }
+  50%  { fill: #C44D3F; }
+  100% { fill: #C44D3F; }
+}
+
+.regime-flash-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--red);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: 4px;
+}
+
+.slide.active .regime-flash-overlay {
+  animation: flashBang 0.3s ease 3.2s both;
+}
+
+@keyframes flashBang {
+  0%   { opacity: 0; }
+  50%  { opacity: 0.08; }
+  100% { opacity: 0; }
+}
+
+/* ── Slide 5: Scope target draw-in ── */
+.scope-ring-outer { stroke-dasharray: 320; stroke-dashoffset: 320; }
+.scope-ring-mid   { stroke-dasharray: 220; stroke-dashoffset: 220; }
+.scope-ring-inner { stroke-dasharray: 115; stroke-dashoffset: 115; }
+
+.scope-bullseye {
+  transform: scale(0);
+  transform-origin: center;
+}
+
+.slide.active .scope-ring-outer { animation: drawIn 1s ease 0.5s forwards; }
+.slide.active .scope-ring-mid   { animation: drawIn 0.8s ease 1s forwards; }
+.slide.active .scope-ring-inner { animation: drawIn 0.6s ease 1.5s forwards; }
+
+.slide.active .scope-bullseye {
+  animation: scopePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2s forwards;
+}
+
+@keyframes scopePop {
+  to { transform: scale(1); }
+}
+
+.slide.active .scope-bullseye-glow {
+  animation: scopeGlow 2s ease-in-out 2.5s infinite;
+}
+
+@keyframes scopeGlow {
+  0%, 100% { opacity: 0.5; r: 4; }
+  50%      { opacity: 0.9; r: 6; }
+}
+
+/* ── Slide 7: Pipeline data particle ── */
+.pipeline-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--blue);
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 10;
+  box-shadow: 0 0 8px var(--blue), 0 0 16px rgba(63, 126, 196, 0.3);
+  pointer-events: none;
+}
+
+.slide.active .pipeline-particle {
+  animation: particleFlow 4s cubic-bezier(0.4, 0, 0.2, 1) 1s infinite;
+}
+
+@keyframes particleFlow {
+  0%   { left: 0%;  opacity: 0; transform: scale(0.5); }
+  5%   { left: 2%;  opacity: 1; transform: scale(1); }
+  20%  { left: 18%; opacity: 1; }
+  35%  { left: 35%; opacity: 1; }
+  45%  { left: 45%; opacity: 1; transform: scale(1.4); }
+  48%  { left: 48%; opacity: 0.3; transform: scale(0.6); }
+  50%  { left: 48%; opacity: 0; }
+  51%  { left: 55%; opacity: 1; transform: scale(1.2); }
+  65%  { left: 72%; opacity: 1; }
+  80%  { left: 85%; opacity: 1; }
+  90%  { left: 92%; opacity: 1; transform: scale(1.5); }
+  95%  { left: 95%; opacity: 0.5; }
+  100% { left: 98%; opacity: 0; transform: scale(0); }
+}
+
+/* ── Slide 7: Pillar micro-animations ── */
+.pillar--snn .icon-svg--lg     { animation: none; }
+.pillar--quantum .icon-svg--lg { animation: none; }
+.pillar--pinn .icon-svg--lg    { animation: none; }
+
+.slide.active .pillar--snn .icon-svg--lg {
+  animation: neuronPulse 2.5s ease-in-out 1s infinite;
+}
+
+.slide.active .pillar--quantum .icon-svg--lg {
+  animation: vectorRotate 6s linear 1s infinite;
+}
+
+.slide.active .pillar--pinn .icon-svg--lg {
+  animation: lossConverge 3s ease-in-out 1s infinite;
+}
+
+@keyframes neuronPulse {
+  0%, 100% { transform: scale(1);    filter: brightness(1); }
+  30%      { transform: scale(1);    filter: brightness(1); }
+  35%      { transform: scale(1.08); filter: brightness(1.2); }
+  40%      { transform: scale(1);    filter: brightness(1); }
+  70%      { transform: scale(1);    filter: brightness(1); }
+  75%      { transform: scale(1.08); filter: brightness(1.2); }
+  80%      { transform: scale(1);    filter: brightness(1); }
+}
+
+@keyframes vectorRotate {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes lossConverge {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50%      { transform: scale(1.02) translateY(-2px); }
+}
+
+/* ── Slide 9: Load bar staggered fill ── */
+.load-bar-fill {
+  width: 0% !important;
+  transition: none;
+}
+
+.slide.active .load-bar-fill {
+  animation: loadBarFill 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.load-bar-fill.load-delay-1 { animation-delay: 0.5s !important; }
+.load-bar-fill.load-delay-2 { animation-delay: 0.8s !important; }
+.load-bar-fill.load-delay-3 { animation-delay: 1.1s !important; }
+.load-bar-fill.load-delay-4 { animation-delay: 1.4s !important; }
+
+.load-bar-fill[data-target="90"] { --target-width: 90%; }
+.load-bar-fill[data-target="72"] { --target-width: 72%; }
+.load-bar-fill[data-target="65"] { --target-width: 65%; }
+.load-bar-fill[data-target="80"] { --target-width: 80%; }
+
+@keyframes loadBarFill {
+  to { width: var(--target-width, 80%); }
+}
+
+/* ── Slide 10: Icon idle animations ── */
+.icon-bob   { animation: none; }
+.icon-pulse { animation: none; }
+.icon-blink { animation: none; }
+
+.slide.active .icon-bob   { animation: iconBob 2s ease-in-out infinite; }
+.slide.active .icon-pulse { animation: iconPulse 2.5s ease-in-out infinite; }
+.slide.active .icon-blink { animation: iconBlink 3s step-end infinite; }
+
+@keyframes iconBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.06); opacity: 0.85; }
+}
+
+@keyframes iconBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95%           { opacity: 0.5; }
+}
+
+/* ── Slide 11: Gantt bar fill ── */
+.gantt-fill {
+  width: 0%;
+  transition: none;
+}
+
+.slide.active .gantt-fill {
+  animation: ganttGrow 0.8s ease forwards;
+}
+
+.gantt-fill.gantt-delay-1 { animation-delay: 0.3s !important; }
+.gantt-fill.gantt-delay-2 { animation-delay: 0.5s !important; }
+.gantt-fill.gantt-delay-3 { animation-delay: 0.7s !important; }
+.gantt-fill.gantt-delay-4 { animation-delay: 0.9s !important; }
+.gantt-fill.gantt-delay-5 { animation-delay: 1.1s !important; }
+.gantt-fill.gantt-delay-6 { animation-delay: 1.3s !important; }
+.gantt-fill.gantt-delay-7 { animation-delay: 1.5s !important; }
+
+@keyframes ganttGrow {
+  to { width: 100%; }
+}
+
+/* ── Slide 13: Typewriter ── */
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--ink);
+  width: 0;
+  display: inline-block;
+}
+
+.slide.active .typewriter {
+  animation: typeIn 1s steps(10) 0.5s forwards, cursorBlink 0.7s step-end 0.5s infinite;
+}
+
+@keyframes typeIn {
+  to { width: 100%; }
+}
+
+@keyframes cursorBlink {
+  0%, 100% { border-color: var(--ink); }
+  50%      { border-color: transparent; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 9 — RESPONSIVE & PRINT
+   ══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .row { flex-direction: column; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .pipeline { flex-wrap: wrap; justify-content: center; }
+  .nav-arrow { display: none; }
+}
+
+@media print {
+  .slide { 
+    position: relative; 
+    opacity: 1; 
+    pointer-events: auto;
+    page-break-after: always;
+    height: auto;
+    min-height: 100vh;
+  }
+  .nav-arrow, .progress-bar, .slide-counter { display: none; }
+}

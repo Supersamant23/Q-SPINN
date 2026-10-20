@@ -1,0 +1,21 @@
+{
+  "experiment": "A \u2014 SNN Gate on Binance Trade Features",
+  "timestamp": "2026-09-18T21:02:59.348539",
+  "device": "cuda:0",
+  "gpu_name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "n_train": 349982,
+  "n_val": 74996,
+  "n_test": 74997,
+  "majority_baseline": 0.3425070345401764,
+  "accuracy": 0.4078162908554077,
+  "macro_f1": 0.4080419401042133,
+  "spike_rate": 0.007881148718297482,
+  "regime_proxy": "realized_vol > mu + 2.0sigma (rolling 200-tick window)",
+  "regime_frac_train": 0.1439959704875946,
+  "swap_status": {
+    "SWAP-01": "DONE \u2014 real Binance trade data",
+    "SWAP-02": "DONE \u2014 scaler fitted on train window only",
+    "SWAP-03": "PENDING \u2014 delta encoding, fixed threshold",
+    "SWAP-15": "PARTIAL \u2014 2sigma vol proxy, not verified with guide yet"
+  }
+}

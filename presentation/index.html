@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q-SPINN — Zeroth Review Presentation</title>
+  <meta name="description" content="Zeroth Review: Q-SPINN — Spiking-Gated, Quantum-Inspired Physics-Informed Neural Network for Regime-Aware LOB Prediction">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Slide Counter -->
+<div class="slide-counter" id="slideCounter">01 / 13</div>
+
+<!-- Navigation Arrows -->
+<button class="nav-arrow nav-prev" id="navPrev" aria-label="Previous slide">&#8592;</button>
+<button class="nav-arrow nav-next" id="navNext" aria-label="Next slide">&#8594;</button>
+
+<!-- ============================================================ -->
+<!-- DECK                                                          -->
+<!-- ============================================================ -->
+<div class="deck" id="deck">
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 1 — Title                                             -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide active" id="slide-title">
+    <!-- Background wave -->
+    <img src="assets/title-wave.svg" class="slide-bg-svg wave-float" alt="">
+    <div class="slide-inner text-center" style="align-items:center;position:relative;z-index:1;">
+      <!-- Decorative top line -->
+      <svg width="120" height="4" viewBox="0 0 120 4" class="anim-in anim-d1" style="margin:0 auto;">
+        <path d="M0,2 Q20,0 40,2 T80,2 T120,2" fill="none" stroke="#1C1C1C" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+
+      <h1 class="anim-in anim-d2 title-main" style="margin-top:1rem; font-size: 2.5rem; line-height: 1.2;">Quantum-Inspired Physics-Informed Neural Networks</h1>
+      <p class="anim-in anim-d3 title-sub mx-auto">
+        A Formalism for Stochastic Financial Modelling
+      </p>
+
+      <!-- Student details -->
+      <div class="anim-in anim-d4" style="margin-top:2rem;">
+        <div class="sketch-divider" style="max-width:400px;margin:0 auto 1.5rem;"></div>
+        <div class="grid-4 gap-sm" style="max-width:800px;margin:0 auto;text-align:center;">
+          <div>
+            <p class="small" style="color:var(--ink);font-weight:600;">Abiruth S</p>
+            <p class="small muted" style="margin-top:0.2rem;">CB.SC.U4AIE23002</p>
+          </div>
+          <div>
+            <p class="small" style="color:var(--ink);font-weight:600;">Aditya Samant</p>
+            <p class="small muted" style="margin-top:0.2rem;">CB.SC.U4AIE23012</p>
+          </div>
+          <div>
+            <p class="small" style="color:var(--ink);font-weight:600;">Ansh Raj Rath</p>
+            <p class="small muted" style="margin-top:0.2rem;">CB.SC.U4AIE23006</p>
+          </div>
+          <div>
+            <p class="small" style="color:var(--ink);font-weight:600;">Dinesh Karthikeyan</p>
+            <p class="small muted" style="margin-top:0.2rem;">CB.SC.U4AIE23023</p>
+          </div>
+        </div>
+        <p class="small muted" style="margin-top:1.5rem;">Team Number: A2 &nbsp;&nbsp;|&nbsp;&nbsp; Supervisor: Dr. Biswajit Das</p>
+      </div>
+
+      <div class="anim-in anim-d5 title-meta">B.Tech Final Year Project · Zeroth Review</div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 2 — Introduction & Motivation                         -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-intro">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 2</div>
+      <h2 class="anim-in anim-d2">Introduction &amp; Motivation</h2>
+
+      <div class="row gap-lg" style="margin-top:0.5rem;">
+        <div class="anim-in anim-d3 flex-1 col gap-md">
+          <p>
+            <strong>Domain:</strong> High-frequency algorithmic trading uses the Limit Order Book (LOB) — a real-time queue of buy/sell orders — to predict short-term price direction.
+          </p>
+          <p>
+            <strong>Scale:</strong> Modern markets produce <strong>~100,000 events/second</strong>. >70% of equity volume is now algorithmic. Decisions happen in microseconds.
+          </p>
+          <p>
+            <strong>Why it matters:</strong> Existing models either assume static market physics (Black-Scholes) or brute-force every tick (deep learning). Neither handles <em>regime shifts</em> — sudden changes in market behaviour that invalidate learned patterns.
+          </p>
+        </div>
+
+        <!-- Visual: Market speed illustration (Adapted) -->
+        <div class="anim-in anim-d4 flex-1 col gap-md text-center" style="justify-content:center; padding: 1rem 0;">
+          
+          <div style="margin-top: 1rem; position: relative;">
+            <div id="tick-counter" style="font-size: 4.5rem; font-weight: 700; font-family: var(--font-mono); letter-spacing: -0.05em; color: var(--ink); line-height: 1;">0</div>
+            <div class="hand-note" style="margin-top: 0.5rem; color: var(--ink-light);">ticks processed this second</div>
+          </div>
+
+          <div style="width: 100%; max-width: 400px; margin: 1.5rem auto 0;">
+            <div style="display: flex; gap: 0.5rem; align-items: stretch; justify-content: center; height: clamp(24px, 4vw, 36px);">
+              <div style="flex: 1; border: var(--sketch-border-light); background: var(--canvas-warm); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: var(--ink-light); font-family: var(--font-mono); border-radius: 2px;">~99% noise</div>
+              <div style="width: 40px; border: 1.5px solid var(--amber); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; color: var(--amber); font-family: var(--font-mono); border-radius: 2px;">1%</div>
+            </div>
+            <div class="hand-note" style="color: var(--amber); margin-top: 0.8rem;">
+              &larr; Only this sliver matters.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="anim-in anim-d5 sketch-card sketch-card--blue" style="max-width:550px;">
+        <p class="small" style="color:var(--ink-mid);">
+          <strong>Motivation:</strong> We need an architecture that <em>sleeps through noise</em>, <em>wakes for genuine signals</em>, and <em>respects the physics</em> of how prices actually evolve — including time-lagged correlations between assets.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 3 — Literature Review (Empty — to be filled)          -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-literature">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 3</div>
+      <h2 class="anim-in anim-d2">Literature Review</h2>
+
+      <div class="anim-in anim-d3" style="margin-top:1rem;">
+        <!-- Placeholder table structure -->
+        <table class="sketch-table" style="margin-top:1.5rem;">
+          <thead>
+            <tr>
+              <th style="width:5%;">#</th>
+              <th style="width:25%;">Citation</th>
+              <th style="width:25%;">Core Contribution</th>
+              <th style="width:20%;">Key Finding</th>
+              <th style="width:25%;">Relevance to Q-SPINN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>[1]</td>
+              <td>Black &amp; Scholes (1973), <br><em>Journal of Political Economy</em></td>
+              <td>Derived a closed form option pricing model assuming constant volatility and continuous trading</td>
+              <td>Markets can be priced analytically only if they move smoothly with stable volatility</td>
+              <td>The classical assumption Q-SPINN challenges; real markets violate this</td>
+            </tr>
+            <tr>
+              <td>[2]</td>
+              <td>Cont, Kukanov &amp; Stoikov (2014), <br><em>Journal of Financial Econometrics</em></td>
+              <td>Studied 50 stocks to find what drives short term price changes</td>
+              <td>Order flow imbalance predicts short term moves almost linearly, more than price or volume</td>
+              <td>Basis for treating order flow imbalance as the real signal our SNN gate detects</td>
+            </tr>
+            <tr>
+              <td>[3]</td>
+              <td>Raissi, Perdikaris &amp; Karniadakis (2019), <br><em>Journal of Computational Physics</em></td>
+              <td>Introduced Physics Informed Neural Networks (PINNs)</td>
+              <td>Adding a governing equation to the loss (L = L_data + λL_PDE) cuts data needs and improves generalisation</td>
+              <td>Template for our PINN layer, with the PDE replaced by a quantum inspired equation</td>
+            </tr>
+            <tr>
+              <td>[4]</td>
+              <td>Neftci, Mostafa &amp; Zenke (2019), <br><em>IEEE Signal Processing Magazine</em></td>
+              <td>Introduced surrogate gradient learning for spiking neural networks</td>
+              <td>A smooth surrogate function used only in backpropagation makes non differentiable spikes trainable</td>
+              <td>Enables training of our SNN gatekeeper that decides when to wake the PINN</td>
+            </tr>
+            <tr>
+              <td>[5]</td>
+              <td>Baaquie (2004), <br><em>Quantum Finance</em></td>
+              <td>Formalised quantum probability as a computational tool for pricing derivatives</td>
+              <td>Quantum math can be borrowed purely as formalism, not a physical claim, to model correlated uncertainty</td>
+              <td>Justifies our Hamiltonian and Schrodinger type equation as mathematical formalism only</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 4 — Research Gap                                      -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-gap">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 4</div>
+      <h2 class="anim-in anim-d2">Research Gap</h2>
+
+      <div class="anim-in anim-d3 grid-3 gap-md" style="margin-top:1rem;">
+        <!-- Gap 1 -->
+        <div class="sketch-card sketch-card--red" style="padding:1.5rem;">
+          <img src="assets/research-gap.svg" class="icon-svg" alt="Broken bridge">
+          <span class="sketch-label" style="color:var(--red);font-size:1.1rem;">Gap 1: Static Physics</span>
+          <p class="small" style="margin-top:0.5rem;color:var(--ink-mid);">
+            Classical models (Black-Scholes, Heston) assume constant volatility and log-normal distributions — real markets have fat tails, jumps, and regime breaks.
+          </p>
+        </div>
+
+        <!-- Gap 2 -->
+        <div class="sketch-card sketch-card--red" style="padding:1.5rem;">
+          <img src="assets/research-gap.svg" class="icon-svg" alt="Broken bridge">
+          <span class="sketch-label" style="color:var(--red);font-size:1.1rem;">Gap 2: Brute-Force DNNs</span>
+          <p class="small" style="margin-top:0.5rem;color:var(--ink-mid);">
+            Deep learning processes every tick identically — wasting 99% of compute on noise. No mechanism to distinguish signal from noise. Overfits to regime-specific patterns.
+          </p>
+        </div>
+
+        <!-- Gap 3 -->
+        <div class="sketch-card sketch-card--red" style="padding:1.5rem;">
+          <img src="assets/research-gap.svg" class="icon-svg" alt="Broken bridge">
+          <span class="sketch-label" style="color:var(--red);font-size:1.1rem;">Gap 3: Synchronous Correlations</span>
+          <p class="small" style="margin-top:0.5rem;color:var(--ink-mid);">
+            Standard covariance matrices assume simultaneous movement. Real assets show <em>time-lagged</em> correlations (e.g., AAPL drops → MSFT follows 200ms later) — invisible to real-valued methods.
+          </p>
+        </div>
+      </div>
+
+      <div class="anim-in anim-d4" style="margin-top:1.5rem;">
+        <div class="sketch-divider" style="margin-bottom:1rem;"></div>
+        <p class="small mx-auto text-center" style="max-width:60ch;color:var(--ink-mid);">
+          <strong>Summary:</strong> No existing architecture combines event-driven processing, physics-informed learning, <em>and</em> complex-valued correlation modelling in a single framework.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 5 — Problem Statement                                 -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-problem">
+    <div class="slide-inner text-center" style="align-items:center;">
+      <div class="anim-in anim-d1 section-marker">Slide 5</div>
+      <h2 class="anim-in anim-d2">Problem Statement</h2>
+
+      <div class="anim-in anim-d3 sketch-card" style="max-width:750px;margin-top:1.5rem;padding:2.5rem 3rem;">
+        <p style="font-size:1.15rem;line-height:1.8;color:var(--ink);max-width:none;">
+          Design and validate a <strong>hybrid neural architecture</strong> (Q-SPINN) that integrates spiking neural network gating, quantum-inspired complex-valued covariance modelling, and physics-informed loss constraints to achieve <strong>regime-aware, event-driven prediction</strong> of limit order book mid-price direction — outperforming existing methods while reducing redundant computation by >90%.
+        </p>
+      </div>
+
+      <div class="anim-in anim-d4" style="margin-top:1.5rem;text-align:center;">
+        <svg viewBox="0 0 120 120" width="120" height="120" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;display:block;margin-bottom:1rem;">
+          <circle cx="60" cy="60" r="50" stroke="#C44D3F" stroke-width="1.5" stroke-dasharray="6 4" fill="none" class="scope-ring-outer"/>
+          <circle cx="60" cy="60" r="35" stroke="#8A8A8A" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.5" class="scope-ring-mid"/>
+          <circle cx="60" cy="60" r="18" stroke="#3FA65E" stroke-width="2" fill="none" class="scope-ring-inner"/>
+          <circle cx="60" cy="60" r="4" fill="#3FA65E" opacity="0.7" class="scope-bullseye"/>
+          <circle cx="60" cy="60" r="4" fill="#3FA65E" opacity="0.5" class="scope-bullseye-glow"/>
+          <line x1="60" y1="6" x2="60" y2="38" stroke="#1C1C1C" stroke-width="1" opacity="0.3" class="scope-ring-outer"/>
+          <line x1="60" y1="82" x2="60" y2="114" stroke="#1C1C1C" stroke-width="1" opacity="0.3" class="scope-ring-outer"/>
+          <line x1="6" y1="60" x2="38" y2="60" stroke="#1C1C1C" stroke-width="1" opacity="0.3" class="scope-ring-outer"/>
+          <line x1="82" y1="60" x2="114" y2="60" stroke="#1C1C1C" stroke-width="1" opacity="0.3" class="scope-ring-outer"/>
+        </svg>
+      </div>
+
+      <div class="anim-in anim-d5" style="margin-top:0;max-width:550px;">
+        <div class="sketch-divider" style="margin-bottom:1.5rem;"></div>
+        <div class="grid-2 gap-md">
+          <div class="sketch-card" style="padding:1rem;text-align:center;">
+            <span class="sketch-label" style="color:var(--green);">✓ In scope</span>
+            <p class="small muted" style="margin-top:0.3rem;">3-asset LOB basket (AAPL, MSFT, NVDA). FI-2010 + Binance data. Classical GPU training.</p>
+          </div>
+          <div class="sketch-card" style="padding:1rem;text-align:center;">
+            <span class="sketch-label" style="color:var(--red);">✗ Out of scope</span>
+            <p class="small muted" style="margin-top:0.3rem;">Real quantum hardware. Live trading deployment. Multi-asset portfolios beyond 3.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 6 — Objectives                                        -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-objectives">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 6</div>
+      <h2 class="anim-in anim-d2">Objectives</h2>
+
+      <div class="anim-in anim-d3 col gap-md" style="margin-top:1rem;max-width:800px;">
+        <div class="row gap-md" style="align-items:flex-start;">
+          <span class="badge badge--blue" style="min-width:28px;text-align:center;margin-top:0.3rem;">O1</span>
+          <div>
+            <p style="color:var(--ink);"><strong>Build an SNN gating mechanism</strong> that filters >90% of non-informative LOB ticks before they reach the prediction engine.</p>
+            <p class="small muted" style="margin-top:0.2rem;">Metric: Spike ratio, computational FLOP reduction vs. always-on baseline.</p>
+          </div>
+        </div>
+
+        <div class="sketch-divider"></div>
+
+        <div class="row gap-md" style="align-items:flex-start;">
+          <span class="badge badge--blue" style="min-width:28px;text-align:center;margin-top:0.3rem;">O2</span>
+          <div>
+            <p style="color:var(--ink);"><strong>Implement a complex-valued covariance layer</strong> that captures both correlation strength (amplitude) and time-lag (phase) between assets.</p>
+            <p class="small muted" style="margin-top:0.2rem;">Metric: Phase accuracy vs. known lead-lag pairs; ablation vs. real-valued baseline.</p>
+          </div>
+        </div>
+
+        <div class="sketch-divider"></div>
+
+        <div class="row gap-md" style="align-items:flex-start;">
+          <span class="badge badge--blue" style="min-width:28px;text-align:center;margin-top:0.3rem;">O3</span>
+          <div>
+            <p style="color:var(--ink);"><strong>Embed a modified Black-Scholes PDE</strong> as a physics-informed loss constraint (PINN layer) to regularize predictions during regime shifts.</p>
+            <p class="small muted" style="margin-top:0.2rem;">Metric: PDE residual loss; prediction stability during volatility spikes.</p>
+          </div>
+        </div>
+
+        <div class="sketch-divider"></div>
+
+        <div class="row gap-md" style="align-items:flex-start;">
+          <span class="badge badge--blue" style="min-width:28px;text-align:center;margin-top:0.3rem;">O4</span>
+          <div>
+            <p style="color:var(--ink);"><strong>Validate on FI-2010 + Binance LOB datasets</strong> using walk-forward backtesting and Deflated Sharpe Ratio.</p>
+            <p class="small muted" style="margin-top:0.2rem;">Metric: DSR, F1-score for mid-price direction, comparison vs. LSTM/Transformer baselines.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 7 — Proposed Methodology / Framework                  -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-methodology">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 7</div>
+      <h2 class="anim-in anim-d2">Proposed Methodology</h2>
+
+      <!-- Pipeline diagram -->
+      <div class="anim-in anim-d3" style="overflow-x:auto;padding:1rem 0;">
+        <div class="pipeline" style="min-width:750px;justify-content:center;position:relative;">
+          <!-- Data particle -->
+          <div class="pipeline-particle"></div>
+          <div class="pipeline-stage">
+            <span style="font-size:1.3rem;">📊</span>
+            <div class="sketch-label" style="margin-top:0.3rem;">LOB Data</div>
+            <span class="small muted">FI-2010 / Binance</span>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage">
+            <span style="font-size:1.3rem;">🔄</span>
+            <div class="sketch-label" style="margin-top:0.3rem;">Preprocess</div>
+            <span class="small muted">Normalise, window</span>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage" style="border-color:var(--amber);">
+            <span style="font-size:1.3rem;">⚡</span>
+            <div class="sketch-label" style="margin-top:0.3rem;color:var(--amber);">SNN Gate</div>
+            <span class="small muted">Spike/No-spike</span>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <!-- Branch -->
+          <div style="display:flex;flex-direction:column;gap:0.5rem;align-items:stretch;">
+            <div class="pipeline-stage dormant" style="border-color:var(--ink-faint);padding:0.6rem 1rem;">
+              <div class="sketch-label muted" style="font-size:0.85rem;">No Spike → Sleep</div>
+              <span class="small muted">~99% ticks</span>
+            </div>
+            <div class="pipeline-stage active-stage" style="border-color:var(--blue);padding:0.6rem 1rem;">
+              <div class="sketch-label" style="font-size:0.85rem;color:var(--blue);">Spike! → Wake</div>
+              <span class="small muted">~1% ticks</span>
+            </div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage" style="border-color:var(--blue);">
+            <span style="font-size:1.3rem;">🌀</span>
+            <div class="sketch-label" style="margin-top:0.3rem;color:var(--blue);">Q-PINN</div>
+            <span class="small muted">ℂ-valued loss</span>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage" style="border-color:var(--green);">
+            <span style="font-size:1.3rem;">✓</span>
+            <div class="sketch-label" style="margin-top:0.3rem;color:var(--green);">Output</div>
+            <span class="small muted">↑ / → / ↓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three pillars -->
+      <div class="anim-in anim-d4 grid-3 gap-md" style="margin-top:0.5rem;">
+        <div class="pillar pillar--snn">
+          <img src="assets/snn-neuron.svg" class="icon-svg--lg" alt="LIF neuron diagram">
+          <h3>SNN Gating Layer</h3>
+          <p>Leaky Integrate-and-Fire neurons detect regime shifts. Only fires on genuine signals.</p>
+        </div>
+        <div class="pillar pillar--quantum">
+          <img src="assets/complex-plane.svg" class="icon-svg--lg" style="height:80px;" alt="Argand diagram">
+          <h3>Quantum-Inspired Layer</h3>
+          <p>Complex-valued covariance captures both correlation strength (amplitude) and time-lag (phase).</p>
+        </div>
+        <div class="pillar pillar--pinn">
+          <img src="assets/pinn-loss.svg" class="icon-svg--lg" alt="Loss surface with PDE constraint">
+          <h3>PINN Loss Layer</h3>
+          <p>Modified Black-Scholes PDE embedded as a loss constraint — predictions must obey physics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 8 — Techniques & Tools                                -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-techniques">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 8</div>
+      <h2 class="anim-in anim-d2">Techniques &amp; Tools</h2>
+
+      <div class="anim-in anim-d3" style="margin-top:0.5rem;">
+        <table class="sketch-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Technique</th>
+              <th>Library / Platform</th>
+              <th>Why chosen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>SNN Gating</strong></td>
+              <td>Leaky Integrate-and-Fire (LIF)</td>
+              <td>snnTorch + PyTorch</td>
+              <td>Event-driven; fires only on threshold crossings</td>
+            </tr>
+            <tr>
+              <td><strong>Quantum Layer</strong></td>
+              <td>Complex-valued Dense + Hermitian covariance</td>
+              <td>PyTorch (custom ℂ-ops)</td>
+              <td>Captures amplitude (strength) + phase (lag) natively</td>
+            </tr>
+            <tr>
+              <td><strong>PINN Loss</strong></td>
+              <td>Modified Black-Scholes PDE residual</td>
+              <td>DeepXDE / custom autograd</td>
+              <td>Physics regularization without extra data</td>
+            </tr>
+            <tr>
+              <td><strong>Datasets</strong></td>
+              <td>LOB snapshots, 10-level depth</td>
+              <td>FI-2010 (NASDAQ) + Binance (crypto)</td>
+              <td>Standard academic benchmark + live market data</td>
+            </tr>
+            <tr>
+              <td><strong>Hardware</strong></td>
+              <td>GPU training</td>
+              <td>NVIDIA A100 / RTX 4090</td>
+              <td>Standard deep learning hardware (no QPU needed)</td>
+            </tr>
+            <tr>
+              <td><strong>Baselines</strong></td>
+              <td>LSTM, Transformer, DeepLOB</td>
+              <td>PyTorch</td>
+              <td>Industry-standard comparisons for ablation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="anim-in anim-d4" style="margin-top:1.5rem;text-align:center;">
+        <img src="assets/tech-stack.svg" class="illustration" style="max-width:500px;" alt="Technology stack diagram">
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 9 — Expected Outcomes                                 -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-outcomes">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 9</div>
+      <h2 class="anim-in anim-d2">Expected Outcomes</h2>
+
+      <div class="anim-in anim-d3 grid-2 gap-lg" style="margin-top:1rem;">
+        <!-- Deliverables -->
+        <div class="col gap-md">
+          <h3>Deliverables</h3>
+          <div class="sketch-card" style="padding:1.2rem;">
+            <span class="sketch-label" style="color:var(--blue);">Trained Q-SPINN Model</span>
+            <p class="small muted" style="margin-top:0.3rem;">Full SNN + Quantum + PINN pipeline, trained on FI-2010 and Binance LOB data.</p>
+          </div>
+          <div class="sketch-card" style="padding:1.2rem;">
+            <span class="sketch-label" style="color:var(--amber);">Ablation Study Report</span>
+            <p class="small muted" style="margin-top:0.3rem;">SNN-only, PINN-only, LSTM, Transformer vs. full Q-SPINN.</p>
+          </div>
+          <div class="sketch-card" style="padding:1.2rem;">
+            <span class="sketch-label" style="color:var(--green);">Research Paper Draft</span>
+            <p class="small muted" style="margin-top:0.3rem;">Conference-ready manuscript targeting IEEE/ACM venues.</p>
+          </div>
+        </div>
+
+        <!-- Target metrics -->
+        <div class="col gap-md">
+          <h3>Target Metrics</h3>
+          <div class="col gap-sm" style="margin-top:0.2rem;">
+            <div class="load-bar-container">
+              <span class="small" style="min-width:140px;color:var(--ink);">FLOP Reduction</span>
+              <div class="load-bar-track"><div class="load-bar-fill load-bar-fill--amber load-delay-1" data-target="90"></div></div>
+              <span class="load-bar-label">>90%</span>
+            </div>
+            <div class="load-bar-container">
+              <span class="small" style="min-width:140px;color:var(--ink);">F1 (Direction)</span>
+              <div class="load-bar-track"><div class="load-bar-fill load-bar-fill--blue load-delay-2" data-target="72"></div></div>
+              <span class="load-bar-label">>72%</span>
+            </div>
+            <div class="load-bar-container">
+              <span class="small" style="min-width:140px;color:var(--ink);">Deflated Sharpe</span>
+              <div class="load-bar-track"><div class="load-bar-fill load-bar-fill--green load-delay-3" data-target="65"></div></div>
+              <span class="load-bar-label">>1.5</span>
+            </div>
+            <div class="load-bar-container">
+              <span class="small" style="min-width:140px;color:var(--ink);">Phase Accuracy</span>
+              <div class="load-bar-track"><div class="load-bar-fill load-bar-fill--blue load-delay-4" data-target="80"></div></div>
+              <span class="load-bar-label">>80%</span>
+            </div>
+          </div>
+          <p class="small muted" style="margin-top:0.5rem;">All metrics evaluated via walk-forward cross-validation on unseen time periods.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 10 — Industry Relevance (Optional)                    -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-industry">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 10</div>
+      <h2 class="anim-in anim-d2">Industry Relevance</h2>
+
+      <div class="anim-in anim-d3 grid-3 gap-md" style="margin-top:1.5rem;">
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="assets/industry-hft.svg" class="icon-svg icon-bob" alt="Candlestick chart">
+          <span class="sketch-label" style="color:var(--blue);">HFT Firms</span>
+          <p class="small muted" style="margin-top:0.5rem;">Event-driven architectures that skip noise ticks directly reduce latency and hardware costs in production trading systems.</p>
+        </div>
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="assets/industry-risk.svg" class="icon-svg icon-pulse" alt="Shield with network">
+          <span class="sketch-label" style="color:var(--amber);">Risk Management</span>
+          <p class="small muted" style="margin-top:0.5rem;">Complex-valued correlation modelling detects lagged contagion effects between assets — critical for portfolio risk in volatile markets.</p>
+        </div>
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="assets/industry-neuro.svg" class="icon-svg icon-blink" alt="Neuromorphic chip">
+          <span class="sketch-label" style="color:var(--green);">Neuromorphic Computing</span>
+          <p class="small muted" style="margin-top:0.5rem;">SNN layers map directly to Intel Loihi / IBM TrueNorth chips — offering a path to ultra-low-power edge deployment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 11 — Timeline                                         -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-timeline">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 11</div>
+      <h2 class="anim-in anim-d2">Timeline</h2>
+
+      <div class="anim-in anim-d3" style="margin-top:1rem;">
+        <table class="gantt-table">
+          <thead>
+            <tr>
+              <th>Phase / Task</th>
+              <th>Aug</th>
+              <th>Sep</th>
+              <th>Oct</th>
+              <th>Nov</th>
+              <th>Dec</th>
+              <th>Jan</th>
+              <th>Feb</th>
+              <th>Mar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Literature survey &amp; gap analysis</td>
+              <td><div class="gantt-fill gantt-fill--blue gantt-delay-1"></div></td>
+              <td><div class="gantt-fill gantt-fill--blue gantt-delay-1"></div></td>
+              <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td>Data acquisition &amp; preprocessing</td>
+              <td></td>
+              <td><div class="gantt-fill gantt-fill--amber gantt-delay-2"></div></td>
+              <td><div class="gantt-fill gantt-fill--amber gantt-delay-2"></div></td>
+              <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td>SNN gating module</td>
+              <td></td><td></td>
+              <td><div class="gantt-fill gantt-fill--amber gantt-delay-3"></div></td>
+              <td><div class="gantt-fill gantt-fill--amber gantt-delay-3"></div></td>
+              <td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td>ℂ-valued covariance layer</td>
+              <td></td><td></td><td></td>
+              <td><div class="gantt-fill gantt-fill--blue gantt-delay-4"></div></td>
+              <td><div class="gantt-fill gantt-fill--blue gantt-delay-4"></div></td>
+              <td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td>PINN loss integration</td>
+              <td></td><td></td><td></td><td></td>
+              <td><div class="gantt-fill gantt-fill--green gantt-delay-5"></div></td>
+              <td><div class="gantt-fill gantt-fill--green gantt-delay-5"></div></td>
+              <td></td><td></td>
+            </tr>
+            <tr>
+              <td>Training &amp; ablation study</td>
+              <td></td><td></td><td></td><td></td><td></td>
+              <td><div class="gantt-fill gantt-fill--green gantt-delay-6"></div></td>
+              <td><div class="gantt-fill gantt-fill--green gantt-delay-6"></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Paper writing &amp; final review</td>
+              <td></td><td></td><td></td><td></td><td></td><td></td>
+              <td><div class="gantt-fill gantt-fill--red gantt-delay-7"></div></td>
+              <td><div class="gantt-fill gantt-fill--red gantt-delay-7"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="anim-in anim-d4" style="margin-top:1.5rem;">
+        <div class="grid-3 gap-sm">
+          <div class="sketch-card" style="padding:0.8rem;text-align:center;">
+            <span class="sketch-label" style="font-size:0.95rem;">📋 Zeroth Review</span>
+            <p class="small muted" style="margin-top:0.2rem;">Aug — Proposal</p>
+          </div>
+          <div class="sketch-card" style="padding:0.8rem;text-align:center;">
+            <span class="sketch-label" style="font-size:0.95rem;">🔬 First Review</span>
+            <p class="small muted" style="margin-top:0.2rem;">Nov — SNN + data pipeline working</p>
+          </div>
+          <div class="sketch-card" style="padding:0.8rem;text-align:center;">
+            <span class="sketch-label" style="font-size:0.95rem;">📝 Final Review</span>
+            <p class="small muted" style="margin-top:0.2rem;">Mar — Full results + paper</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 12 — Team Roles                                       -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-team">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 12</div>
+      <h2 class="anim-in anim-d2">Team Roles</h2>
+
+      <div class="anim-in anim-d3 grid-4 gap-md" style="margin-top:1.5rem;">
+        <!-- Member 1 -->
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="assets/snn-neuron.svg" class="icon-svg" alt="SNN neuron">
+          <span class="sketch-label" style="color:var(--amber);font-size:1rem;">[Member 1]</span>
+          <h3 style="margin-top:0.5rem;font-size:1rem;">SNN Gating Module</h3>
+          <p class="small muted" style="margin-top:0.3rem;">snnTorch implementation, spike threshold tuning, LIF neuron architecture, event-driven filtering pipeline.</p>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="assets/complex-plane.svg" class="icon-svg" alt="Complex plane">
+          <span class="sketch-label" style="color:var(--blue);font-size:1rem;">[Member 2]</span>
+          <h3 style="margin-top:0.5rem;font-size:1rem;">Quantum-Inspired Layer</h3>
+          <p class="small muted" style="margin-top:0.3rem;">Complex-valued covariance, Hermitian constraint, amplitude/phase decomposition, ℂ-ops in PyTorch.</p>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="assets/pinn-loss.svg" class="icon-svg" alt="PINN loss">
+          <span class="sketch-label" style="color:var(--green);font-size:1rem;">[Member 3]</span>
+          <h3 style="margin-top:0.5rem;font-size:1rem;">PINN Loss &amp; Training</h3>
+          <p class="small muted" style="margin-top:0.3rem;">Modified Black-Scholes PDE residual, DeepXDE integration, loss balancing (λ tuning), training loop.</p>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="sketch-card" style="padding:1.5rem;text-align:center;">
+          <img src="assets/data-eval.svg" class="icon-svg" alt="Data evaluation">
+          <span class="sketch-label" style="color:var(--red);font-size:1rem;">[Member 4]</span>
+          <h3 style="margin-top:0.5rem;font-size:1rem;">Data &amp; Evaluation</h3>
+          <p class="small muted" style="margin-top:0.3rem;">FI-2010 + Binance preprocessing, walk-forward backtest, ablation study, baselines, paper writing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 13 — References                                       -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-references">
+    <div class="slide-inner">
+      <div class="anim-in anim-d1 section-marker">Slide 13</div>
+      <h2 class="anim-in anim-d2">References</h2>
+
+      <div class="anim-in anim-d3 col gap-sm" style="margin-top:1rem;">
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [1] Z. Zhang, S. Zohren, and S. Roberts, "DeepLOB: Deep convolutional neural networks for limit order books," <em>IEEE Trans. Signal Processing</em>, vol. 67, no. 11, pp. 3001–3012, 2019.
+        </p>
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [2] M. Raissi, P. Perdikaris, and G. E. Karniadakis, "Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear PDEs," <em>J. Computational Physics</em>, vol. 378, pp. 686–707, 2019.
+        </p>
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [3] J. K. Eshraghian et al., "Training spiking neural networks using lessons from deep learning," <em>Proc. IEEE</em>, vol. 111, no. 9, pp. 1016–1054, 2023.
+        </p>
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [4] F. Black and M. Scholes, "The pricing of options and corporate liabilities," <em>J. Political Economy</em>, vol. 81, no. 3, pp. 637–654, 1973.
+        </p>
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [5] C. Trabelsi et al., "Deep complex networks," <em>Proc. ICLR</em>, 2018.
+        </p>
+        <p class="small" style="color:var(--ink-mid);line-height:1.8;max-width:none;">
+          [6] A. Ntakaris et al., "Benchmark dataset for mid-price forecasting of limit order book data with machine learning methods," <em>J. Forecasting</em>, vol. 37, no. 8, pp. 852–866, 2018.
+        </p>
+        <p class="small muted" style="margin-top:0.5rem;font-style:italic;">Additional references to be added following literature review.</p>
+      </div>
+
+      <!-- Closing -->
+      <div class="anim-in anim-d4" style="margin-top:2rem;text-align:center;">
+        <img src="assets/thank-you-wave.svg" alt="" style="width:250px;margin:0 auto;display:block;">
+        <p style="margin-top:1rem;font-family:var(--font-display);font-weight:700;font-size:1.3rem;color:var(--ink);"><span class="typewriter">Thank you.</span></p>
+        <span class="sketch-label muted">Questions welcome.</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /deck -->
+
+<script src="app.js"></script>
+</body>
+</html>

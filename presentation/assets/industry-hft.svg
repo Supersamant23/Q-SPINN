@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Candlestick chart icon for HFT firms -->
+  <!-- Candle 1 (green / bullish) -->
+  <line x1="10" y1="10" x2="10" y2="38" stroke="#3FA65E" stroke-width="1.5"/>
+  <rect x="6" y="16" width="8" height="14" rx="1" stroke="#3FA65E" stroke-width="1.5" fill="#EEFDF2"/>
+  
+  <!-- Candle 2 (red / bearish) -->
+  <line x1="24" y1="8" x2="24" y2="40" stroke="#C44D3F" stroke-width="1.5"/>
+  <rect x="20" y="12" width="8" height="18" rx="1" stroke="#C44D3F" stroke-width="1.5" fill="#FDF0EE"/>
+  
+  <!-- Candle 3 (green / bullish) -->
+  <line x1="38" y1="14" x2="38" y2="36" stroke="#3FA65E" stroke-width="1.5"/>
+  <rect x="34" y="18" width="8" height="10" rx="1" stroke="#3FA65E" stroke-width="1.5" fill="#EEFDF2"/>
+  
+  <!-- Speed arrow -->
+  <path d="M6,42 L42,42" stroke="#3F7EC4" stroke-width="1" opacity="0.4"/>
+  <path d="M38,40 L42,42 L38,44" stroke="#3F7EC4" stroke-width="1" fill="none" opacity="0.4"/>
+</svg>

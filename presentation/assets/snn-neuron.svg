@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 60" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- LIF Neuron: membrane potential rising to threshold, spike, reset -->
+  <!-- Axes -->
+  <line x1="8" y1="52" x2="75" y2="52" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+  <line x1="8" y1="52" x2="8" y2="5" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Threshold line (dashed) -->
+  <line x1="8" y1="18" x2="75" y2="18" stroke="#C49A3F" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
+  <text x="76" y="20" font-family="Inter, sans-serif" font-size="5" fill="#C49A3F" opacity="0.8">θ</text>
+  
+  <!-- Membrane potential: ramp up → spike → reset → ramp up again -->
+  <path d="M10,50 L18,42 L24,36 L30,26 L34,18 L34,6 L34,18 L34,48 L38,50 L44,42 L50,34 L54,24 L58,18 L58,6 L58,18 L58,48 L62,50 L68,42 L72,36"
+        stroke="#C49A3F" stroke-width="2" fill="none"/>
+  
+  <!-- Spike labels -->
+  <text x="32" y="4" font-family="Inter, sans-serif" font-size="4.5" fill="#C49A3F" text-anchor="middle" font-weight="600">spike!</text>
+  
+  <!-- Axis labels -->
+  <text x="42" y="58" font-family="Inter, sans-serif" font-size="4" fill="#8A8A8A" text-anchor="middle">time</text>
+  <text x="3" y="28" font-family="Inter, sans-serif" font-size="4" fill="#8A8A8A" text-anchor="middle" transform="rotate(-90, 3, 28)">V_m</text>
+</svg>

@@ -1,0 +1,77 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#EEF0FF', 'primaryBorderColor': '#6C63FF', 'primaryTextColor': '#333', 'lineColor': '#6C63FF', 'fontSize': '14px'}}}%%
+
+graph TD
+
+    %% ── DATA SOURCES ────────────────────────────────────────────
+    LOB["🗂️ <b>LOB Market Data</b><br/>FI-2010 / Binance LOB snapshots"]
+    WS["🌐 <b>Live WebSocket Feed</b><br/>Real-time multi-asset tick stream"]:::phase2
+
+    %% ── PREPROCESSING ───────────────────────────────────────────
+    PRE["⚙️ <b>Preprocessing</b><br/>Sliding windows · Delta-encoding · 2σ regime proxy"]
+
+    LOB --> PRE
+    WS -.-> PRE
+
+    %% ── Q-SPINN MODEL ──────────────────────────────────────────
+    subgraph MODEL ["Q-SPINN MODEL"]
+        direction TB
+
+        %% ── CHEAP PATH ─────────────────────────────────────────
+        subgraph SNN ["🟢 SNN Gate — Cheap Path"]
+            direction TB
+            LIF1["<b>LIF Layer 1</b><br/>Spiking neurons"]
+            LIF2["<b>LIF Layer 2</b><br/>Spiking neurons"]
+            CH["Cheap Head → 3 classes"]
+            GH["Gate Head → σ(g)"]
+            LIF1 --> LIF2
+            LIF2 --> CH
+            LIF2 --> GH
+        end
+
+        %% ── HEAVY PATH ─────────────────────────────────────────
+        subgraph PINN ["🔵 Heavy Path — Quantum PINN"]
+            direction TB
+            AMP["<b>Complex Amplitude</b><br/>x → ψ ∈ ℂ⁸ (normalized)"]
+            HAM["<b>Hamiltonian Net</b><br/>v → H = ½(A + A†)"]
+            SCH["<b>Schrödinger Residual</b><br/>L_pde = ‖dψ/dt + iHψ‖²"]
+            AMP --> SCH
+            HAM --> SCH
+        end
+
+        %% ── PHASE 2 MODULES ────────────────────────────────────
+        subgraph P2 ["Phase 2 Modules"]
+            direction TB
+            OU["<b>Stochastic Forcing</b><br/>Latent OU · Kalman filter<br/>RTS smoother · matrix_exp"]:::phase2
+            GR["<b>Graph Coupling</b><br/>Magnetic Laplacian<br/>Cross-asset lead/lag<br/>Cycle flux"]:::phase2
+            CF["<b>Cross-Fitting</b><br/>EM on split subsets"]:::phase2
+        end
+
+        %% ── SOFT-SIGMOID GATING ────────────────────────────────
+        GATE["🟠 <b>Soft-Sigmoid Gating</b><br/>f_out = σ(g) · f_heavy + (1 − σ(g)) · f_cheap"]
+    end
+
+    PRE -->|"Δ-spikes"| SNN
+    PRE -->|"x_window"| PINN
+
+    CH --> GATE
+    SCH -->|"ρ → head → 3 cls"| GATE
+    GH -.->|"gate signal"| GATE
+
+    %% ── OUTPUTS ─────────────────────────────────────────────────
+    CLS["✅ <b>Classification</b><br/>Mid-price direction: Up / Flat / Down"]
+    EWS["<b>Early Warning System</b><br/>Stability bounds · Log-norm growth<br/>Pre-crash risk signals"]:::phase2
+
+    GATE --> CLS
+    GATE -.-> EWS
+
+    %% ── STYLES ──────────────────────────────────────────────────
+    classDef phase2 fill:#ECECEC,stroke:#999,stroke-width:1.5px,stroke-dasharray: 6 3,color:#333
+
+    style MODEL fill:#fff,stroke:#6C63FF,stroke-width:2.5px
+    style SNN fill:#E8F5E9,stroke:#4CAF50,stroke-width:1.5px
+    style PINN fill:#E3F2FD,stroke:#1E88E5,stroke-width:1.5px
+    style P2 fill:#F5F5F5,stroke:#999,stroke-width:1.5px,stroke-dasharray: 6 3
+    style GATE fill:#FFF3E0,stroke:#FB8C00,stroke-width:1.5px
+    style LOB fill:#EEF0FF,stroke:#6C63FF,stroke-width:1.5px
+    style PRE fill:#EEF0FF,stroke:#6C63FF,stroke-width:1.5px
+    style CLS fill:#EEF0FF,stroke:#6C63FF,stroke-width:1.5px

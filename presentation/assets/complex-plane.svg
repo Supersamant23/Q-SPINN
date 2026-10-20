@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Argand / Complex Plane diagram -->
+  <!-- Axes -->
+  <line x1="10" y1="65" x2="75" y2="65" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+  <line x1="10" y1="65" x2="10" y2="5" stroke="#1C1C1C" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Axis labels -->
+  <text x="72" y="73" font-family="Inter, sans-serif" font-size="5" fill="#8A8A8A">Re</text>
+  <text x="4" y="8" font-family="Inter, sans-serif" font-size="5" fill="#8A8A8A">Im</text>
+  
+  <!-- Vector from origin to point -->
+  <line x1="10" y1="65" x2="55" y2="20" stroke="#3F7EC4" stroke-width="2"/>
+  <!-- Arrowhead -->
+  <polygon points="55,20 50,25 52,19" fill="#3F7EC4"/>
+  
+  <!-- Point dot -->
+  <circle cx="55" cy="20" r="3" fill="#3F7EC4"/>
+  
+  <!-- Phase angle arc -->
+  <path d="M25,65 A17,17 0 0,0 22,53" stroke="#C44D3F" stroke-width="1.5" fill="none"/>
+  <text x="27" y="57" font-family="Inter, sans-serif" font-size="6" fill="#C44D3F" font-weight="600">θ</text>
+  
+  <!-- Amplitude label -->
+  <text x="28" y="38" font-family="Inter, sans-serif" font-size="4.5" fill="#3F7EC4" transform="rotate(-45, 28, 38)" font-weight="600">amplitude</text>
+  
+  <!-- Dashed projection lines -->
+  <line x1="55" y1="20" x2="55" y2="65" stroke="#8A8A8A" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.5"/>
+  <line x1="55" y1="20" x2="10" y2="20" stroke="#8A8A8A" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.5"/>
+  
+  <!-- Point label -->
+  <text x="58" y="18" font-family="Inter, sans-serif" font-size="5" fill="#3F7EC4" font-weight="600">z = a+bi</text>
+</svg>

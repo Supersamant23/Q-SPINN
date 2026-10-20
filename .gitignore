@@ -1,0 +1,66 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Heavy Datasets & Archives (Multi-Gigabyte Raw & Curated Parquet files)
+data/
+*.parquet
+*.parquet.*
+*.zip
+*.tar
+*.gz
+
+# Intermediate Training Checkpoints (Keep final qspinn_*.pt weights, ignore rolling checkpoints)
+checkpoint*.pt
+checkpoint.pt
+
+# Live Logs and Streaming Files
+*.log
+ingestor_live.log
+live_inference.jsonl
+experiments/suite_test.log
+experiments/suite_state_test.json
+experiments/TEST_PUBLICATION_RESULTS.md
+
+# Redundant / Internal Draft Documents (Consolidated into Q_SPINN_COMPLETE_REFERENCE_DOCUMENT.md)
+Project_Status_and_Math_Correlation.md
+Q-SPINN Master Reference Document.md
+Q-SPINN_Data_Ingestion_Model.md
+Q-SPINN_Demo_Architecture.md
+Q-SPINN_Rebuttal_ChangeLog.docx
+Q_SPINN_Experiments_and_Changes.md
+Q_SPINN_Mathematical_Framework_v3_Validated.pdf
+presentation/*.docx
+presentation/*.pptx
+presentation/*.pdf
+presentation/JPG/
+
+# OS / Editor Artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

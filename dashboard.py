@@ -1,0 +1,155 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import plotly.graph_objects as go
+import time
+from collections import deque
+
+st.set_page_config(page_title="Q-SPINN Early Warning System", layout="wide", page_icon="⚛️")
+
+st.title("⚛️ Q-SPINN Early Warning System (EWS)")
+st.markdown("Real-time phase-space divergence monitoring across the multi-asset crypto basket using the continuous-time Magnetic Graph Laplacian.")
+
+# --- Sidebar Controls ---
+with st.sidebar:
+    st.header("⚙️ EWS Controls")
+    if st.button("Reset Dashboard History", use_container_width=True):
+        st.session_state.history.clear()
+        st.session_state.last_omega = -0.3
+    
+    st.markdown("---")
+    dynamic_threshold = st.slider("Critical Alert Threshold (ω)", min_value=-1.0, max_value=2.0, value=0.60, step=0.05)
+
+from pathlib import Path
+import json
+
+# --- Mock Data Generator (Replace with actual inference feed later) ---
+if 'history' not in st.session_state:
+    st.session_state.history = deque(maxlen=60)
+    
+def get_latest_inference():
+    log_file = Path("live_inference.jsonl")
+    if log_file.exists():
+        try:
+            # Read the last line of the live inference stream
+            with open(log_file, "r") as f:
+                lines = f.readlines()
+                if lines:
+                    return json.loads(lines[-1])
+        except Exception:
+            pass
+            
+    # Fallback mock generator if pipeline isn't running yet
+    if 'last_omega' not in st.session_state:
+        st.session_state.last_omega = -0.3
+        
+    pull = (-0.3 - st.session_state.last_omega) * 0.15
+    st.session_state.last_omega += pull + np.random.normal(loc=0.0, scale=0.04)
+    if np.random.random() < 0.03 and st.session_state.last_omega < -0.1:
+        st.session_state.last_omega += np.random.uniform(0.3, 0.6)
+    if st.session_state.last_omega > 0.2 and np.random.random() < 0.3:
+        st.session_state.last_omega = -0.4
+
+    st.session_state.last_omega = np.clip(st.session_state.last_omega, -0.5, 0.5)
+    omega = st.session_state.last_omega
+    
+    btc = 64000 + np.random.normal(0, 50)
+    eth = 3500 + np.random.normal(0, 10)
+    sol = 150 + np.random.normal(0, 2)
+    
+    return {"time": time.strftime("%H:%M:%S"), "omega": omega, "BTC": btc, "ETH": eth, "SOL": sol}
+
+# --- Single Iteration Render ---
+data = get_latest_inference()
+
+# Calculate Crash Probability dynamically based on the threshold
+crash_prob = 1 / (1 + np.exp(-20 * (data['omega'] - dynamic_threshold)))
+data['crash_prob'] = crash_prob
+
+st.session_state.history.append(data)
+df = pd.DataFrame(st.session_state.history)
+
+# Top Metrics
+c1, c2, c3, c4 = st.columns(4)
+c1.metric(label="BTC/USDT", value=f"${data['BTC']:,.2f}")
+c2.metric(label="ETH/USDT", value=f"${data['ETH']:,.2f}")
+c3.metric(label="SOL/USDT", value=f"${data['SOL']:,.2f}")
+
+status_color = "🔴 DANGER (Phase-Space Divergence)" if data['omega'] > dynamic_threshold else "🟢 STABLE (Mean-Reverting)"
+c4.metric(label="System Status", value=status_color)
+
+st.markdown("---")
+
+# Main Charts
+chart_col1, chart_col2 = st.columns([1, 2])
+
+with chart_col1:
+    # Numerical Abscissa Gauge
+    fig_gauge = go.Figure(go.Indicator(
+        mode = "gauge+number",
+        value = data['omega'],
+        domain = {'x': [0, 1], 'y': [0, 1]},
+        title = {'text': "Numerical Abscissa ω(A_t)"},
+        gauge = {
+            'axis': {'range': [-0.5, 1.5]},
+            'bar': {'color': "black"},
+            'steps': [
+                {'range': [-0.5, dynamic_threshold], 'color': "rgba(144, 238, 144, 0.5)"}, # lightgreen
+                {'range': [dynamic_threshold, 1.5], 'color': "rgba(250, 128, 114, 0.5)"}   # salmon
+            ],
+            'threshold': {
+                'line': {'color': "red", 'width': 4},
+                'thickness': 0.75,
+                'value': dynamic_threshold
+            }
+        }
+    ))
+    fig_gauge.update_layout(height=350, margin=dict(l=20, r=20, t=50, b=20))
+    st.plotly_chart(fig_gauge, use_container_width=True, key="gauge")
+    
+with chart_col2:
+    # Time Series Chart
+    fig_line = go.Figure()
+    # Gradient fill for danger zone
+    fig_line.add_trace(go.Scatter(
+        x=df['time'], 
+        y=df['crash_prob'], 
+        mode='lines', 
+        name='Crash Probability', 
+        line=dict(color='red', width=3),
+        fill='tozeroy',
+        fillcolor='rgba(255, 0, 0, 0.1)',
+        yaxis="y1"
+    ))
+    if 'Omega_T' in df.columns:
+        fig_line.add_trace(go.Scatter(
+            x=df['time'], 
+            y=df['Omega_T'], 
+            mode='lines', 
+            name='Integrated Abscissa (Ω_T)', 
+            line=dict(color='orange', width=2, dash='dot'),
+            yaxis="y2"
+        ))
+    if 'd_J' in df.columns:
+        fig_line.add_trace(go.Scatter(
+            x=df['time'], 
+            y=df['d_J'], 
+            mode='lines', 
+            name='Phase Divergence (d_J)', 
+            line=dict(color='blue', width=2, dash='dot'),
+            yaxis="y2"
+        ))
+        
+    fig_line.add_hline(y=0.5, line_dash="dash", line_color="gray", annotation_text=f"Critical Threshold (ω={dynamic_threshold:.2f})")
+    fig_line.update_layout(
+        title="Real-Time EWS Metrics", 
+        yaxis=dict(title="Probability", range=[0, 1]),
+        yaxis2=dict(title="Diagnostic Scale", overlaying="y", side="right"),
+        height=350,
+        margin=dict(l=20, r=20, t=50, b=20),
+        xaxis_title="Time"
+    )
+    st.plotly_chart(fig_line, use_container_width=True, key="line")
+
+time.sleep(1.0)
+st.rerun()
